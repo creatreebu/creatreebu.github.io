@@ -32,7 +32,8 @@ const WHATSAPP_MESSAGES = {
   diseno: "Hola! Quiero consultar por diseño gráfico (piezas para redes, flyers o identidad visual) para mi negocio.",
   web: "Hola! Quiero consultar por el diseño de una landing page o página web sencilla para mi negocio.",
   "servicio-identidad": "Hola! Quiero consultar por identidad visual y sistema gráfico de marca.",
-  "servicio-piezas": "Hola! Quiero consultar por piezas comerciales y promocionales (flyers, carteles, anuncios).",
+  "servicio-promocional": "Hola! Quiero consultar por diseño gráfico comercial y promocional (ofertas, lanzamientos, anuncios).",
+  "servicio-flyers": "Hola! Quiero consultar por flyers, cartelería, folletos o piezas publicitarias.",
   "servicio-redes": "Hola! Quiero consultar por publicaciones y campañas para redes sociales.",
   "servicio-packaging": "Hola! Quiero consultar por packaging, etiquetas o diseño editorial.",
   "servicio-digital": "Hola! Quiero consultar por gráfica para productos y comunicación digital.",
@@ -53,7 +54,8 @@ const WHATSAPP_MESSAGES = {
    descripcion   texto breve del proyecto
    estado        "conceptual" o "real"
    tamano        tamaño en la grilla: "l" (grande), "m" (mediano), "h" (mitad)
-   paleta        [color de la ficha, color de la letra de la ficha]
+   portada       true para que aparezca en el collage de la portada (usá 3)
+   paleta        [color principal, color secundario] (referencia de la marca)
    imagen        imagen principal: { src, arte, alt }
    imagenes      imágenes complementarias: [ { src, arte, alt }, ... ]
    servicios     lista de servicios realizados
@@ -75,6 +77,7 @@ const PROYECTOS = [
     descripcion: "Sistema de packaging para una tostadora de café: bolsa, etiqueta de lote y vaso para llevar. La brasa funciona como recurso central y el naranja sostiene toda la línea.",
     estado: "conceptual",
     tamano: "l",
+    portada: true,
     paleta: ["#E4572E", "#1C1612"],
     imagen: { src: "", arte: "brasa-bolsa", alt: "Bolsa de café negra con etiqueta crema que dice brasa, sobre un fondo naranja con círculos concéntricos." },
     imagenes: [
@@ -123,6 +126,7 @@ const PROYECTOS = [
     descripcion: "Diseño editorial para una revista de diseño: tapa, doble página interior e índice. Composiciones geométricas con el rojo como único color de acento.",
     estado: "conceptual",
     tamano: "l",
+    portada: true,
     paleta: ["#D6281C", "#F3EFE6"],
     imagen: { src: "", arte: "lamina-tapa", alt: "Tapa de la revista Lámina con un círculo rojo, un bloque negro y el título Color y oficio." },
     imagenes: [
@@ -139,6 +143,7 @@ const PROYECTOS = [
     descripcion: "Campaña para redes de un estudio de pilates: carrusel, historia y publicación suelta. Paleta suave y formas de arco que sugieren movimiento.",
     estado: "conceptual",
     tamano: "h",
+    portada: true,
     paleta: ["#A9BFA0", "#3B2540"],
     imagen: { src: "", arte: "kine-carrusel", alt: "Carrusel de publicaciones de Kiné con el texto Respirá y arcos concéntricos, sobre fondo ciruela." },
     imagenes: [
@@ -173,7 +178,8 @@ const PROYECTOS = [
 function iniciar() {
   "use strict";
 
-  document.documentElement.classList.add("js");
+  var raiz = document.documentElement;
+  raiz.classList.add("js");
 
   var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
   var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
@@ -184,9 +190,11 @@ function iniciar() {
     });
   }
 
-  function colorSeguro(valor, porDefecto) {
-    return /^#[0-9a-fA-F]{3,8}$/.test(String(valor)) ? valor : porDefecto;
-  }
+  var sinMovimiento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var punteroFino = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var hayObservador = "IntersectionObserver" in window;
+  var conEfectos = !sinMovimiento && hayObservador;
+
 
   /* ----- WhatsApp ----- */
   function numeroConfigurado() {
@@ -254,35 +262,297 @@ function iniciar() {
     }
   }
 
-  /* ----- Menú móvil ----- */
+
+  /* ----- Menú: móvil + desplegable de servicios ----- */
   var botonMenu = $(".menu-btn");
   var menu = $("#menu");
+  var botonMega = $(".nav-btn");
+  var mega = $("#mega");
+
+  function ponerMega(abierto) {
+    if (!botonMega || !mega) { return; }
+    mega.classList.toggle("abierto", abierto);
+    botonMega.setAttribute("aria-expanded", abierto ? "true" : "false");
+  }
   function ponerMenu(abierto) {
     if (!botonMenu || !menu) { return; }
     menu.classList.toggle("abierto", abierto);
     botonMenu.setAttribute("aria-expanded", abierto ? "true" : "false");
     botonMenu.setAttribute("aria-label", abierto ? "Cerrar menú" : "Abrir menú");
+    if (!abierto) { ponerMega(false); }
   }
   if (botonMenu && menu) {
     botonMenu.addEventListener("click", function () {
       ponerMenu(botonMenu.getAttribute("aria-expanded") !== "true");
     });
-    menu.addEventListener("click", function (e) { if (e.target.closest("a")) { ponerMenu(false); } });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && menu.classList.contains("abierto")) { ponerMenu(false); botonMenu.focus(); }
+    menu.addEventListener("click", function (e) {
+      if (e.target.closest("a")) { ponerMenu(false); ponerMega(false); }
     });
-    window.addEventListener("resize", function () { if (window.innerWidth >= 960) { ponerMenu(false); } });
+    window.addEventListener("resize", function () { if (window.innerWidth >= 1100) { ponerMenu(false); } });
   }
+  if (botonMega && mega) {
+    var abiertoPorHover = false;
+    botonMega.addEventListener("click", function () {
+      if (abiertoPorHover) { abiertoPorHover = false; return; } /* ya se abrió al pasar el mouse: el clic no lo cierra */
+      ponerMega(botonMega.getAttribute("aria-expanded") !== "true");
+    });
+    /* En escritorio con mouse también se abre al pasar por encima */
+    var contMega = botonMega.closest(".nav-mega");
+    var temporizador = null;
+    if (contMega && punteroFino) {
+      contMega.addEventListener("pointerenter", function () {
+        if (window.innerWidth < 1100) { return; }
+        clearTimeout(temporizador);
+        if (botonMega.getAttribute("aria-expanded") !== "true") { abiertoPorHover = true; }
+        ponerMega(true);
+      });
+      contMega.addEventListener("pointerleave", function () {
+        if (window.innerWidth < 1100) { return; }
+        temporizador = setTimeout(function () { abiertoPorHover = false; ponerMega(false); }, 220);
+      });
+    }
+    document.addEventListener("click", function (e) {
+      if (mega.classList.contains("abierto") && !e.target.closest(".nav-mega")) { ponerMega(false); }
+    });
+  }
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") { return; }
+    if (mega && mega.classList.contains("abierto")) { ponerMega(false); if (botonMega) { botonMega.focus(); } return; }
+    if (menu && menu.classList.contains("abierto")) { ponerMenu(false); if (botonMenu) { botonMenu.focus(); } }
+  });
 
-  /* ----- Borde del encabezado al hacer scroll ----- */
-  var cabecera = $(".cab");
-  function alScroll() { if (cabecera) { cabecera.classList.toggle("con-borde", window.scrollY > 8); } }
-  window.addEventListener("scroll", alScroll, { passive: true });
-  alScroll();
+
+  /* ----- Botón flotante de WhatsApp: aparece al pasar la portada y se oculta en el cierre ----- */
+  var flotante = $("#flotante");
+  var portada = $("#inicio");
+  var cierre = $("#contacto");
+  if (flotante && portada && hayObservador) {
+    var enPortada = true;
+    var enCierre = false;
+    var actualizarFlotante = function () { flotante.classList.toggle("visible", !enPortada && !enCierre); };
+    new IntersectionObserver(function (e) { enPortada = e[0].isIntersecting; actualizarFlotante(); }).observe(portada);
+    if (cierre) {
+      new IntersectionObserver(function (e) { enCierre = e[0].isIntersecting; actualizarFlotante(); }, { threshold: 0.25 }).observe(cierre);
+    }
+  } else if (flotante) {
+    flotante.classList.add("visible");
+  }
 
   /* ----- Año del pie ----- */
   var anio = $("#anio");
   if (anio) { anio.textContent = String(new Date().getFullYear()); }
+
+
+  /* ----- Encabezado, barra de progreso, sección activa y palabras gigantes (un solo manejador de scroll) ----- */
+  var cabecera = $(".cab");
+  var progreso = $("#progreso");
+  var fantasmas = $$(".fantasma[data-par]");
+  var enlacesNav = $$(".nav-capsula a[href^='#']").filter(function (a) { return !a.closest(".mega"); });
+  var seccionesNav = enlacesNav.map(function (a) { return $(a.getAttribute("href")); });
+  var seccionServicios = $("#servicios");
+  var esperando = false;
+
+  function alScroll() {
+    esperando = false;
+    var y = window.scrollY;
+    var alto = window.innerHeight;
+    if (cabecera) { cabecera.classList.toggle("con-fondo", y > 12); }
+    if (progreso) {
+      var total = raiz.scrollHeight - alto;
+      progreso.style.setProperty("--p", total > 0 ? Math.min(1, y / total).toFixed(4) : 0);
+    }
+
+    /* sección activa en el menú */
+    var activa = null;
+    var linea = 140;
+    seccionesNav.forEach(function (sec, i) {
+      if (sec && sec.getBoundingClientRect().top <= linea) { activa = enlacesNav[i]; }
+    });
+    var servActivo = false;
+    if (seccionServicios) {
+      var r = seccionServicios.getBoundingClientRect();
+      servActivo = r.top <= linea && r.bottom > linea;
+    }
+    enlacesNav.forEach(function (a) {
+      var esActiva = a === activa;
+      a.classList.toggle("activo", esActiva);
+      if (esActiva) { a.setAttribute("aria-current", "location"); } else { a.removeAttribute("aria-current"); }
+    });
+    if (botonMega) { botonMega.classList.toggle("activo", servActivo); }
+
+    /* palabras gigantes: se deslizan despacio al bajar */
+    if (conEfectos) {
+      fantasmas.forEach(function (f) {
+        var caja = f.parentElement.getBoundingClientRect();
+        if (caja.bottom < -200 || caja.top > alto + 200) { return; }
+        var centro = (caja.top + caja.height / 2 - alto / 2) / alto; /* -1..1 aprox. */
+        f.style.setProperty("--fx", (centro * -140).toFixed(1) + "px");
+      });
+    }
+  }
+  function pedirScroll() {
+    if (!esperando) { esperando = true; window.requestAnimationFrame(alScroll); }
+  }
+  window.addEventListener("scroll", pedirScroll, { passive: true });
+  window.addEventListener("resize", pedirScroll);
+  alScroll();
+
+
+  /* ----- Cinta de capacidades en movimiento ----- */
+  var tira = $("#tira");
+  if (tira && !sinMovimiento) {
+    var pista = $(".tira-pista", tira);
+    var lista = $(".tira-lista", tira);
+    if (pista && lista) {
+      var copia = lista.cloneNode(true);
+      copia.setAttribute("aria-hidden", "true");
+      $$("a", copia).forEach(function (a) { a.setAttribute("tabindex", "-1"); });
+      pista.appendChild(copia);
+      tira.classList.add("marquesina");
+    }
+  }
+
+
+  /* ----- Efectos de aparición al hacer scroll ----- */
+  function partirPalabras(el) {
+    var n = 0;
+    (function recorrer(nodo) {
+      Array.prototype.slice.call(nodo.childNodes).forEach(function (hijo) {
+        if (hijo.nodeType === 3) {
+          var partes = hijo.nodeValue.split(/(\s+)/);
+          var frag = document.createDocumentFragment();
+          partes.forEach(function (t) {
+            if (!t) { return; }
+            if (/^\s+$/.test(t)) { frag.appendChild(document.createTextNode(" ")); return; }
+            var w = document.createElement("span");
+            w.className = "w";
+            var s = document.createElement("span");
+            s.textContent = t;
+            s.style.setProperty("--k", n);
+            n += 1;
+            w.appendChild(s);
+            frag.appendChild(w);
+          });
+          nodo.replaceChild(frag, hijo);
+        } else if (hijo.nodeType === 1) {
+          recorrer(hijo);
+        }
+      });
+    })(el);
+  }
+
+  var observador = null;
+  if (conEfectos) {
+    raiz.classList.add("anim");
+    observador = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) {
+        if (!en.isIntersecting) { return; }
+        var el = en.target;
+        observador.unobserve(el);
+        el.classList.add("vis");
+        /* Terminada la entrada se suelta la clase, así los efectos de hover no heredan el retardo */
+        setTimeout(function () { el.classList.remove("rv"); el.classList.remove("vis"); }, 2000);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+
+    $$(".titan").forEach(function (t) {
+      partirPalabras(t);
+      t.classList.add("vis-t");
+    });
+    /* Los títulos usan su propia clase de revelado (sin quitarla, para no retroceder) */
+    var observadorTitulos = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("vis"); observadorTitulos.unobserve(en.target); }
+      });
+    }, { threshold: 0.3 });
+    $$(".titan").forEach(function (t) { observadorTitulos.observe(t); });
+  }
+
+  function revelar(elementos, base) {
+    if (!observador) { return; }
+    elementos.forEach(function (el, i) {
+      el.classList.add("rv");
+      el.style.setProperty("--d", ((base || 0) + i * 0.08).toFixed(2) + "s");
+      observador.observe(el);
+    });
+  }
+
+  if (conEfectos) {
+    $$(".sec-cab > p, .estudio-grid > div:last-child .manifiesto, .serv-pie, .filtros, .pack-texto > :not(.titan):not(.eyebrow), .local-texto > *, .contacto-lado > *, .contacto .btn--gigante, .contacto-sub").forEach(function (el) { revelar([el], 0.05); });
+    ["hechos", "serv-grid", "pasos", "difs", "ficha"].forEach(function (clase) {
+      $$("." + clase).forEach(function (cont) {
+        var hijos = Array.prototype.slice.call(cont.children);
+        hijos.forEach(function (h, i) {
+          h.classList.add("rv");
+          h.style.setProperty("--d", ((i % 3) * 0.1).toFixed(2) + "s");
+          observador.observe(h);
+        });
+      });
+    });
+    revelar($$(".pack-card"), 0.1);
+    revelar($$(".faq details"), 0);
+  }
+
+
+  /* ----- Brillo que sigue al mouse, botones magnéticos y parallax (solo con mouse) ----- */
+  if (punteroFino && !sinMovimiento) {
+    var hero = $(".hero");
+    var colla = $("#collage");
+    if (hero) {
+      hero.addEventListener("pointermove", function (e) {
+        var r = hero.getBoundingClientRect();
+        hero.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        hero.style.setProperty("--my", (e.clientY - r.top) + "px");
+        if (colla) {
+          colla.style.setProperty("--px", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
+          colla.style.setProperty("--py", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
+        }
+      });
+    }
+
+    document.addEventListener("pointermove", function (e) {
+      var luz = e.target.closest && e.target.closest(".paso, .hecho, .pack-card");
+      if (luz) {
+        var r = luz.getBoundingClientRect();
+        luz.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        luz.style.setProperty("--my", (e.clientY - r.top) + "px");
+      }
+      var arte = e.target.closest && e.target.closest(".tile");
+      if (arte) {
+        var a = $(".tile-arte", arte);
+        var rr = a.getBoundingClientRect();
+        var x = (e.clientX - rr.left) / rr.width;
+        var y = (e.clientY - rr.top) / rr.height;
+        a.style.setProperty("--ry", ((x - 0.5) * 8).toFixed(2) + "deg");
+        a.style.setProperty("--rx", ((0.5 - y) * 8).toFixed(2) + "deg");
+        a.style.setProperty("--mx", (x * 100).toFixed(1) + "%");
+        a.style.setProperty("--my", (y * 100).toFixed(1) + "%");
+      }
+    }, { passive: true });
+    document.addEventListener("pointerout", function (e) {
+      var tile = e.target.closest && e.target.closest(".tile");
+      if (tile && !tile.contains(e.relatedTarget)) {
+        var a = $(".tile-arte", tile);
+        a.style.setProperty("--rx", "0deg");
+        a.style.setProperty("--ry", "0deg");
+      }
+      var b = e.target.closest && e.target.closest(".magnetico");
+      if (b && !b.contains(e.relatedTarget)) {
+        b.style.setProperty("--bx", "0px");
+        b.style.setProperty("--by", "0px");
+      }
+    });
+
+    $$(".acciones .btn, .pack-card .btn").forEach(function (b) {
+      b.classList.add("magnetico");
+      b.addEventListener("pointermove", function (e) {
+        var r = b.getBoundingClientRect();
+        b.style.setProperty("--bx", ((e.clientX - (r.left + r.width / 2)) * 0.22).toFixed(1) + "px");
+        b.style.setProperty("--by", ((e.clientY - (r.top + r.height / 2)) * 0.32).toFixed(1) + "px");
+      });
+    });
+  }
+
 
   /* ----- Imágenes: archivo real o dibujo de demostración ----- */
   var contadorId = 0;
@@ -301,21 +571,17 @@ function iniciar() {
 
   if (!Array.isArray(PROYECTOS) || PROYECTOS.length === 0) { return; }
 
-  /* ----- Fichas de color del hero ----- */
-  var contenedorChips = $("#chips");
-  var ROT = [-8, -3, 2, 6, -5, 8, -2, 4];
-  var DESP = [10, 26, 4, 22, 0, 18, 8, 24];
-  if (contenedorChips) {
-    contenedorChips.innerHTML = PROYECTOS.slice(0, 6).map(function (p, i) {
-      var paleta = p.paleta || [];
-      var inicial = String(p.marca || "?").charAt(0);
-      return '<button class="chip" type="button" data-i="' + i + '" aria-haspopup="dialog" aria-label="' + esc("Ver proyecto " + p.marca) + '"' +
-        ' style="--i:' + i + ";--r:" + ROT[i % ROT.length] + "deg;--y:" + DESP[i % DESP.length] + "px;--c1:" + colorSeguro(paleta[0], "#1E4D34") + ";--c2:" + colorSeguro(paleta[1], "#F4F0E8") + '">' +
-        '<span class="chip-color" aria-hidden="true">' + esc(inicial) + "</span>" +
-        '<span class="chip-nombre">' + esc(p.marca) + "</span>" +
-        (p.estado === "conceptual" ? '<span class="chip-tag">Concepto</span>' : "") +
-        "</button>";
-    }).join("");
+  /* ----- Collage de piezas destacadas del hero ----- */
+  var collage = $("#collage");
+  if (collage) {
+    var destacados = PROYECTOS.map(function (p, i) { return { p: p, i: i }; }).filter(function (x) { return x.p.portada; }).slice(0, 3);
+    if (destacados.length === 0) { destacados = PROYECTOS.slice(0, 3).map(function (p, i) { return { p: p, i: i }; }); }
+    collage.insertAdjacentHTML("afterbegin", destacados.map(function (x, n) {
+      return '<button class="pieza" type="button" data-i="' + x.i + '" aria-haspopup="dialog" style="--i:' + n + '" aria-label="' + esc("Ver proyecto " + x.p.marca) + '">' +
+        '<span class="pieza-arte">' + medio(x.p.imagen, true) + "</span>" +
+        '<span class="pieza-pie"><span class="pieza-marca">' + esc(x.p.marca) + "</span>" +
+        (x.p.estado === "conceptual" ? '<span class="pieza-tag">Proyecto conceptual</span>' : "") + "</span></button>";
+    }).join(""));
   }
 
   /* ----- Filtros y grilla ----- */
@@ -330,26 +596,23 @@ function iniciar() {
     return vistas;
   }
 
-  
-function htmlTile(p, indice) {
-    var tam = ["l", "m", "h"].indexOf(p.tamano) !== -1 ? p.tamano : "m";
-    return '<button class="tile tile--' + tam + '" type="button" data-i="' + indice + '" aria-haspopup="dialog" aria-label="' + esc("Ver proyecto: " + p.nombre + ", " + p.marca) + '">' +
+  function htmlTile(p, indice) {
+    return '<button class="tile" type="button" data-i="' + indice + '" aria-haspopup="dialog" aria-label="' + esc("Ver proyecto: " + p.nombre + ", " + p.marca) + '">' +
       '<span class="tile-arte">' + medio(p.imagen, true) + "</span>" +
       '<span class="tile-pie"><span class="tile-marca">' + esc(p.marca) + "</span>" +
       '<span class="tile-cat">' + esc(p.categoria) + "</span>" +
-      (p.descripcion ? '<span class="tile-desc">' + esc(p.descripcion) + "</span>" : "") +
       (p.estado === "conceptual" ? '<span class="tile-tag">Proyecto conceptual</span>' : "") +
+      (p.descripcion ? '<span class="tile-desc">' + esc(p.descripcion) + "</span>" : "") +
       "</span></button>";
-}
-
+  }
 
   function pintarGrilla() {
     if (!grilla) { return; }
     var lista = PROYECTOS.map(function (p, i) { return { p: p, i: i }; }).filter(function (x) {
       return filtroActual === "Todos" || x.p.categoria === filtroActual;
     });
-    grilla.classList.toggle("grilla--filtrado", filtroActual !== "Todos");
     grilla.innerHTML = lista.map(function (x) { return htmlTile(x.p, x.i); }).join("");
+    revelar($$(".tile", grilla), 0);
     if (estadoFiltro) {
       estadoFiltro.textContent = filtroActual === "Todos"
         ? "Mostrando los " + lista.length + " proyectos."
@@ -428,7 +691,7 @@ function htmlTile(p, indice) {
     pintarModal();
     if (!modal.open) {
       if (typeof modal.showModal === "function") { modal.showModal(); } else { modal.setAttribute("open", ""); }
-      document.documentElement.classList.add("modal-abierto");
+      raiz.classList.add("modal-abierto");
       modal.scrollTop = 0;
     }
   }
@@ -445,7 +708,7 @@ function htmlTile(p, indice) {
     if (b) { abrirModal(parseInt(b.getAttribute("data-i"), 10)); }
   }
   if (grilla) { grilla.addEventListener("click", alHacerClicEnProyecto); }
-  if (contenedorChips) { contenedorChips.addEventListener("click", alHacerClicEnProyecto); }
+  if (collage) { collage.addEventListener("click", alHacerClicEnProyecto); }
 
   if (modal && refs) {
     refs.cerrar.addEventListener("click", function () { modal.close(); });
@@ -461,11 +724,9 @@ function htmlTile(p, indice) {
       if (e.key === "ArrowLeft") { moverModal(-1); }
       if (e.key === "ArrowRight") { moverModal(1); }
     });
-    modal.addEventListener("close", function () { document.documentElement.classList.remove("modal-abierto"); });
-    /* Si se cierra el aviso de WhatsApp o el modal con Esc, se libera el scroll de la página */
+    modal.addEventListener("close", function () { raiz.classList.remove("modal-abierto"); });
   }
 }
-
 
 /* =========================================================
    4. ARTE DE DEMOSTRACIÓN
