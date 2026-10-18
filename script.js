@@ -330,15 +330,18 @@ function iniciar() {
     return vistas;
   }
 
-  function htmlTile(p, indice) {
+  
+function htmlTile(p, indice) {
     var tam = ["l", "m", "h"].indexOf(p.tamano) !== -1 ? p.tamano : "m";
     return '<button class="tile tile--' + tam + '" type="button" data-i="' + indice + '" aria-haspopup="dialog" aria-label="' + esc("Ver proyecto: " + p.nombre + ", " + p.marca) + '">' +
       '<span class="tile-arte">' + medio(p.imagen, true) + "</span>" +
       '<span class="tile-pie"><span class="tile-marca">' + esc(p.marca) + "</span>" +
       '<span class="tile-cat">' + esc(p.categoria) + "</span>" +
+      (p.descripcion ? '<span class="tile-desc">' + esc(p.descripcion) + "</span>" : "") +
       (p.estado === "conceptual" ? '<span class="tile-tag">Proyecto conceptual</span>' : "") +
       "</span></button>";
-  }
+}
+
 
   function pintarGrilla() {
     if (!grilla) { return; }
