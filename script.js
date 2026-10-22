@@ -70,6 +70,23 @@ const WHATSAPP_MESSAGES = {
 
 const PROYECTOS = [
   {
+    id: "cabanas-maria-del-mar",
+    nombre: "Identidad para Cabañas María del Mar",
+    marca: "Cabañas María del Mar",
+    categoria: "Identidad y packaging",
+    descripcion: "Creación del isologotipo y de la identidad visual de unas cabañas en Las Toninas, con un sol naciendo del mar. La identidad se aplicó a piezas editoriales y promocionales.",
+    estado: "real",
+    portada: true,
+    paleta: ["#6B3F12", "#4FC3D9"],
+    imagen: { src: "imagenes/maria-del-mar-1.jpg", arte: "", alt: "Pieza Nuestros servicios de Cabañas María del Mar: tres fotos de cabañas de madera entre árboles y el isologotipo celeste y amarillo con un sol y una ola, sobre fondo marrón." },
+    imagenes: [
+      { src: "imagenes/maria-del-mar-2.jpg", arte: "", alt: "Pieza Dónde estamos: cuatro fotos de atardecer, pesca en la playa y un laberinto de arbustos, con un texto sobre la ubicación en Las Toninas, sobre fondo marrón." },
+      { src: "imagenes/maria-del-mar-3.jpg", arte: "", alt: "Pieza de contacto de Cabañas María del Mar con el isologotipo, teléfonos y dirección, sobre una foto de una cabaña de madera." },
+      { src: "imagenes/maria-del-mar-4.jpg", arte: "", alt: "Isologotipo de María del Mar: letras caligráficas celestes, un sol amarillo con círculos concéntricos y una ola, sobre fondo oscuro." }
+    ],
+    servicios: ["Isologotipo", "Identidad visual", "Diseño editorial", "Piezas promocionales"]
+  },
+  {
     id: "almacen-brasa",
     nombre: "Café de tostado lento",
     marca: "Almacén Brasa",

@@ -704,3 +704,7 @@ button { font: inherit; color: inherit; }
   .aurora i, .grad, .pack-card::before, .tira.marquesina .tira-pista, .flotante.visible::before { animation: none !important; }
   .grad { background-position: 40% 0; }
 }
+
+/* Vista detallada: las imágenes de trabajos reales se ven completas (sin recortar textos) */
+.modal-escena { background: #16150F; }
+.modal-escena img { object-fit: contain; }
