@@ -708,3 +708,32 @@ button { font: inherit; color: inherit; }
 /* Vista detallada: las imágenes de trabajos reales se ven completas (sin recortar textos) */
 .modal-escena { background: #16150F; }
 .modal-escena img { object-fit: contain; }
+
+/* ---------- Más de nuestros trabajos ---------- */
+.mas .fantasma { right: -2vw; top: 1vw; }
+.mas-grid { display: grid; gap: 28px 14px; grid-template-columns: repeat(2, 1fr); }
+.mas-item { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: 0; background: none; border: 0; text-align: left; cursor: pointer; color: inherit; }
+.mas-img { display: block; position: relative; aspect-ratio: 4 / 3; margin-bottom: 8px; overflow: hidden; border-radius: 16px; border: 1px solid var(--linea); background: var(--fondo, #fff); transition: transform .35s var(--ease), box-shadow .35s; }
+.mas-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 5%; transition: transform .6s var(--ease); }
+.mas-item:hover .mas-img, .mas-item:focus-visible .mas-img { transform: translateY(-5px); box-shadow: 0 22px 40px -22px rgba(22, 21, 15, .5); }
+.mas-item:hover .mas-img img, .mas-item:focus-visible .mas-img img { transform: scale(1.06); }
+.mas-nombre { font-size: .9rem; font-weight: 900; text-transform: uppercase; letter-spacing: -.005em; line-height: 1.2; }
+.mas-tipo { font-size: .72rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--verde); }
+.mas-mas { display: flex; justify-content: center; margin-top: 44px; }
+#mas-boton[hidden] { display: none; }
+@media (min-width: 640px) { .mas-grid { grid-template-columns: repeat(3, 1fr); gap: 32px 18px; } }
+@media (min-width: 1100px) { .mas-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.visor { --foco: var(--lima); border: 0; padding: 0; background: var(--carbon); color: var(--marfil); width: min(1000px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); border-radius: 24px; overflow: auto; }
+.visor::backdrop { background: rgba(22, 21, 15, .9); }
+.visor[open] { animation: abrir .3s var(--ease); }
+.visor .modal-cerrar { background: var(--lima); color: var(--carbon); }
+.visor-escena { display: grid; place-items: center; margin: clamp(14px, 3vw, 28px); border-radius: 14px; padding: clamp(10px, 2vw, 24px); }
+.visor-escena img { max-width: 100%; max-height: 58dvh; width: auto; height: auto; }
+.visor-pie { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; padding: 0 clamp(18px, 3vw, 32px) 24px; }
+.visor-pie > div:first-child { flex: 1 1 220px; }
+.visor-nombre { font-size: 1.3rem; font-weight: 900; text-transform: uppercase; letter-spacing: -.02em; line-height: 1.1; }
+.visor-tipo { font-size: .78rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--lima); margin-top: 4px; }
+.visor .modal-nav { width: auto; margin: 0; flex: 1 1 260px; }
+.visor .modal-pos { color: var(--suave-osc); }
+.filtros[hidden] { display: none; }

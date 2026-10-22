@@ -208,6 +208,27 @@ const PROYECTOS = [
 
 
 /* =========================================================
+   2 bis. MÁS DE NUESTROS TRABAJOS
+   Muro de imágenes sueltas (logos, cartas, apps, otros).
+   Una línea por imagen:
+   nombre  nombre corto que se muestra debajo
+   tipo    "Logos", "Cartas y menús", "Apps" u "Otros" (arma los filtros solo)
+   src     ruta de la imagen, ej. "imagenes/mas-mi-logo.jpg"
+   fondo   color de fondo de la imagen (para que se vea completa)
+   alt     descripción de lo que se ve
+   Los más nuevos van arriba de todo.
+   ========================================================= */
+
+const TRABAJOS = [
+  { nombre: "Panadería Santa Ana", tipo: "Logos", src: "imagenes/mas-panaderia-santa-ana.jpg", fondo: "#ffca6f", alt: "Logotipo de Panadería Santa Ana: nombre en letras blancas sobre una banda marrón, con una corona de hojas doradas, panes y la frase atendido por sus propios dueños." },
+  { nombre: "Bassdetail Auto Estética", tipo: "Logos", src: "imagenes/mas-bassdetail.jpg", fondo: "#000000", alt: "Logotipo de Bassdetail Auto Estética: un auto clásico rojo sobre un óvalo dorado con el nombre en letras blancas." },
+  { nombre: "Eterna Juventud", tipo: "Logos", src: "imagenes/mas-eterna-juventud.jpg", fondo: "#ffffff", alt: "Logotipo de Eterna Juventud, indumentaria para ellas: ilustración retro de una mujer con anteojos dentro de un sello violeta con cinta." },
+  { nombre: "Pipa Romero, guía de pesca", tipo: "Logos", src: "imagenes/mas-pipa-romero.jpg", fondo: "#ffffff", alt: "Logotipo de Pipa Romero, guía de pesca: dos peces que forman un círculo en tonos verde oliva y amarillo, con el nombre al costado." },
+  { nombre: "Morbelli & Morbelli Abogados", tipo: "Logos", src: "imagenes/mas-morbelli-abogados.jpg", fondo: "#1b1b1b", alt: "Logotipo de Morbelli y Morbelli Abogados con letras metalizadas sobre fondo negro texturado y una flecha blanca ascendente." },
+  { nombre: "NAP Estudio", tipo: "Logos", src: "imagenes/mas-nap-estudio.jpg", fondo: "#ffffff", alt: "Logotipo de NAP Estudio: una claqueta de cine negra con las letras NAP en naranja y marcos de encuadre." }
+];
+
+/* =========================================================
    3. LÓGICA
    ========================================================= */
 
@@ -761,6 +782,116 @@ function iniciar() {
       if (e.key === "ArrowRight") { moverModal(1); }
     });
     modal.addEventListener("close", function () { raiz.classList.remove("modal-abierto"); });
+  }
+
+  /* ----- Más de nuestros trabajos: muro de imágenes con filtros, "Ver más" y visor ----- */
+  var MAS_INICIAL = 12;
+  var muro = $("#mas-grid");
+  if (muro && Array.isArray(TRABAJOS) && TRABAJOS.length) {
+    var masFiltros = $("#mas-filtros");
+    var masEstado = $("#mas-estado");
+    var masBoton = $("#mas-boton");
+    var masTipo = "Todos";
+    var masVisibles = MAS_INICIAL;
+
+    var masLista = function () {
+      return TRABAJOS.map(function (t, i) { return { t: t, i: i }; }).filter(function (x) {
+        return masTipo === "Todos" || x.t.tipo === masTipo;
+      });
+    };
+
+    var pintarMas = function () {
+      var lista = masLista();
+      var mostrar = lista.slice(0, masVisibles);
+      muro.innerHTML = mostrar.map(function (x) {
+        return '<button class="mas-item" type="button" data-v="' + x.i + '" aria-haspopup="dialog" aria-label="' + esc("Ver ampliado: " + x.t.nombre) + '">' +
+          '<span class="mas-img" style="--fondo:' + esc(x.t.fondo || "#fff") + '"><img src="' + esc(x.t.src) + '" alt="" loading="lazy" decoding="async"></span>' +
+          '<span class="mas-nombre">' + esc(x.t.nombre) + '</span>' +
+          '<span class="mas-tipo">' + esc(x.t.tipo) + "</span></button>";
+      }).join("");
+      revelar($$(".mas-item", muro), 0);
+      var restantes = lista.length - mostrar.length;
+      if (masBoton) {
+        masBoton.hidden = restantes <= 0;
+        masBoton.textContent = "Ver más trabajos (" + restantes + ")";
+      }
+      if (masEstado) {
+        masEstado.textContent = "Mostrando " + mostrar.length + " de " + lista.length + (masTipo === "Todos" ? " trabajos." : " trabajos de " + masTipo + ".");
+      }
+    };
+
+    if (masFiltros) {
+      var tipos = ["Todos"];
+      TRABAJOS.forEach(function (t) { if (tipos.indexOf(t.tipo) === -1) { tipos.push(t.tipo); } });
+      masFiltros.hidden = tipos.length < 3;
+      masFiltros.innerHTML = tipos.map(function (n) {
+        return '<button class="filtro" type="button" data-tipo="' + esc(n) + '" aria-pressed="' + (n === masTipo ? "true" : "false") + '">' + esc(n) + "</button>";
+      }).join("");
+      masFiltros.addEventListener("click", function (e) {
+        var b = e.target.closest(".filtro");
+        if (!b) { return; }
+        masTipo = b.getAttribute("data-tipo");
+        masVisibles = MAS_INICIAL;
+        $$(".filtro", masFiltros).forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+        pintarMas();
+      });
+    }
+    if (masBoton) {
+      masBoton.addEventListener("click", function () {
+        var antes = masVisibles;
+        masVisibles += MAS_INICIAL;
+        pintarMas();
+        var nuevo = $$(".mas-item", muro)[antes];
+        if (nuevo) { nuevo.focus(); }
+      });
+    }
+    pintarMas();
+
+    /* Visor ampliado */
+    var visor = $("#visor");
+    var vi = { pos: 0, lista: [] };
+    if (visor) {
+      var vImg = $("#visor-img");
+      var vFondo = $("#visor-escena");
+      var vNombre = $("#visor-nombre");
+      var vTipo = $("#visor-tipo");
+      var vPos = $("#visor-pos");
+      var vWa = $("#visor-wa");
+      var pintarVisor = function () {
+        var t = TRABAJOS[vi.lista[vi.pos]];
+        vImg.src = t.src;
+        vImg.alt = t.alt || t.nombre;
+        vFondo.style.background = t.fondo || "#fff";
+        vNombre.textContent = t.nombre;
+        vTipo.textContent = t.tipo;
+        vPos.textContent = (vi.pos + 1) + " de " + vi.lista.length;
+        vWa.setAttribute("href", "#contacto");
+        vWa.removeAttribute("target");
+        prepararEnlaceWa(vWa, WHATSAPP_MESSAGES.proyecto.replace("{proyecto}", t.nombre));
+      };
+      var moverVisor = function (paso) {
+        vi.pos = (vi.pos + paso + vi.lista.length) % vi.lista.length;
+        pintarVisor();
+      };
+      muro.addEventListener("click", function (e) {
+        var b = e.target.closest("[data-v]");
+        if (!b) { return; }
+        vi.lista = masLista().map(function (x) { return x.i; });
+        vi.pos = Math.max(0, vi.lista.indexOf(parseInt(b.getAttribute("data-v"), 10)));
+        pintarVisor();
+        if (typeof visor.showModal === "function") { visor.showModal(); } else { visor.setAttribute("open", ""); }
+        raiz.classList.add("modal-abierto");
+      });
+      $("#visor-cerrar").addEventListener("click", function () { visor.close(); });
+      $("#visor-prev").addEventListener("click", function () { moverVisor(-1); });
+      $("#visor-next").addEventListener("click", function () { moverVisor(1); });
+      visor.addEventListener("click", function (e) { if (e.target === visor) { visor.close(); } });
+      visor.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowLeft") { moverVisor(-1); }
+        if (e.key === "ArrowRight") { moverVisor(1); }
+      });
+      visor.addEventListener("close", function () { raiz.classList.remove("modal-abierto"); });
+    }
   }
 }
 

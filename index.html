@@ -520,6 +520,26 @@
       </div>
     </section>
 
+
+    <!-- MÁS DE NUESTROS TRABAJOS -->
+    <section class="sec sec--calido mas" id="mas-trabajos" aria-labelledby="titulo-mas">
+      <span class="fantasma" aria-hidden="true" data-par>MÁS</span>
+      <div class="contenedor">
+        <header class="sec-cab">
+          <div>
+            <p class="eyebrow">Más trabajos</p>
+            <h2 class="titan" id="titulo-mas">Más de nuestros <span class="acento">trabajos</span></h2>
+          </div>
+          <p>Logos, cartas de menú, aplicaciones y otras piezas que hicimos para distintos clientes. Tocá una imagen para verla en grande.</p>
+        </header>
+        <div class="filtros" id="mas-filtros" role="group" aria-label="Filtrar trabajos por tipo"></div>
+        <p class="sr-only" id="mas-estado" aria-live="polite"></p>
+        <div class="mas-grid" id="mas-grid"></div>
+        <div class="mas-mas"><button class="btn btn--linea-osc btn--sig" id="mas-boton" type="button" hidden>Ver más trabajos</button></div>
+        <noscript><p class="aviso-js">Para ver los trabajos necesitás tener JavaScript activado en el navegador.</p></noscript>
+      </div>
+    </section>
+
     <!-- PACK COMERCIAL EXPRESS -->
     <section class="sec sec--oscuro pack" id="pack" aria-labelledby="titulo-pack">
       <span class="fantasma" aria-hidden="true" data-par>EXPRESS</span>
@@ -807,6 +827,26 @@
           <span class="modal-pos" id="modal-pos"></span>
           <button class="btn btn--linea-osc btn--sm" id="modal-next" type="button">Siguiente</button>
         </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- VISOR DE IMAGEN AMPLIADA -->
+  <dialog class="visor" id="visor" aria-label="Trabajo ampliado">
+    <button class="modal-cerrar" id="visor-cerrar" type="button" aria-label="Cerrar imagen ampliada">
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 4 L16 16 M16 4 L4 16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg>
+    </button>
+    <div class="visor-escena" id="visor-escena"><img id="visor-img" src="" alt=""></div>
+    <div class="visor-pie">
+      <div>
+        <p class="visor-nombre" id="visor-nombre"></p>
+        <p class="visor-tipo" id="visor-tipo"></p>
+      </div>
+      <a class="btn btn--lima btn--sm btn--flecha" id="visor-wa" data-wa-dinamico href="#contacto">Consultar por algo así</a>
+      <div class="modal-nav">
+        <button class="btn btn--linea btn--sm" id="visor-prev" type="button">Anterior</button>
+        <span class="modal-pos" id="visor-pos"></span>
+        <button class="btn btn--linea btn--sm" id="visor-next" type="button">Siguiente</button>
       </div>
     </div>
   </dialog>
