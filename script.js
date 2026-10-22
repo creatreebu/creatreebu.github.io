@@ -70,6 +70,25 @@ const WHATSAPP_MESSAGES = {
 
 const PROYECTOS = [
   {
+    id: "heladeria-cherry",
+    nombre: "Contenido digital y pantallas para Heladería Cherry",
+    marca: "Heladería Cherry",
+    categoria: "Redes y promociones",
+    descripcion: "Creación de las pantallas digitales con animación del local, para promociones y para los gustos y precios de los helados. También contenido para redes sociales: reels, carruseles y flyers.",
+    estado: "real",
+    portada: true,
+    paleta: ["#E5173F", "#16150F"],
+    imagen: { src: "imagenes/cherry-4.jpg", arte: "", alt: "Estantería con botellas iluminadas en rojo dentro de la heladería Cherry, con las pantallas digitales de gustos y precios al fondo y mesas con sillas negras." },
+    imagenes: [
+      { src: "imagenes/cherry-3.jpg", arte: "", alt: "Salón de la heladería Cherry con cinco pantallas digitales sobre la pared con precios, tentaciones y sabores, y dos cucuruchos luminosos rojos a los costados." },
+      { src: "imagenes/cherry-5.jpg", arte: "", alt: "Detalle de las pantallas digitales de tentaciones y sabores de Cherry, con el sector de vasos descartables sobre una pared verde." },
+      { src: "imagenes/cherry-1.jpg", arte: "", alt: "Pieza vertical para redes de Cherry: cuatro bandejas de helado arriba, el logo rojo con cerezas y la frase El verano empieza con cada bocado." },
+      { src: "imagenes/cherry-2.jpg", arte: "", alt: "Pieza vertical que presenta El Chocolate Dubai: helado de chocolate con pistacho, con los logos de Cherry y La Sorbetière." },
+      { src: "imagenes/cherry-6.jpg", arte: "", alt: "Flyer vertical de promociones de viernes, sábado y domingo con dos vasos de helado de Cherry, dos de un cuarto por 10.000 pesos y un kilo por 15.000 pesos." }
+    ],
+    servicios: ["Pantallas digitales con animación", "Reels", "Carruseles", "Flyers"]
+  },
+  {
     id: "cabanas-maria-del-mar",
     nombre: "Identidad para Cabañas María del Mar",
     marca: "Cabañas María del Mar",
