@@ -215,11 +215,18 @@ const PROYECTOS = [
    tipo    "Logos", "Cartas y menús", "Apps" u "Otros" (arma los filtros solo)
    src     ruta de la imagen, ej. "imagenes/mas-mi-logo.jpg"
    fondo   color de fondo de la imagen (para que se vea completa)
+   cubrir  true = la imagen llena todo el recuadro (para diseños que ocupan toda la imagen)
    alt     descripción de lo que se ve
    Los más nuevos van arriba de todo.
    ========================================================= */
 
 const TRABAJOS = [
+  { nombre: "Provenzano Multiespacio, carta de cafetería", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-cafeteria.jpg", fondo: "#482e1d", cubrir: true, alt: "Carta de cafetería de Provenzano Multiespacio sobre fondo marrón con granos de café, taza y molinillo, con la lista de cafés y los precios en blanco." },
+  { nombre: "Provenzano Multiespacio, carta de minutas y sándwiches", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-minutas.jpg", fondo: "#aa7847", cubrir: true, alt: "Carta de minutas y sándwiches de Provenzano Multiespacio sobre fondo color caramelo, con listas de minibaguetes, sándwiches calientes, tartas y empanadas." },
+  { nombre: "Provenzano Multiespacio, carta de postres", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-postres.jpg", fondo: "#472d1c", cubrir: true, alt: "Carta de postres de Provenzano Multiespacio sobre fondo marrón chocolate, con una bandeja de bombones y tortas en la parte inferior." },
+  { nombre: "Provenzano Multiespacio, promos de desayuno y merienda", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-promo-desayunos.jpg", fondo: "#ec7e05", alt: "Flyer vertical naranja de Promo Menús de Provenzano con cinco combos de café, tostados, licuados y medialunas dentro de círculos." },
+  { nombre: "Provenzano Multiespacio, promos de picadas y pizzas", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-promo-picadas.jpg", fondo: "#3a3100", alt: "Flyer vertical verde oliva de Promo Menús de Provenzano con tablas de fiambres, pizzas y cerveza dentro de círculos." },
+  { nombre: "La Huella Restaurant, menú ejecutivo", tipo: "Cartas y menús", src: "imagenes/mas-la-huella-menu.jpg", fondo: "#1b2423", cubrir: true, alt: "Menú ejecutivo de La Huella Restaurant en dos paneles oscuros sobre fotos de comida, con letras doradas e ilustración de una cloche." },
   { nombre: "Panadería Santa Ana", tipo: "Logos", src: "imagenes/mas-panaderia-santa-ana.jpg", fondo: "#ffca6f", alt: "Logotipo de Panadería Santa Ana: nombre en letras blancas sobre una banda marrón, con una corona de hojas doradas, panes y la frase atendido por sus propios dueños." },
   { nombre: "Bassdetail Auto Estética", tipo: "Logos", src: "imagenes/mas-bassdetail.jpg", fondo: "#000000", alt: "Logotipo de Bassdetail Auto Estética: un auto clásico rojo sobre un óvalo dorado con el nombre en letras blancas." },
   { nombre: "Eterna Juventud", tipo: "Logos", src: "imagenes/mas-eterna-juventud.jpg", fondo: "#ffffff", alt: "Logotipo de Eterna Juventud, indumentaria para ellas: ilustración retro de una mujer con anteojos dentro de un sello violeta con cinta." },
@@ -805,7 +812,7 @@ function iniciar() {
       var mostrar = lista.slice(0, masVisibles);
       muro.innerHTML = mostrar.map(function (x) {
         return '<button class="mas-item" type="button" data-v="' + x.i + '" aria-haspopup="dialog" aria-label="' + esc("Ver ampliado: " + x.t.nombre) + '">' +
-          '<span class="mas-img" style="--fondo:' + esc(x.t.fondo || "#fff") + '"><img src="' + esc(x.t.src) + '" alt="" loading="lazy" decoding="async"></span>' +
+          '<span class="mas-img' + (x.t.cubrir ? " mas-img--cubrir" : "") + '" style="--fondo:' + esc(x.t.fondo || "#fff") + '"><img src="' + esc(x.t.src) + '" alt="" loading="lazy" decoding="async"></span>' +
           '<span class="mas-nombre">' + esc(x.t.nombre) + '</span>' +
           '<span class="mas-tipo">' + esc(x.t.tipo) + "</span></button>";
       }).join("");

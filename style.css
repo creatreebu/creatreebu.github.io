@@ -737,3 +737,4 @@ button { font: inherit; color: inherit; }
 .visor .modal-nav { width: auto; margin: 0; flex: 1 1 260px; }
 .visor .modal-pos { color: var(--suave-osc); }
 .filtros[hidden] { display: none; }
+.mas-img--cubrir img { object-fit: cover; padding: 0; }
