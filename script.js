@@ -1248,146 +1248,67 @@ var ARTE_DEMO = {
 iniciar();
 
 /* =========================================================
-   ASISTENTE DE CHAT (guiado, sin servidor)
-   Hace 4 preguntas con botones y deja armado el mensaje de WhatsApp.
-   No guarda nada ni envía datos a ningún lado: el mensaje sale recién
-   cuando la persona toca "Enviar por WhatsApp".
-   Para cambiar preguntas o respuestas, editá PASOS_CHAT.
+   CONTACTO FLOTANTE "¿Hablamos?"
+   Abre un formulario corto y, al enviar, abre WhatsApp con el mensaje armado.
+   No guarda ni envía datos a ningún servidor.
    ========================================================= */
 (function () {
   "use strict";
-  if (!document.body || typeof WHATSAPP_NUMBER === "undefined" || !/^\d{8,15}$/.test(WHATSAPP_NUMBER)) { return; }
-
-  var PASOS_CHAT = [
-    { clave: "servicio", pregunta: "¡Hola! Soy el asistente de CREATREEBU. Te hago 4 preguntas rápidas y dejo armado tu mensaje para WhatsApp. ¿Qué necesitás?",
-      opciones: ["Logo o identidad visual", "Piezas para redes sociales", "Flyers o cartelería", "Pack Comercial Express", "Otra cosa"] },
-    { clave: "identidad", pregunta: "¿Tu negocio ya tiene logo y colores definidos?",
-      opciones: ["Sí, ya tengo", "No, arranco de cero", "Tengo algo, pero hay que mejorarlo"] },
-    { clave: "plazo", pregunta: "¿Para cuándo lo necesitás?",
-      opciones: ["Esta semana", "Este mes", "Sin apuro"] }
-  ];
-
-  var estado = { paso: 0, resp: {}, esperaNombre: false, hecho: false };
+  if (typeof WHATSAPP_NUMBER === "undefined" || !/^\d{8,15}$/.test(WHATSAPP_NUMBER)) { return; }
 
   var lanz = document.createElement("button");
-  lanz.type = "button"; lanz.className = "chat-lanz"; lanz.id = "chat-lanz";
-  lanz.setAttribute("aria-haspopup", "dialog"); lanz.setAttribute("aria-expanded", "false");
-  lanz.setAttribute("aria-label", "Abrir el chat con el asistente de CREATREEBU");
-  lanz.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-8l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="currentColor"/></svg>';
+  lanz.type = "button"; lanz.className = "hab-lanz"; lanz.id = "hab-lanz";
+  lanz.setAttribute("aria-haspopup", "dialog"); lanz.setAttribute("aria-expanded", "false"); lanz.setAttribute("aria-controls", "hab");
+  lanz.innerHTML = '<span class="hab-txt">¿Hablamos?</span>' +
+    '<svg class="hab-ico hab-ico--wa" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16.04 3C9.4 3 4 8.4 4 15.04c0 2.12.56 4.19 1.6 6.01L4 29l8.1-1.56a12 12 0 0 0 3.94.66h.01C22.7 28.1 28 22.7 28 16.06 28 12.84 26.74 9.8 24.46 7.54A11.9 11.9 0 0 0 16.04 3zm0 21.98h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.74.72.77-3.64-.24-.37a9.9 9.9 0 0 1-1.52-5.26c0-5.5 4.47-9.97 9.98-9.97 2.66 0 5.17 1.04 7.05 2.92a9.9 9.9 0 0 1 2.92 7.06c0 5.5-4.47 9.97-9.97 9.97zm5.47-7.46c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.64-.93-2.25-.24-.58-.49-.5-.68-.51h-.58c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.14 4.54.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/></svg>' +
+    '<svg class="hab-ico hab-ico--x" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 4 L16 16 M16 4 L4 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>';
 
   var panel = document.createElement("section");
-  panel.className = "chat"; panel.id = "chat"; panel.hidden = true;
-  panel.setAttribute("role", "dialog"); panel.setAttribute("aria-label", "Chat con el asistente de CREATREEBU");
+  panel.className = "hab"; panel.id = "hab"; panel.hidden = true;
+  panel.setAttribute("role", "dialog"); panel.setAttribute("aria-label", "Contactar a CREATREEBU");
   panel.innerHTML =
-    '<header class="chat-cab"><div><p class="chat-tit">Asistente de CREATREEBU</p><p class="chat-sub"><span class="chat-punto" aria-hidden="true"></span>Responde al instante</p></div>' +
-    '<button type="button" class="chat-x" id="chat-x" aria-label="Cerrar el chat"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 4 L16 16 M16 4 L4 16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></button></header>' +
-    '<div class="chat-log" id="chat-log" role="log" aria-live="polite"></div>' +
-    '<div class="chat-acc" id="chat-acc"></div>' +
-    '<p class="chat-nota">Este chat no guarda tus respuestas: solo prepara el mensaje. Si preferís, <a id="chat-directo" target="_blank" rel="noopener noreferrer">escribí directo por WhatsApp</a>.</p>';
-  document.body.appendChild(lanz);
+    '<div class="hab-cab"><span class="hab-logo" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="4" y="11" width="3.4" height="9" rx="1.7" fill="currentColor"/><rect x="10.3" y="4" width="3.4" height="16" rx="1.7" fill="currentColor"/><rect x="16.6" y="8" width="3.4" height="12" rx="1.7" fill="currentColor"/></svg></span><p>¿Cómo puedo ayudar?</p></div>' +
+    '<div class="hab-ag"><img src="imagenes/pablo.jpg" width="64" height="64" alt="Pablo, de CREATREEBU"><div><p class="hab-ag1">Atención directa</p><p class="hab-ag2">Pablo</p><p class="hab-ag3"><span class="hab-punto" aria-hidden="true"></span>Te respondo por WhatsApp</p></div><button type="button" class="hab-x" id="hab-x" aria-label="Cerrar"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 4 L16 16 M16 4 L4 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg></button></div>' +
+    '<form class="hab-form" id="hab-form" novalidate>' +
+    '<p class="hab-tit">Contame qué necesitás</p>' +
+    '<label class="sr-only" for="hab-nombre">Nombre</label><input id="hab-nombre" name="nombre" type="text" placeholder="Nombre*" autocomplete="name" maxlength="60" required>' +
+    '<label class="sr-only" for="hab-serv">¿Qué necesitás?</label><select id="hab-serv" name="serv"><option value="">¿Qué necesitás?</option><option>Logo o identidad visual</option><option>Piezas para redes sociales</option><option>Flyers o cartelería</option><option>Pack Comercial Express</option><option>Otra cosa</option></select>' +
+    '<label class="sr-only" for="hab-msj">Mensaje (opcional)</label><textarea id="hab-msj" name="msj" rows="3" maxlength="400" placeholder="Mensaje (opcional)"></textarea>' +
+    '<p class="hab-err" id="hab-err" role="alert" hidden>Escribí tu nombre para continuar.</p>' +
+    '<button type="submit" class="hab-send">Contactar por WhatsApp</button>' +
+    '<p class="hab-nota">No guardamos tus datos: al tocar el botón se abre WhatsApp con tu mensaje listo para enviar.</p></form>';
   document.body.appendChild(panel);
+  document.body.appendChild(lanz);
 
-  var log = panel.querySelector("#chat-log");
-  var acc = panel.querySelector("#chat-acc");
-  var directo = panel.querySelector("#chat-directo");
-  directo.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent("Hola! Vi la web de Creatreebu y quiero hacer una consulta.");
-
-  function burbuja(texto, quien) {
-    var p = document.createElement("p");
-    p.className = "chat-b chat-b--" + quien;
-    p.textContent = texto;
-    log.appendChild(p);
-    log.scrollTop = log.scrollHeight;
-  }
-
-  function botones(lista, alElegir) {
-    acc.innerHTML = "";
-    lista.forEach(function (t) {
-      var b = document.createElement("button");
-      b.type = "button"; b.className = "chat-op"; b.textContent = t;
-      b.addEventListener("click", function () { alElegir(t); });
-      acc.appendChild(b);
-    });
-    var primero = acc.querySelector("button");
-    if (primero) { primero.focus({ preventScroll: true }); }
-  }
-
-  function preguntar() {
-    var p = PASOS_CHAT[estado.paso];
-    if (!p) { pedirNombre(); return; }
-    burbuja(p.pregunta, "bot");
-    botones(p.opciones, function (t) {
-      estado.resp[p.clave] = t;
-      burbuja(t, "yo");
-      estado.paso++;
-      acc.innerHTML = "";
-      setTimeout(preguntar, 350);
-    });
-  }
-
-  function pedirNombre() {
-    burbuja("Última: ¿cómo se llama tu negocio o proyecto? (podés omitirlo)", "bot");
-    acc.innerHTML = "";
-    var f = document.createElement("form");
-    f.className = "chat-form";
-    f.innerHTML = '<label class="sr-only" for="chat-nombre">Nombre de tu negocio</label><input id="chat-nombre" type="text" maxlength="60" autocomplete="off" placeholder="Nombre del negocio"><button type="submit" class="chat-op chat-op--ok">Listo</button><button type="button" class="chat-op" id="chat-omitir">Omitir</button>';
-    acc.appendChild(f);
-    var inp = f.querySelector("input");
-    inp.focus({ preventScroll: true });
-    function cerrar(n) {
-      estado.resp.nombre = n;
-      if (n) { burbuja(n, "yo"); }
-      resumen();
-    }
-    f.addEventListener("submit", function (e) { e.preventDefault(); cerrar(inp.value.trim()); });
-    f.querySelector("#chat-omitir").addEventListener("click", function () { cerrar(""); });
-  }
-
-  function armarMensaje() {
-    var r = estado.resp;
-    var t = "Hola! Vi la web de Creatreebu. Quiero consultar por: " + r.servicio + ".";
-    if (r.nombre) { t += " Mi negocio es: " + r.nombre + "."; }
-    t += " Identidad visual: " + r.identidad + ". Lo necesito: " + r.plazo.toLowerCase() + ".";
-    return t;
-  }
-
-  function resumen() {
-    estado.hecho = true;
-    var extra = estado.resp.servicio === "Pack Comercial Express" ? " El Pack incluye 5 piezas para redes con tu identidad aplicada y 2 rondas de ajustes; el presupuesto se confirma por escrito antes de empezar." : "";
-    burbuja("¡Gracias! Ya armé tu consulta:" + extra, "bot");
-    burbuja(armarMensaje(), "resumen");
-    acc.innerHTML = "";
-    var a = document.createElement("a");
-    a.className = "chat-op chat-op--ok chat-wa"; a.textContent = "Enviar por WhatsApp";
-    a.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(armarMensaje());
-    a.target = "_blank"; a.rel = "noopener noreferrer";
-    var r = document.createElement("button");
-    r.type = "button"; r.className = "chat-op"; r.textContent = "Empezar de nuevo";
-    r.addEventListener("click", reiniciar);
-    acc.appendChild(a); acc.appendChild(r);
-    a.focus({ preventScroll: true });
-  }
-
-  function reiniciar() {
-    estado = { paso: 0, resp: {}, esperaNombre: false, hecho: false };
-    log.innerHTML = ""; acc.innerHTML = "";
-    preguntar();
-  }
+  var form = panel.querySelector("#hab-form");
+  var err = panel.querySelector("#hab-err");
+  var nombre = panel.querySelector("#hab-nombre");
 
   function abrir() {
-    panel.hidden = false;
-    document.documentElement.classList.add("chat-abierto");
-    lanz.setAttribute("aria-expanded", "true");
-    if (!log.children.length) { preguntar(); }
-    else { var b = acc.querySelector("button, a, input"); if (b) { b.focus({ preventScroll: true }); } }
+    panel.hidden = false; lanz.setAttribute("aria-expanded", "true");
+    lanz.setAttribute("aria-label", "Cerrar el contacto");
+    document.documentElement.classList.add("hab-abierto");
+    nombre.focus({ preventScroll: true });
   }
-  function cerrar() {
-    panel.hidden = true;
-    document.documentElement.classList.remove("chat-abierto");
-    lanz.setAttribute("aria-expanded", "false");
-    lanz.focus();
+  function cerrar(devolverFoco) {
+    panel.hidden = true; lanz.setAttribute("aria-expanded", "false");
+    lanz.removeAttribute("aria-label");
+    document.documentElement.classList.remove("hab-abierto");
+    if (devolverFoco !== false) { lanz.focus(); }
   }
   lanz.addEventListener("click", function () { if (panel.hidden) { abrir(); } else { cerrar(); } });
-  panel.querySelector("#chat-x").addEventListener("click", cerrar);
+  panel.querySelector("#hab-x").addEventListener("click", function () { cerrar(); });
   panel.addEventListener("keydown", function (e) { if (e.key === "Escape") { cerrar(); } });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var n = nombre.value.trim();
+    if (!n) { err.hidden = false; nombre.setAttribute("aria-invalid", "true"); nombre.focus(); return; }
+    err.hidden = true; nombre.removeAttribute("aria-invalid");
+    var serv = form.serv.value, msj = form.msj.value.trim();
+    var t = "Hola! Soy " + n + ". Vi la web de Creatreebu" + (serv ? " y quiero consultar por: " + serv + "." : " y quiero hacer una consulta.");
+    if (msj) { t += " " + msj; }
+    window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(t), "_blank", "noopener");
+  });
+  nombre.addEventListener("input", function () { err.hidden = true; nombre.removeAttribute("aria-invalid"); });
 })();

@@ -747,37 +747,39 @@ button { font: inherit; color: inherit; }
 /* Manual de marca: textos en Calibri/Carlito; titulares, botones y menús conservan la tipografía gruesa */
 h1, h2, h3, h4, .titan, .btn, .eyebrow, .filtro, .nav-capsula, .nav-btn, .mega-grupo, .mas-nombre, .mas-tipo, .visor-nombre, .visor-tipo, summary, .tag, .etiqueta, th, label, button { font-family: var(--display); }
 
-/* ---------- Chat guiado ---------- */
-.chat-lanz { position: fixed; right: 16px; bottom: 16px; z-index: 66; width: 54px; height: 54px; display: grid; place-items: center; border: 2px solid var(--lima); border-radius: 50%; background: var(--carbon); color: var(--lima); cursor: pointer; box-shadow: 0 14px 30px -12px rgba(0,0,0,.6); transition: transform .25s var(--ease), background-color .2s, color .2s; }
-.chat-lanz svg { width: 24px; height: 24px; }
-.chat-lanz:hover { background: var(--lima); color: var(--carbon); transform: translateY(-3px); }
-.chat-lanz:focus-visible { outline: 3px solid var(--marfil); outline-offset: 3px; }
-.flotante { right: 82px; }
-.chat { position: fixed; right: 16px; bottom: 16px; z-index: 80; width: min(380px, calc(100vw - 32px)); max-height: min(620px, calc(100dvh - 32px)); display: flex; flex-direction: column; background: #1D1C15; color: var(--marfil); border: 1px solid var(--linea-osc); border-radius: 22px; overflow: hidden; box-shadow: 0 30px 70px -20px rgba(0,0,0,.8); font-family: var(--sans); }
-.chat[hidden] { display: none; }
-.chat:not([hidden]) { animation: abrir .3s var(--ease); }
-.chat-cab { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 18px; background: var(--carbon); border-bottom: 1px solid var(--linea-osc); }
-.chat-tit { font-family: var(--display); font-weight: 900; font-size: .9rem; letter-spacing: .03em; text-transform: uppercase; }
-.chat-sub { display: flex; align-items: center; gap: 7px; font-size: .85rem; color: var(--suave-osc); }
-.chat-punto { width: 8px; height: 8px; border-radius: 50%; background: var(--lima); }
-.chat-x { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border: 1px solid var(--linea-osc); border-radius: 50%; background: none; color: var(--marfil); cursor: pointer; }
-.chat-x svg { width: 14px; height: 14px; }
-.chat-x:hover { background: var(--lima); color: var(--carbon); }
-.chat-x:focus-visible, .chat-op:focus-visible, .chat input:focus-visible, .chat-nota a:focus-visible { outline: 3px solid var(--lima); outline-offset: 2px; }
-.chat-log { flex: 1 1 auto; min-height: 120px; overflow-y: auto; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
-.chat-b { max-width: 88%; padding: 10px 14px; border-radius: 16px; font-size: 1rem; line-height: 1.4; overflow-wrap: anywhere; }
-.chat-b--bot { align-self: flex-start; background: #2A291F; border-bottom-left-radius: 4px; }
-.chat-b--yo { align-self: flex-end; background: var(--lima); color: var(--carbon); border-bottom-right-radius: 4px; font-weight: 700; }
-.chat-b--resumen { align-self: stretch; max-width: 100%; background: transparent; border: 1px dashed var(--linea-osc); font-size: .95rem; color: var(--suave-osc); }
-.chat-acc { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 18px 14px; }
-.chat-op { font-family: var(--display); font-size: .78rem; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; text-decoration: none; min-height: 44px; padding: 10px 16px; border-radius: 999px; border: 1.5px solid var(--linea-osc); background: none; color: var(--marfil); cursor: pointer; display: inline-flex; align-items: center; }
-.chat-op:hover { border-color: var(--lima); color: var(--lima); }
-.chat-op--ok { background: var(--lima); border-color: var(--lima); color: var(--carbon); }
-.chat-op--ok:hover { background: var(--marfil); border-color: var(--marfil); color: var(--carbon); }
-.chat-form { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
-.chat-form input { flex: 1 1 100%; min-height: 46px; padding: 10px 16px; border-radius: 14px; border: 1.5px solid var(--linea-osc); background: var(--carbon); color: var(--marfil); font: inherit; }
-.chat-nota { padding: 10px 18px 14px; font-size: .82rem; line-height: 1.4; color: var(--suave-osc); border-top: 1px solid var(--linea-osc); }
-.chat-nota a { color: var(--lima); }
-@media (max-width: 520px) { .chat { right: 8px; bottom: 8px; width: calc(100vw - 16px); max-height: calc(100dvh - 16px); } .flotante { right: 78px; } }
-html.chat-abierto .chat-lanz, html.chat-abierto .flotante { opacity: 0; visibility: hidden; }
-@media (prefers-reduced-motion: reduce) { .chat, .chat-lanz { animation: none !important; transition: none !important; } }
+/* ---------- Contacto flotante ¿Hablamos? ---------- */
+.hab-lanz { position: fixed; right: 16px; bottom: 16px; z-index: 70; display: inline-flex; align-items: center; gap: 10px; min-height: 58px; padding: 0 12px 0 24px; border: 0; border-radius: 999px; background: var(--lima); color: var(--carbon); font-family: var(--display); font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 0 14px 30px -12px rgba(0,0,0,.6); transition: transform .25s var(--ease), background-color .2s; }
+.hab-lanz:hover { transform: translateY(-3px); background: var(--marfil); }
+.hab-lanz:focus-visible { outline: 3px solid var(--marfil); outline-offset: 3px; }
+.hab-ico { width: 38px; height: 38px; flex: none; }
+.hab-ico--x { display: none; width: 22px; height: 22px; margin: 0 8px; }
+html.hab-abierto .hab-lanz { padding: 0; width: 58px; justify-content: center; }
+html.hab-abierto .hab-txt, html.hab-abierto .hab-ico--wa { display: none; }
+html.hab-abierto .hab-ico--x { display: block; margin: 0; }
+.hab { position: fixed; right: 16px; bottom: 88px; z-index: 75; width: min(380px, calc(100vw - 32px)); max-height: calc(100dvh - 104px); overflow-y: auto; background: #FBF9F4; color: var(--carbon); border-radius: 24px; box-shadow: 0 30px 70px -20px rgba(0,0,0,.75); font-family: var(--sans); }
+.hab[hidden] { display: none; }
+.hab:not([hidden]) { animation: abrir .3s var(--ease); }
+.hab-cab { display: flex; align-items: center; gap: 14px; padding: 18px 22px 30px; background: var(--lima); color: var(--carbon); border-radius: 0 0 50% 50% / 0 0 26px 26px; font-weight: 700; font-size: 1.1rem; }
+.hab-logo { width: 46px; height: 46px; flex: none; display: grid; place-items: center; border-radius: 50%; background: #fff; }
+.hab-logo svg { width: 24px; height: 24px; }
+.hab-ag { position: relative; display: flex; align-items: center; gap: 14px; padding: 14px 54px 14px 18px; border-bottom: 1px solid rgba(22,21,15,.12); }
+.hab-ag img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex: none; }
+.hab-ag1 { font-size: .95rem; color: var(--suave); line-height: 1.2; }
+.hab-ag2 { font-family: var(--display); font-weight: 900; font-size: 1.15rem; line-height: 1.25; }
+.hab-ag3 { display: flex; align-items: center; gap: 6px; font-size: .9rem; color: #3F5A00; font-weight: 700; }
+.hab-punto { width: 9px; height: 9px; border-radius: 50%; background: var(--lima); flex: none; }
+.hab-x { position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 50%; background: none; color: var(--carbon); cursor: pointer; }
+.hab-x svg { width: 15px; height: 15px; }
+.hab-x:hover { background: rgba(22,21,15,.08); }
+.hab-form { display: grid; gap: 12px; padding: 18px 22px 22px; }
+.hab-tit { text-align: center; font-weight: 700; font-size: 1.05rem; color: var(--suave); }
+.hab-form input, .hab-form select, .hab-form textarea { width: 100%; min-height: 48px; padding: 12px 18px; border: 1.5px solid rgba(22,21,15,.22); border-radius: 26px; background: #fff; color: var(--carbon); font: inherit; font-size: 1.05rem; }
+.hab-form textarea { border-radius: 20px; resize: vertical; }
+.hab-form [aria-invalid="true"] { border-color: #B3261E; }
+.hab-err { color: #B3261E; font-weight: 700; font-size: .95rem; }
+.hab-send { min-height: 52px; border: 0; border-radius: 999px; background: var(--lima); color: var(--carbon); font-family: var(--display); font-weight: 800; font-size: 1rem; cursor: pointer; }
+.hab-send:hover { background: var(--carbon); color: var(--marfil); }
+.hab-form :focus-visible, .hab-x:focus-visible { outline: 3px solid var(--carbon); outline-offset: 2px; }
+.hab-nota { font-size: .82rem; line-height: 1.4; color: var(--suave); text-align: center; }
+@media (max-width: 520px) { .hab { right: 8px; width: calc(100vw - 16px); } .hab-lanz { right: 12px; bottom: 12px; } .hab { bottom: 82px; max-height: calc(100dvh - 94px); } }
+@media (prefers-reduced-motion: reduce) { .hab, .hab-lanz { animation: none !important; transition: none !important; } }
