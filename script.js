@@ -1246,3 +1246,148 @@ var ARTE_DEMO = {
 /* ========== FIN DEL ARTE DE DEMOSTRACIÓN ========== */
 
 iniciar();
+
+/* =========================================================
+   ASISTENTE DE CHAT (guiado, sin servidor)
+   Hace 4 preguntas con botones y deja armado el mensaje de WhatsApp.
+   No guarda nada ni envía datos a ningún lado: el mensaje sale recién
+   cuando la persona toca "Enviar por WhatsApp".
+   Para cambiar preguntas o respuestas, editá PASOS_CHAT.
+   ========================================================= */
+(function () {
+  "use strict";
+  if (!document.body || typeof WHATSAPP_NUMBER === "undefined" || !/^\d{8,15}$/.test(WHATSAPP_NUMBER)) { return; }
+
+  var PASOS_CHAT = [
+    { clave: "servicio", pregunta: "¡Hola! Soy el asistente de CREATREEBU. Te hago 4 preguntas rápidas y dejo armado tu mensaje para WhatsApp. ¿Qué necesitás?",
+      opciones: ["Logo o identidad visual", "Piezas para redes sociales", "Flyers o cartelería", "Pack Comercial Express", "Otra cosa"] },
+    { clave: "identidad", pregunta: "¿Tu negocio ya tiene logo y colores definidos?",
+      opciones: ["Sí, ya tengo", "No, arranco de cero", "Tengo algo, pero hay que mejorarlo"] },
+    { clave: "plazo", pregunta: "¿Para cuándo lo necesitás?",
+      opciones: ["Esta semana", "Este mes", "Sin apuro"] }
+  ];
+
+  var estado = { paso: 0, resp: {}, esperaNombre: false, hecho: false };
+
+  var lanz = document.createElement("button");
+  lanz.type = "button"; lanz.className = "chat-lanz"; lanz.id = "chat-lanz";
+  lanz.setAttribute("aria-haspopup", "dialog"); lanz.setAttribute("aria-expanded", "false");
+  lanz.setAttribute("aria-label", "Abrir el chat con el asistente de CREATREEBU");
+  lanz.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-8l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="currentColor"/></svg>';
+
+  var panel = document.createElement("section");
+  panel.className = "chat"; panel.id = "chat"; panel.hidden = true;
+  panel.setAttribute("role", "dialog"); panel.setAttribute("aria-label", "Chat con el asistente de CREATREEBU");
+  panel.innerHTML =
+    '<header class="chat-cab"><div><p class="chat-tit">Asistente de CREATREEBU</p><p class="chat-sub"><span class="chat-punto" aria-hidden="true"></span>Responde al instante</p></div>' +
+    '<button type="button" class="chat-x" id="chat-x" aria-label="Cerrar el chat"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 4 L16 16 M16 4 L4 16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></button></header>' +
+    '<div class="chat-log" id="chat-log" role="log" aria-live="polite"></div>' +
+    '<div class="chat-acc" id="chat-acc"></div>' +
+    '<p class="chat-nota">Este chat no guarda tus respuestas: solo prepara el mensaje. Si preferís, <a id="chat-directo" target="_blank" rel="noopener noreferrer">escribí directo por WhatsApp</a>.</p>';
+  document.body.appendChild(lanz);
+  document.body.appendChild(panel);
+
+  var log = panel.querySelector("#chat-log");
+  var acc = panel.querySelector("#chat-acc");
+  var directo = panel.querySelector("#chat-directo");
+  directo.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent("Hola! Vi la web de Creatreebu y quiero hacer una consulta.");
+
+  function burbuja(texto, quien) {
+    var p = document.createElement("p");
+    p.className = "chat-b chat-b--" + quien;
+    p.textContent = texto;
+    log.appendChild(p);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function botones(lista, alElegir) {
+    acc.innerHTML = "";
+    lista.forEach(function (t) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "chat-op"; b.textContent = t;
+      b.addEventListener("click", function () { alElegir(t); });
+      acc.appendChild(b);
+    });
+    var primero = acc.querySelector("button");
+    if (primero) { primero.focus({ preventScroll: true }); }
+  }
+
+  function preguntar() {
+    var p = PASOS_CHAT[estado.paso];
+    if (!p) { pedirNombre(); return; }
+    burbuja(p.pregunta, "bot");
+    botones(p.opciones, function (t) {
+      estado.resp[p.clave] = t;
+      burbuja(t, "yo");
+      estado.paso++;
+      acc.innerHTML = "";
+      setTimeout(preguntar, 350);
+    });
+  }
+
+  function pedirNombre() {
+    burbuja("Última: ¿cómo se llama tu negocio o proyecto? (podés omitirlo)", "bot");
+    acc.innerHTML = "";
+    var f = document.createElement("form");
+    f.className = "chat-form";
+    f.innerHTML = '<label class="sr-only" for="chat-nombre">Nombre de tu negocio</label><input id="chat-nombre" type="text" maxlength="60" autocomplete="off" placeholder="Nombre del negocio"><button type="submit" class="chat-op chat-op--ok">Listo</button><button type="button" class="chat-op" id="chat-omitir">Omitir</button>';
+    acc.appendChild(f);
+    var inp = f.querySelector("input");
+    inp.focus({ preventScroll: true });
+    function cerrar(n) {
+      estado.resp.nombre = n;
+      if (n) { burbuja(n, "yo"); }
+      resumen();
+    }
+    f.addEventListener("submit", function (e) { e.preventDefault(); cerrar(inp.value.trim()); });
+    f.querySelector("#chat-omitir").addEventListener("click", function () { cerrar(""); });
+  }
+
+  function armarMensaje() {
+    var r = estado.resp;
+    var t = "Hola! Vi la web de Creatreebu. Quiero consultar por: " + r.servicio + ".";
+    if (r.nombre) { t += " Mi negocio es: " + r.nombre + "."; }
+    t += " Identidad visual: " + r.identidad + ". Lo necesito: " + r.plazo.toLowerCase() + ".";
+    return t;
+  }
+
+  function resumen() {
+    estado.hecho = true;
+    var extra = estado.resp.servicio === "Pack Comercial Express" ? " El Pack incluye 5 piezas para redes con tu identidad aplicada y 2 rondas de ajustes; el presupuesto se confirma por escrito antes de empezar." : "";
+    burbuja("¡Gracias! Ya armé tu consulta:" + extra, "bot");
+    burbuja(armarMensaje(), "resumen");
+    acc.innerHTML = "";
+    var a = document.createElement("a");
+    a.className = "chat-op chat-op--ok chat-wa"; a.textContent = "Enviar por WhatsApp";
+    a.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(armarMensaje());
+    a.target = "_blank"; a.rel = "noopener noreferrer";
+    var r = document.createElement("button");
+    r.type = "button"; r.className = "chat-op"; r.textContent = "Empezar de nuevo";
+    r.addEventListener("click", reiniciar);
+    acc.appendChild(a); acc.appendChild(r);
+    a.focus({ preventScroll: true });
+  }
+
+  function reiniciar() {
+    estado = { paso: 0, resp: {}, esperaNombre: false, hecho: false };
+    log.innerHTML = ""; acc.innerHTML = "";
+    preguntar();
+  }
+
+  function abrir() {
+    panel.hidden = false;
+    document.documentElement.classList.add("chat-abierto");
+    lanz.setAttribute("aria-expanded", "true");
+    if (!log.children.length) { preguntar(); }
+    else { var b = acc.querySelector("button, a, input"); if (b) { b.focus({ preventScroll: true }); } }
+  }
+  function cerrar() {
+    panel.hidden = true;
+    document.documentElement.classList.remove("chat-abierto");
+    lanz.setAttribute("aria-expanded", "false");
+    lanz.focus();
+  }
+  lanz.addEventListener("click", function () { if (panel.hidden) { abrir(); } else { cerrar(); } });
+  panel.querySelector("#chat-x").addEventListener("click", cerrar);
+  panel.addEventListener("keydown", function (e) { if (e.key === "Escape") { cerrar(); } });
+})();
