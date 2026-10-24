@@ -1259,7 +1259,8 @@ iniciar();
   var lanz = document.createElement("button");
   lanz.type = "button"; lanz.className = "hab-lanz"; lanz.id = "hab-lanz";
   lanz.setAttribute("aria-haspopup", "dialog"); lanz.setAttribute("aria-expanded", "false"); lanz.setAttribute("aria-controls", "hab");
-  lanz.innerHTML = '<span class="hab-txt">¿Hablamos?</span>' +
+  lanz.setAttribute("aria-label", "Hablemos por WhatsApp");
+  lanz.innerHTML =
     '<svg class="hab-ico hab-ico--wa" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16.04 3C9.4 3 4 8.4 4 15.04c0 2.12.56 4.19 1.6 6.01L4 29l8.1-1.56a12 12 0 0 0 3.94.66h.01C22.7 28.1 28 22.7 28 16.06 28 12.84 26.74 9.8 24.46 7.54A11.9 11.9 0 0 0 16.04 3zm0 21.98h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.74.72.77-3.64-.24-.37a9.9 9.9 0 0 1-1.52-5.26c0-5.5 4.47-9.97 9.98-9.97 2.66 0 5.17 1.04 7.05 2.92a9.9 9.9 0 0 1 2.92 7.06c0 5.5-4.47 9.97-9.97 9.97zm5.47-7.46c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.64-.93-2.25-.24-.58-.49-.5-.68-.51h-.58c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.14 4.54.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/></svg>' +
     '<svg class="hab-ico hab-ico--x" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 4 L16 16 M16 4 L4 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>';
 
@@ -1292,7 +1293,7 @@ iniciar();
   }
   function cerrar(devolverFoco) {
     panel.hidden = true; lanz.setAttribute("aria-expanded", "false");
-    lanz.removeAttribute("aria-label");
+    lanz.setAttribute("aria-label", "Hablemos por WhatsApp");
     document.documentElement.classList.remove("hab-abierto");
     if (devolverFoco !== false) { lanz.focus(); }
   }

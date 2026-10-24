@@ -748,15 +748,18 @@ button { font: inherit; color: inherit; }
 h1, h2, h3, h4, .titan, .btn, .eyebrow, .filtro, .nav-capsula, .nav-btn, .mega-grupo, .mas-nombre, .mas-tipo, .visor-nombre, .visor-tipo, summary, .tag, .etiqueta, th, label, button { font-family: var(--display); }
 
 /* ---------- Contacto flotante ¿Hablamos? ---------- */
-.hab-lanz { position: fixed; right: 16px; bottom: 16px; z-index: 70; display: inline-flex; align-items: center; gap: 10px; min-height: 58px; padding: 0 12px 0 24px; border: 0; border-radius: 999px; background: var(--lima); color: var(--carbon); font-family: var(--display); font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 0 14px 30px -12px rgba(0,0,0,.6); transition: transform .25s var(--ease), background-color .2s; }
-.hab-lanz:hover { transform: translateY(-3px); background: var(--marfil); }
-.hab-lanz:focus-visible { outline: 3px solid var(--marfil); outline-offset: 3px; }
-.hab-ico { width: 38px; height: 38px; flex: none; }
-.hab-ico--x { display: none; width: 22px; height: 22px; margin: 0 8px; }
-html.hab-abierto .hab-lanz { padding: 0; width: 58px; justify-content: center; }
-html.hab-abierto .hab-txt, html.hab-abierto .hab-ico--wa { display: none; }
-html.hab-abierto .hab-ico--x { display: block; margin: 0; }
-.hab { position: fixed; right: 16px; bottom: 88px; z-index: 75; width: min(380px, calc(100vw - 32px)); max-height: calc(100dvh - 104px); overflow-y: auto; background: #FBF9F4; color: var(--carbon); border-radius: 24px; box-shadow: 0 30px 70px -20px rgba(0,0,0,.75); font-family: var(--sans); }
+.hab-lanz { --wa: #25D366; position: fixed; right: 18px; bottom: 18px; z-index: 70; width: 58px; height: 58px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: var(--wa); color: #fff; cursor: pointer; box-shadow: 0 8px 20px -6px rgba(0,0,0,.55); transition: transform .25s var(--ease), background-color .2s; }
+.hab-lanz::before, .hab-lanz::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--wa); opacity: 0; pointer-events: none; animation: habOnda 2.4s ease-out infinite; }
+.hab-lanz::after { animation-delay: 1.2s; }
+@keyframes habOnda { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.75); opacity: 0; } }
+.hab-lanz:hover { transform: scale(1.08); }
+.hab-lanz:focus-visible { outline: 3px solid var(--marfil); outline-offset: 4px; }
+.hab-ico { width: 32px; height: 32px; }
+.hab-ico--x { display: none; width: 20px; height: 20px; }
+html.hab-abierto .hab-ico--wa { display: none; }
+html.hab-abierto .hab-ico--x { display: block; }
+html.hab-abierto .hab-lanz::before, html.hab-abierto .hab-lanz::after { animation: none; }
+.hab { position: fixed; right: 16px; bottom: 90px; z-index: 75; width: min(380px, calc(100vw - 32px)); max-height: calc(100dvh - 104px); overflow-y: auto; background: #FBF9F4; color: var(--carbon); border-radius: 24px; box-shadow: 0 30px 70px -20px rgba(0,0,0,.75); font-family: var(--sans); }
 .hab[hidden] { display: none; }
 .hab:not([hidden]) { animation: abrir .3s var(--ease); }
 .hab-cab { display: flex; align-items: center; gap: 14px; padding: 18px 22px 30px; background: var(--lima); color: var(--carbon); border-radius: 0 0 50% 50% / 0 0 26px 26px; font-weight: 700; font-size: 1.1rem; }
@@ -777,9 +780,9 @@ html.hab-abierto .hab-ico--x { display: block; margin: 0; }
 .hab-form textarea { border-radius: 20px; resize: vertical; }
 .hab-form [aria-invalid="true"] { border-color: #B3261E; }
 .hab-err { color: #B3261E; font-weight: 700; font-size: .95rem; }
-.hab-send { min-height: 52px; border: 0; border-radius: 999px; background: var(--lima); color: var(--carbon); font-family: var(--display); font-weight: 800; font-size: 1rem; cursor: pointer; }
-.hab-send:hover { background: var(--carbon); color: var(--marfil); }
+.hab-send { min-height: 52px; border: 0; border-radius: 999px; background: #25D366; color: var(--carbon); font-family: var(--display); font-weight: 800; font-size: 1rem; cursor: pointer; }
+.hab-send:hover { background: var(--carbon); color: #fff; }
 .hab-form :focus-visible, .hab-x:focus-visible { outline: 3px solid var(--carbon); outline-offset: 2px; }
 .hab-nota { font-size: .82rem; line-height: 1.4; color: var(--suave); text-align: center; }
-@media (max-width: 520px) { .hab { right: 8px; width: calc(100vw - 16px); } .hab-lanz { right: 12px; bottom: 12px; } .hab { bottom: 82px; max-height: calc(100dvh - 94px); } }
-@media (prefers-reduced-motion: reduce) { .hab, .hab-lanz { animation: none !important; transition: none !important; } }
+@media (max-width: 520px) { .hab { right: 8px; width: calc(100vw - 16px); } .hab-lanz { right: 14px; bottom: 14px; } .hab { bottom: 82px; max-height: calc(100dvh - 94px); } }
+@media (prefers-reduced-motion: reduce) { .hab, .hab-lanz, .hab-lanz::before, .hab-lanz::after { animation: none !important; transition: none !important; } }
