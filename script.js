@@ -89,6 +89,24 @@ const PROYECTOS = [
     servicios: ["Rediseño de logotipo", "Isotipo", "Aplicaciones en packaging y merchandising", "Plan de marketing", "Community management"]
   },
   {
+    id: "matex-pinturerias",
+    nombre: "Spots, animaciones y contenido para Matex Pinturerías",
+    marca: "Matex Pinturerías",
+    categoria: "Audiovisual y contenido",
+    descripcion: "Creación de spots y animaciones para la pinturería, junto con piezas para redes sociales: lanzamientos de productos, propuestas de color y avisos del local.",
+    estado: "real",
+    portada: false,
+    paleta: ["#00799F", "#16150F"],
+    imagen: { src: "imagenes/matex-2.jpg", arte: "", alt: "Pieza cuadrada de Matex Pinturería con el título Armonía en tus espacios, asesoramiento especializado y el logo circular azul, sobre la foto de un living claro." },
+    imagenes: [
+      { src: "imagenes/matex-spot-1.jpg", video: "imagenes/matex-spot-1.mp4", arte: "", alt: "Video cuadrado de Matex: un tarro de látex acrílico antihongo para exteriores, una brocha ilustrada y una mano con una carta de colores." },
+      { src: "imagenes/matex-spot-2.jpg", video: "imagenes/matex-spot-2.mp4", arte: "", alt: "Video horizontal de Matex: una obra en construcción con el mensaje Dale vida a tu proyecto con los mejores colores y el logo de Matex." },
+      { src: "imagenes/matex-1.jpg", arte: "", alt: "Pieza de Matex que presenta la línea de recubrimiento acrílico texturado de Casablanca, con una casa moderna de fondo, el tarro Casadeco y los logos de Casablanca y Matex." },
+      { src: "imagenes/matex-3.jpg", arte: "", alt: "Pieza para redes de Matex con una casa moderna y un living, el texto Es hora de renovar los colores de tu casa y el logo circular de Matex." }
+    ],
+    servicios: ["Spots y animación", "Contenido audiovisual", "Contenido para redes sociales", "Piezas promocionales"]
+  },
+  {
     id: "heladeria-cherry",
     nombre: "Contenido digital y pantallas para Heladería Cherry",
     marca: "Heladería Cherry",
@@ -643,6 +661,12 @@ function iniciar() {
 
   function medio(item, decorativo) {
     if (!item) { return ""; }
+    if (item.video && !decorativo) {
+      return '<video controls playsinline preload="metadata" poster="' + esc(item.src) + '" aria-label="' + esc(item.alt) + '"><source src="' + esc(item.video) + '" type="video/mp4"></video>';
+    }
+    if (item.video && decorativo) {
+      return '<img src="' + esc(item.src) + '" alt="" loading="lazy" decoding="async"><span class="mini-play" aria-hidden="true"></span>';
+    }
     if (item.src) {
       return '<img src="' + esc(item.src) + '" alt="' + (decorativo ? "" : esc(item.alt)) + '" loading="lazy" decoding="async">';
     }
@@ -758,7 +782,7 @@ function iniciar() {
     refs.prev.hidden = refs.next.hidden = PROYECTOS.length < 2;
     refs.minis.hidden = medios.length < 2;
     refs.minis.innerHTML = medios.map(function (m, idx) {
-      return '<button class="mini" type="button" data-m="' + idx + '" aria-pressed="false" aria-label="' + esc("Ver imagen " + (idx + 1) + " de " + medios.length + ": " + m.alt) + '">' + medio(m, true) + "</button>";
+      return '<button class="mini" type="button" data-m="' + idx + '" aria-pressed="false" aria-label="' + esc((m.video ? "Ver video " : "Ver imagen ") + (idx + 1) + " de " + medios.length + ": " + m.alt) + '">' + medio(m, true) + "</button>";
     }).join("");
     var textoWa = WHATSAPP_MESSAGES.proyecto.replace("{proyecto}", p.marca);
     refs.wa.setAttribute("href", "#contacto");
@@ -807,7 +831,7 @@ function iniciar() {
       if (e.key === "ArrowLeft") { moverModal(-1); }
       if (e.key === "ArrowRight") { moverModal(1); }
     });
-    modal.addEventListener("close", function () { raiz.classList.remove("modal-abierto"); });
+    modal.addEventListener("close", function () { raiz.classList.remove("modal-abierto"); $$("video", modal).forEach(function (v) { v.pause(); }); });
   }
 
   /* ----- Más de nuestros trabajos: muro de imágenes con filtros, "Ver más" y visor ----- */

@@ -786,3 +786,9 @@ html.hab-abierto .hab-lanz::before, html.hab-abierto .hab-lanz::after { animatio
 .hab-nota { font-size: .82rem; line-height: 1.4; color: var(--suave); text-align: center; }
 @media (max-width: 520px) { .hab { right: 8px; width: calc(100vw - 16px); } .hab-lanz { right: 14px; bottom: 14px; } .hab { bottom: 82px; max-height: calc(100dvh - 94px); } }
 @media (prefers-reduced-motion: reduce) { .hab, .hab-lanz, .hab-lanz::before, .hab-lanz::after { animation: none !important; transition: none !important; } }
+
+/* Videos dentro de la vista detallada */
+.modal-escena video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #16150F; }
+.mini { position: relative; }
+.mini-play { position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; transform: translate(-50%, -50%); border-radius: 50%; background: rgba(22,21,15,.78); pointer-events: none; }
+.mini-play::after { content: ""; position: absolute; left: 10px; top: 7px; border-left: 9px solid #fff; border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
