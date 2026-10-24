@@ -738,3 +738,7 @@ button { font: inherit; color: inherit; }
 .visor .modal-pos { color: var(--suave-osc); }
 .filtros[hidden] { display: none; }
 .mas-img--cubrir img { object-fit: cover; padding: 0; }
+
+/* Logo real de CREATREEBU */
+.marca-logo { height: 30px; width: auto; display: block; }
+.pie-logo { width: min(440px, 80%); height: auto; }

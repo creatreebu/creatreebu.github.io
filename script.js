@@ -70,6 +70,25 @@ const WHATSAPP_MESSAGES = {
 
 const PROYECTOS = [
   {
+    id: "costero",
+    nombre: "Propuesta de rediseño de marca y plan de marketing para Costero",
+    marca: "Costero",
+    categoria: "Identidad y packaging",
+    descripcion: "Propuesta de nuevo logotipo e isotipo para una marca de panificados, con aplicaciones en packaging y merchandising, más un plan de comunicación y marketing para redes sociales.",
+    estado: "propuesta",
+    portada: true,
+    paleta: ["#D9622B", "#16150F"],
+    imagen: { src: "imagenes/costero-1.jpg", arte: "", alt: "Cuatro aplicaciones del nuevo isotipo de Costero: remera negra, gorra blanca, frente de un edificio y taza naranja, con una C naranja con tres semillas verdes." },
+    imagenes: [
+      { src: "imagenes/costero-2.jpg", arte: "", alt: "Cartelera en la vía pública con el nuevo isotipo de Costero, una C naranja con tres semillas, sobre una playa con la palabra Costero escrita en la arena." },
+      { src: "imagenes/costero-3.jpg", arte: "", alt: "Bolsa de pan transparente con el nuevo logotipo de Costero en naranja, sobre fondo gris claro." },
+      { src: "imagenes/costero-4.jpg", arte: "", alt: "Revista abierta con una página que muestra el nuevo isotipo y logotipo de Costero, y otra con un aviso de una hamburguesa y el pan ideal de Costero." },
+      { src: "imagenes/costero-5.jpg", arte: "", alt: "Página de La propuesta: el nuevo logotipo de Costero, una hamburguesa en blanco y negro, una taza naranja con el isotipo y el texto sobre la elección de las tres semillas." },
+      { src: "imagenes/costero-6.jpg", arte: "", alt: "Cierre de la propuesta con el isotipo y el logotipo de Costero en naranja sobre un fondo de madera oscura y el logo de Creatreebu." }
+    ],
+    servicios: ["Rediseño de logotipo", "Isotipo", "Aplicaciones en packaging y merchandising", "Plan de marketing", "Community management"]
+  },
+  {
     id: "heladeria-cherry",
     nombre: "Contenido digital y pantallas para Heladería Cherry",
     marca: "Heladería Cherry",
@@ -644,7 +663,7 @@ function iniciar() {
       return '<button class="pieza" type="button" data-i="' + x.i + '" aria-haspopup="dialog" style="--i:' + n + '" aria-label="' + esc("Ver proyecto " + x.p.marca) + '">' +
         '<span class="pieza-arte">' + medio(x.p.imagen, true) + "</span>" +
         '<span class="pieza-pie"><span class="pieza-marca">' + esc(x.p.marca) + "</span>" +
-        (x.p.estado === "conceptual" ? '<span class="pieza-tag">Proyecto conceptual</span>' : "") + "</span></button>";
+        (x.p.estado === "conceptual" ? '<span class="pieza-tag">Proyecto conceptual</span>' : x.p.estado === "propuesta" ? '<span class="pieza-tag">Propuesta de proyecto</span>' : "") + "</span></button>";
     }).join(""));
   }
 
@@ -665,7 +684,7 @@ function iniciar() {
       '<span class="tile-arte">' + medio(p.imagen, true) + "</span>" +
       '<span class="tile-pie"><span class="tile-marca">' + esc(p.marca) + "</span>" +
       '<span class="tile-cat">' + esc(p.categoria) + "</span>" +
-      (p.estado === "conceptual" ? '<span class="tile-tag">Proyecto conceptual</span>' : "") +
+      (p.estado === "conceptual" ? '<span class="tile-tag">Proyecto conceptual</span>' : p.estado === "propuesta" ? '<span class="tile-tag">Propuesta de proyecto</span>' : "") +
       (p.descripcion ? '<span class="tile-desc">' + esc(p.descripcion) + "</span>" : "") +
       "</span></button>";
   }
@@ -727,7 +746,7 @@ function iniciar() {
     var p = PROYECTOS[estado.i];
     var medios = listaMedios(p);
     var conceptual = p.estado === "conceptual";
-    refs.estado.textContent = conceptual ? "Proyecto conceptual" : "Proyecto real";
+    refs.estado.textContent = conceptual ? "Proyecto conceptual" : p.estado === "propuesta" ? "Propuesta de proyecto" : "Proyecto real";
     refs.marca.textContent = p.marca;
     refs.titulo.textContent = p.nombre;
     refs.desc.textContent = p.descripcion;
