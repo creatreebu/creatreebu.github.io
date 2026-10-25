@@ -123,6 +123,23 @@ const PROYECTOS = [
     servicios: ["Diseño general de la marquesina", "Estructura del cartel", "Colocación"]
   },
   {
+    id: "carteleria-mistral-heidi",
+    nombre: "Cartelería de Mistral (San Francisco Solano) y Galería Heidi",
+    marca: "Mistral · Galería Heidi",
+    categoria: "Cartelería y marquesinas",
+    descripcion: "Diseño completo de la cartelería de la sucursal de Mistral en San Francisco Solano, Quilmes, siguiendo el manual de marca de la franquicia, y diseño con total libertad creativa de la cartelería de Galería Heidi. En ambos casos, también la instalación.",
+    estado: "real",
+    portada: false,
+    paleta: ["#0B2A6B", "#E6168F"],
+    imagen: { src: "imagenes/mistral-portada.jpg", arte: "", alt: "Frente del local en San Francisco Solano con los carteles de Mistral y de Galería Heidi ya instalados, junto al cartel de Seven Electronics." },
+    imagenes: [
+      { src: "imagenes/mistral-frente.jpg", arte: "", alt: "Vista frontal de los carteles instalados: Mistral a la izquierda y Galería Heidi al centro." },
+      { src: "imagenes/mistral-diseno.jpg", arte: "", alt: "Diseño del cartel de Mistral en Illustrator: el logo azul con punto rojo sobre un fondo de ciudad nocturna y haces de luz." },
+      { src: "imagenes/heidi-diseno.jpg", arte: "", alt: "Diseño del cartel de Galería Heidi en Illustrator: letras cromadas sobre un paisaje retro de montañas, sol y grilla en rosa y azul." }
+    ],
+    servicios: ["Diseño de cartelería según manual de marca (Mistral)", "Diseño creativo libre (Galería Heidi)", "Instalación de ambos carteles"]
+  },
+  {
     id: "heladeria-cherry",
     nombre: "Contenido digital y pantallas para Heladería Cherry",
     marca: "Heladería Cherry",
