@@ -107,6 +107,22 @@ const PROYECTOS = [
     servicios: ["Spots y animación", "Contenido audiovisual", "Contenido para redes sociales", "Piezas promocionales"]
   },
   {
+    id: "marquesina-castro",
+    nombre: "Marquesina para el gimnasio de Roña Castro",
+    marca: "Gimnasio Roña Castro",
+    categoria: "Cartelería y marquesinas",
+    descripcion: "Diseño general de la marquesina del gimnasio de boxeo, estructura del cartel y colocación. Un trabajo completo, desde la idea gráfica hasta la instalación.",
+    estado: "real",
+    portada: false,
+    paleta: ["#1E4D34", "#16150F"],
+    imagen: { src: "imagenes/castro-portada.jpg", arte: "", alt: "Lámina del trabajo: Cliente Roña Castro, marquesina para gimnasio de boxeo, con el detalle de lo realizado y el diseño final de la marquesina." },
+    imagenes: [
+      { src: "imagenes/castro-marquesina.jpg", arte: "", alt: "Diseño final de la marquesina: Gimnasio mixto para grandes y chicos, boxeo recreativo con Locomotora Roña Castro, con retrato y guantes azules sobre fondo verde y azul." },
+      { src: "imagenes/castro-flyer.jpg", arte: "", alt: "Pieza vertical del gimnasio con la imagen del boxeador con los puños en alto y las palabras Boxeo Gimnasio en letras plateadas." }
+    ],
+    servicios: ["Diseño general de la marquesina", "Estructura del cartel", "Colocación"]
+  },
+  {
     id: "heladeria-cherry",
     nombre: "Contenido digital y pantallas para Heladería Cherry",
     marca: "Heladería Cherry",
