@@ -792,3 +792,11 @@ html.hab-abierto .hab-lanz::before, html.hab-abierto .hab-lanz::after { animatio
 .mini { position: relative; }
 .mini-play { position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; transform: translate(-50%, -50%); border-radius: 50%; background: rgba(22,21,15,.78); pointer-events: none; }
 .mini-play::after { content: ""; position: absolute; left: 10px; top: 7px; border-left: 9px solid #fff; border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
+
+/* ---------- Sitios web: capturas dentro de un marco de navegador ---------- */
+.sitios .fantasma { right: -2vw; top: 1vw; }
+.grilla--web { grid-template-columns: 1fr; }
+@media (min-width: 760px) { .grilla--web { grid-template-columns: repeat(2, 1fr); } }
+.grilla--web .tile-arte { aspect-ratio: 1.9 / 1; border-radius: 14px; border: 1px solid var(--carbon); background: var(--carbon); }
+.grilla--web .tile-arte::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 26px; z-index: 2; background-color: #1D1C15; background-image: radial-gradient(circle at 14px 13px, #E0645A 4px, transparent 4.5px), radial-gradient(circle at 30px 13px, #E5B94A 4px, transparent 4.5px), radial-gradient(circle at 46px 13px, #6DBB6D 4px, transparent 4.5px); background-repeat: no-repeat; }
+.grilla--web .tile-arte img { top: 26px; height: calc(100% - 26px); object-position: top center; }

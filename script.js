@@ -241,6 +241,67 @@ const PROYECTOS = [
     ],
     servicios: ["Piezas promocionales", "Flyers y cartelería", "Anuncios"]
   }
+  /* ---- Sitios web (sección propia "Sitios web"; grupo "web") ---- */
+  ,{
+    id: "web-damiselas",
+    grupo: "web",
+    nombre: "Sitio web para Damiselas, centro integral de estética y belleza",
+    marca: "Damiselas",
+    categoria: "Sitios web",
+    descripcion: "Diseño integral del sitio de un centro de estética y belleza: logotipo, paleta de colores, selección de imágenes y desarrollo web, con menú de Nosotros, Servicios, Ubicación y Contacto.",
+    estado: "real",
+    portada: false,
+    paleta: ["#C8527A", "#16150F"],
+    imagen: { src: "imagenes/web-damiselas-inicio.jpg", arte: "", alt: "Página de inicio del sitio de Damiselas: un rostro de mujer con flores rosadas a la izquierda, el logotipo con forma de pétalos y los botones Nosotros, Servicios, Ubicación y Contacto." },
+    imagenes: [
+      { src: "imagenes/web-damiselas-nosotros.jpg", arte: "", alt: "Página Nosotros del sitio de Damiselas: pestañas verticales con el texto Centro Integral y Estética y Belleza, menú superior, un banner con velas y toallas y una barra de búsqueda rosa." }
+    ],
+    servicios: ["Logotipo", "Paleta de colores", "Selección de imágenes", "Diseño y desarrollo del sitio web"]
+  }
+  ,{
+    id: "web-nap-estudio",
+    grupo: "web",
+    nombre: "Sitio web para NAP Estudio",
+    marca: "NAP Estudio",
+    categoria: "Sitios web",
+    descripcion: "Diseño integral del sitio de un estudio de asesoramiento para producciones cinematográficas y audiovisuales, con una ambientación de cine clásico: logotipo, colores, imágenes y desarrollo web.",
+    estado: "real",
+    portada: false,
+    paleta: ["#8E1B1B", "#16150F"],
+    imagen: { src: "imagenes/web-nap-inicio.jpg", arte: "", alt: "Página de inicio del sitio de NAP Estudio: un televisor antiguo con una escena en blanco y negro, un auto celeste, un balde de pochoclos y el logo con claqueta, sobre un fondo de madera roja." },
+    imagenes: [
+      { src: "imagenes/web-nap-servicios.jpg", arte: "", alt: "Página de servicios del sitio de NAP Estudio: un pizarrón con el detalle del asesoramiento, un teatro con butacas rojas, una cámara antigua y una niña con megáfono." }
+    ],
+    servicios: ["Logotipo", "Paleta de colores", "Selección de imágenes", "Diseño y desarrollo del sitio web"]
+  }
+  ,{
+    id: "web-morbelli",
+    grupo: "web",
+    nombre: "Sitio web para Morbelli & Morbelli Abogados",
+    marca: "Morbelli & Morbelli",
+    categoria: "Sitios web",
+    descripcion: "Diseño integral del sitio institucional de un estudio jurídico, con menú por áreas: familia, laboral, civil, penal, accidentes y empresas. Incluye logotipo, colores, imágenes y desarrollo web.",
+    estado: "real",
+    portada: false,
+    paleta: ["#B30D16", "#16150F"],
+    imagen: { src: "imagenes/web-morbelli.jpg", arte: "", alt: "Sitio de Morbelli & Morbelli Abogados: cabecera dorada con el logotipo metalizado, menú por áreas, un banner con esposas, libros y un martillo de juez sobre un fondo rojo." },
+    imagenes: [],
+    servicios: ["Logotipo", "Paleta de colores", "Selección de imágenes", "Diseño y desarrollo del sitio web"]
+  }
+  ,{
+    id: "web-3b-carteles",
+    grupo: "web",
+    nombre: "Sitio web para 3B Carteles Publicitarios",
+    marca: "3B Carteles Publicitarios",
+    categoria: "Sitios web",
+    descripcion: "Diseño integral del sitio de una empresa de carteles publicitarios: logotipo, colores, imágenes y un catálogo de productos con carteles de dos caras, sextuples y chupetes circulares.",
+    estado: "real",
+    portada: false,
+    paleta: ["#E5101B", "#16150F"],
+    imagen: { src: "imagenes/web-3b-carteles.jpg", arte: "", alt: "Sitio de 3B Carteles Publicitarios: logotipo rojo con la sigla 3B sobre un fondo de puntos, un texto de presentación y tres carteles publicitarios de ejemplo." },
+    imagenes: [],
+    servicios: ["Logotipo", "Paleta de colores", "Selección de imágenes", "Diseño y desarrollo del sitio web"]
+  }
 ];
 
 
@@ -699,7 +760,7 @@ function iniciar() {
 
   function categoriasUnicas() {
     var vistas = [];
-    PROYECTOS.forEach(function (p) { if (vistas.indexOf(p.categoria) === -1) { vistas.push(p.categoria); } });
+    PROYECTOS.forEach(function (p) { if (p.grupo !== "web" && vistas.indexOf(p.categoria) === -1) { vistas.push(p.categoria); } });
     return vistas;
   }
 
@@ -716,7 +777,7 @@ function iniciar() {
   function pintarGrilla() {
     if (!grilla) { return; }
     var lista = PROYECTOS.map(function (p, i) { return { p: p, i: i }; }).filter(function (x) {
-      return filtroActual === "Todos" || x.p.categoria === filtroActual;
+      return x.p.grupo !== "web" && (filtroActual === "Todos" || x.p.categoria === filtroActual);
     });
     grilla.innerHTML = lista.map(function (x) { return htmlTile(x.p, x.i); }).join("");
     revelar($$(".tile", grilla), 0);
@@ -743,6 +804,19 @@ function iniciar() {
     });
   }
   pintarGrilla();
+
+  /* ----- Sección "Sitios web" (usa la misma vista detallada) ----- */
+  var grillaWeb = $("#sitios-grid");
+  if (grillaWeb) {
+    grillaWeb.innerHTML = PROYECTOS.map(function (p, i) { return { p: p, i: i }; })
+      .filter(function (x) { return x.p.grupo === "web"; })
+      .map(function (x) { return htmlTile(x.p, x.i); }).join("");
+    revelar($$(".tile", grillaWeb), 0);
+    grillaWeb.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-i]");
+      if (b) { abrirModal(parseInt(b.getAttribute("data-i"), 10)); }
+    });
+  }
 
   /* ----- Vista detallada (modal accesible) ----- */
   var modal = $("#modal");
@@ -778,8 +852,9 @@ function iniciar() {
     refs.nota.hidden = !conceptual;
     refs.cat.textContent = p.categoria;
     refs.serv.textContent = (p.servicios || []).join(", ");
-    refs.pos.textContent = (estado.i + 1) + " de " + PROYECTOS.length;
-    refs.prev.hidden = refs.next.hidden = PROYECTOS.length < 2;
+    var grupo = indicesDelGrupo(estado.i);
+    refs.pos.textContent = (grupo.indexOf(estado.i) + 1) + " de " + grupo.length;
+    refs.prev.hidden = refs.next.hidden = grupo.length < 2;
     refs.minis.hidden = medios.length < 2;
     refs.minis.innerHTML = medios.map(function (m, idx) {
       return '<button class="mini" type="button" data-m="' + idx + '" aria-pressed="false" aria-label="' + esc((m.video ? "Ver video " : "Ver imagen ") + (idx + 1) + " de " + medios.length + ": " + m.alt) + '">' + medio(m, true) + "</button>";
@@ -803,8 +878,16 @@ function iniciar() {
     }
   }
 
+  function indicesDelGrupo(i) {
+    var web = PROYECTOS[i].grupo === "web";
+    var r = [];
+    PROYECTOS.forEach(function (p, k) { if ((p.grupo === "web") === web) { r.push(k); } });
+    return r;
+  }
+
   function moverModal(paso) {
-    estado.i = (estado.i + paso + PROYECTOS.length) % PROYECTOS.length;
+    var grupo = indicesDelGrupo(estado.i);
+    estado.i = grupo[(grupo.indexOf(estado.i) + paso + grupo.length) % grupo.length];
     estado.m = 0;
     pintarModal();
     modal.scrollTop = 0;
