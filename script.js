@@ -161,6 +161,24 @@ const PROYECTOS = [
     servicios: ["Restyling del logotipo", "Cartelería", "Cartel tipo caja de luz (backlight)", "Letras corpóreas", "Plotter para heladeras comerciales"]
   },
   {
+    id: "twenty-seven",
+    nombre: "Identidad completa e isologo para Twenty Seven",
+    marca: "Twenty Seven · Hamburguesería Boutique",
+    categoria: "Identidad y packaging",
+    descripcion: "Identidad completa para una hamburguesería de autor de Capital Federal: isologo, manual de identidad corporativa con colores y versiones, piezas de lanzamiento para redes y aplicaciones en packaging, menú y papelería.",
+    estado: "real",
+    portada: false,
+    paleta: ["#FF6A00", "#000000"],
+    imagen: { src: "imagenes/twenty-portada.jpg", arte: "", alt: "Pieza de lanzamiento de Twenty Seven: una hamburguesa con papas fritas, el isologo circular blanco y negro sobre un fondo naranja con forma de llama y el texto Now open." },
+    imagenes: [
+      { src: "imagenes/twenty-manual.jpg", arte: "", alt: "Portada del manual de identidad corporativa de Twenty Seven con el isologo circular sobre una hamburguesa y una franja naranja." },
+      { src: "imagenes/twenty-color.jpg", arte: "", alt: "Página de colores del manual: el isologo en versión blanca y negra, con sus valores CMYK, hexadecimal y RGB." },
+      { src: "imagenes/twenty-mockups.jpg", arte: "", alt: "Aplicaciones del isologo en packaging kraft, vaso, menú, anotador, posavasos, bolsas y pantalla de celular." },
+      { src: "imagenes/twenty-flyer.jpg", arte: "", alt: "Pieza para redes de Twenty Seven con una hamburguesa completa sobre fondo de madera oscura y el isologo." }
+    ],
+    servicios: ["Isologo", "Identidad completa", "Manual de identidad corporativa", "Piezas para redes", "Aplicaciones en packaging y papelería"]
+  },
+  {
     id: "heladeria-cherry",
     nombre: "Contenido digital y pantallas para Heladería Cherry",
     marca: "Heladería Cherry",
