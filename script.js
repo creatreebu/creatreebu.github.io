@@ -197,6 +197,22 @@ const PROYECTOS = [
     servicios: ["Restyling del logotipo", "Nueva identidad visual", "Papelería institucional", "Rotulado de vehículos", "Merchandising"]
   },
   {
+    id: "morbelli-identidad",
+    nombre: "Identidad completa y sitio web para Morbelli & Morbelli Abogados",
+    marca: "Morbelli & Morbelli · Estudio de abogados",
+    categoria: "Identidad y packaging",
+    descripcion: "Diseño del logotipo de un estudio de abogados de Don Bosco, Bernal (Quilmes), con su identidad completa y el sitio web institucional. Material recuperado de archivo: el sitio es de 2013 y ya no está en línea; las piezas de papelería son una recreación de la identidad.",
+    estado: "real",
+    portada: false,
+    paleta: ["#8C8C8C", "#121212"],
+    imagen: { src: "imagenes/morbelli-portada.jpg", arte: "", alt: "Logotipo metalizado de Morbelli & Morbelli Abogados, con un monograma de dos M, sobre fondo negro." },
+    imagenes: [
+      { src: "imagenes/morbelli-web.jpg", arte: "", alt: "Dos pantallas del sitio web del estudio: la portada con cabecera dorada y la página El Estudio con el menú de áreas de práctica." },
+      { src: "imagenes/morbelli-papeleria.jpg", arte: "", alt: "Recreación de papelería con el logotipo: hoja membretada y tarjetas, sobre fondo oscuro." }
+    ],
+    servicios: ["Diseño de logotipo", "Identidad completa", "Diseño y desarrollo del sitio web"]
+  },
+  {
     id: "heladeria-cherry",
     nombre: "Contenido digital y pantallas para Heladería Cherry",
     marca: "Heladería Cherry",
