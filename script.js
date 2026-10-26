@@ -140,6 +140,27 @@ const PROYECTOS = [
     servicios: ["Diseño de cartelería según manual de marca (Mistral)", "Diseño creativo libre (Galería Heidi)", "Instalación de ambos carteles"]
   },
   {
+    id: "la-vieja-cuadra",
+    nombre: "Restyling de marca y cartelería para La Vieja Cuadra",
+    marca: "La Vieja Cuadra · Pizzería & Restaurant",
+    categoria: "Cartelería y marquesinas",
+    descripcion: "Restyling completo de una pizzería clásica de Las Toninas que cumple 50 años: nuevo diseño del logotipo y aplicación en toda la cartelería, con cartel tipo caja de luz (backlight) iluminado, letras corpóreas y plotter para las heladeras comerciales.",
+    estado: "real",
+    portada: true,
+    paleta: ["#C9A24B", "#16150F"],
+    imagen: { src: "imagenes/cuadra-portada.jpg", arte: "", alt: "Lámina del restyling de La Vieja Cuadra: cartel de caja de luz con fondo claro y detalles dorados, pieza para redes con una pizza y el nuevo logotipo dorado y marfil sobre fondo negro." },
+    imagenes: [
+      { src: "imagenes/cuadra-caja-luz-real.jpg", arte: "", alt: "Cartel tipo caja de luz (backlight) instalado en el local: Pizzeria & Restaurant, Un clásico de Las Toninas, 50 años, con iluminación interior." },
+      { src: "imagenes/cuadra-caja-luz-diseno.jpg", arte: "", alt: "Diseño del cartel caja de luz con el nuevo logotipo La Vieja Cuadra, triángulos dorados y la leyenda 50 años." },
+      { src: "imagenes/cuadra-logo.jpg", arte: "", alt: "Nuevo logotipo La Vieja Cuadra con herradura dorada, tipografía manuscrita en marfil y la frase Un clásico de Las Toninas, sobre fondo negro." },
+      { src: "imagenes/cuadra-redes.jpg", arte: "", alt: "Pieza para redes con el logotipo, una pizza con queso fundido y el texto Pizzas, pastas, minutas y mucho más." },
+      { src: "imagenes/cuadra-foto1.jpg", arte: "", alt: "Fotografía de una pizza de jamón, cebolla y aceitunas con una llama encendida en primer plano." },
+      { src: "imagenes/cuadra-foto2.jpg", arte: "", alt: "Fotografía de una pizza recién salida del horno a leña, con las llamas de fondo." },
+      { src: "imagenes/cuadra-foto3.jpg", arte: "", alt: "Fotografía de una porción de fugazzeta rellena con queso, papas fritas y cebolla morada, junto a una llama." }
+    ],
+    servicios: ["Restyling del logotipo", "Cartelería", "Cartel tipo caja de luz (backlight)", "Letras corpóreas", "Plotter para heladeras comerciales"]
+  },
+  {
     id: "heladeria-cherry",
     nombre: "Contenido digital y pantallas para Heladería Cherry",
     marca: "Heladería Cherry",
