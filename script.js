@@ -1526,3 +1526,63 @@ iniciar();
   });
   nombre.addEventListener("input", function () { err.hidden = true; nombre.removeAttribute("aria-invalid"); });
 })();
+
+/* Intro de bienvenida: se muestra una vez por visita, con botón para saltarla */
+(function () {
+  var visto = false;
+  try { visto = sessionStorage.getItem("introVista") === "1"; } catch (e) {}
+  var reducir = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (visto || reducir) { return; }
+
+  var vertical = window.innerHeight > window.innerWidth;
+  var capa = document.createElement("div");
+  capa.className = "intro";
+  capa.setAttribute("role", "dialog");
+  capa.setAttribute("aria-label", "Presentación de CREATREEBU");
+  var video = document.createElement("video");
+  video.className = "intro-video" + (vertical ? " intro-video--vertical" : "");
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.setAttribute("playsinline", "");
+  video.preload = "auto";
+  video.poster = "imagenes/intro-poster.jpg";
+  video.src = vertical ? "imagenes/intro-vertical.mp4" : "imagenes/intro-16x9.mp4";
+  var saltar = document.createElement("button");
+  saltar.type = "button";
+  saltar.className = "intro-saltar";
+  saltar.textContent = "Saltar intro";
+  var sonido = document.createElement("button");
+  sonido.type = "button";
+  sonido.className = "intro-sonido";
+  sonido.textContent = "Activar sonido";
+  capa.appendChild(video);
+  capa.appendChild(sonido);
+  capa.appendChild(saltar);
+  document.body.appendChild(capa);
+  document.documentElement.classList.add("intro-activa");
+
+  var cerrada = false;
+  function cerrar() {
+    if (cerrada) { return; }
+    cerrada = true;
+    try { sessionStorage.setItem("introVista", "1"); } catch (e) {}
+    try { video.pause(); } catch (e) {}
+    capa.classList.add("intro--sale");
+    document.documentElement.classList.remove("intro-activa");
+    setTimeout(function () { if (capa.parentNode) { capa.parentNode.removeChild(capa); } }, 700);
+  }
+  saltar.addEventListener("click", cerrar);
+  video.addEventListener("ended", cerrar);
+  video.addEventListener("error", cerrar);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { cerrar(); } });
+  sonido.addEventListener("click", function () {
+    video.muted = !video.muted;
+    sonido.textContent = video.muted ? "Activar sonido" : "Silenciar";
+  });
+
+  var p = video.play();
+  if (p && p.catch) { p.catch(cerrar); }
+  setTimeout(function () { if (!cerrada && video.paused && video.currentTime === 0) { cerrar(); } }, 3500);
+  saltar.focus();
+})();
