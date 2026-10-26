@@ -179,6 +179,24 @@ const PROYECTOS = [
     servicios: ["Isologo", "Identidad completa", "Manual de identidad corporativa", "Piezas para redes", "Aplicaciones en packaging y papelería"]
   },
   {
+    id: "proyectar-construccion",
+    nombre: "Rediseño de logo e identidad para Proyectar Construcción",
+    marca: "Proyectar · Construcción y refacción",
+    categoria: "Identidad y packaging",
+    descripcion: "Restyling del logotipo y nueva identidad visual para una empresa de construcción y refacción de Santa Rosa, La Pampa: logotipo, papelería institucional y aplicaciones en vehículos y merchandising.",
+    estado: "real",
+    portada: false,
+    paleta: ["#4472C4", "#2B2B2B"],
+    imagen: { src: "imagenes/proyectar-portada.jpg", arte: "", alt: "Nuevo logotipo de Proyectar, Construcción y refacción: un triángulo imposible con trama azul y la palabra Proyectar en azul y marrón, sobre fondo gris oscuro." },
+    imagenes: [
+      { src: "imagenes/proyectar-papeleria.jpg", arte: "", alt: "Papelería de Proyectar sobre un escritorio: hoja membretada, sobre, carpeta, tarjetas personales y lápiz con el logotipo." },
+      { src: "imagenes/proyectar-auto.jpg", arte: "", alt: "Auto blanco rotulado con la trama azul y el logotipo de Proyectar." },
+      { src: "imagenes/proyectar-utilitario.jpg", arte: "", alt: "Utilitario verde con el logotipo de Proyectar en el lateral." },
+      { src: "imagenes/proyectar-taza.jpg", arte: "", alt: "Taza blanca con interior rojo y el logotipo de Proyectar, sobre fondo naranja." }
+    ],
+    servicios: ["Restyling del logotipo", "Nueva identidad visual", "Papelería institucional", "Rotulado de vehículos", "Merchandising"]
+  },
+  {
     id: "heladeria-cherry",
     nombre: "Contenido digital y pantallas para Heladería Cherry",
     marca: "Heladería Cherry",
