@@ -223,7 +223,7 @@ button { font: inherit; color: inherit; }
 
 .hero-texto { position: relative; z-index: 3; max-width: 860px; display: grid; gap: 28px; justify-items: start; }
 .h1 {
-  font-size: clamp(2.2rem, 6.1vw, 6.2rem); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(2rem, 4.9vw, 5rem); font-weight: 900; text-transform: uppercase;
   letter-spacing: -.04em; line-height: .94;
 }
 .h1 .l { display: block; overflow: hidden; padding: .14em 0 .08em; margin: -.14em 0 -.08em; }
