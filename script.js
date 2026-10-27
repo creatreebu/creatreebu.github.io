@@ -282,20 +282,23 @@ const PROYECTOS = [
     servicios: ["Identidad visual", "Piezas para redes", "Papelería"]
   },
   {
-    id: "pulpa",
-    nombre: "Jugos de fruta en lata",
-    marca: "Pulpa",
+    id: "cosplay-ind",
+    nombre: "Etiquetas y maquetación de ropa deportiva para Cosplay Ind.",
+    marca: "Cosplay Ind. · Banfield",
     categoria: "Identidad y packaging",
-    descripcion: "Línea de latas de jugo con personalidad pop. Cada sabor tiene su color, un sistema de frutas geométricas y una tipografía redonda y pesada.",
-    estado: "conceptual",
+    descripcion: "Diseño de etiquetas colgantes y maquetación de ropa deportiva para una tienda online de indumentaria no oficial del club Las Toninas: etiquetas con talle e indicaciones de cuidado, camiseta y buzos con el escudo.",
+    estado: "real",
     tamano: "m",
-    paleta: ["#FF3D81", "#FFD60A"],
-    imagen: { src: "", arte: "pulpa-latas", alt: "Tres latas de jugo Pulpa rosa, verde y violeta con rodajas de fruta, sobre fondo amarillo." },
+    portada: false,
+    paleta: ["#F2C230", "#16150F"],
+    imagen: { src: "imagenes/cosplay-portada.jpg", arte: "", alt: "Cuatro etiquetas colgantes en negro y amarillo: una con el delfín y el nombre Las Toninas, otra con el talle, una de cuidado de prendas y otra con el isotipo circular." },
     imagenes: [
-      { src: "", arte: "pulpa-etiqueta", alt: "Etiqueta amarilla de jugo de frutas con el nombre pulpa y rodajas de fruta, sobre fondo rosa." },
-      { src: "", arte: "pulpa-post", alt: "Publicación verde con una rodaja rosa gigante y el texto Fría, fuerte, frutal." }
+      { src: "imagenes/cosplay-etiqueta.jpg", arte: "", alt: "Etiqueta colgante negra con el delfín dorado, el nombre Las Toninas Sports Apparel, talle M, símbolos de lavado y la leyenda Waterproof." },
+      { src: "imagenes/cosplay-camiseta.jpg", arte: "", alt: "Maqueta de camiseta negra con cuello y puños amarillos, escudo a rayas y el nombre Las Toninas." },
+      { src: "imagenes/cosplay-buzo-1.jpg", arte: "", alt: "Maqueta de buzo negro con capucha y el escudo amarillo y negro de Las Toninas." },
+      { src: "imagenes/cosplay-buzo-2.jpg", arte: "", alt: "Maqueta de buzo negro con capucha, escudo de Las Toninas en el pecho y un parche en la manga." }
     ],
-    servicios: ["Packaging", "Etiquetas", "Piezas para redes"]
+    servicios: ["Diseño de etiquetas", "Maquetación de ropa deportiva", "Aplicación del escudo y la marca"]
   },
   {
     id: "lamina",
