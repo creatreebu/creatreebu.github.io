@@ -249,21 +249,23 @@ const PROYECTOS = [
     servicios: ["Isologotipo", "Identidad visual", "Diseño editorial", "Piezas promocionales"]
   },
   {
-    id: "almacen-brasa",
-    nombre: "Café de tostado lento",
-    marca: "Almacén Brasa",
+    id: "almacen-de-bicis",
+    nombre: "Logo, flyers y video para Almacén de Bicis",
+    marca: "Almacén de Bicis · Las Toninas",
     categoria: "Identidad y packaging",
-    descripcion: "Sistema de packaging para una tostadora de café: bolsa, etiqueta de lote y vaso para llevar. La brasa funciona como recurso central y el naranja sostiene toda la línea.",
-    estado: "conceptual",
+    descripcion: "Creación del logotipo de un taller y almacén de bicicletas de Las Toninas, con flyers y un video para redes sociales en el mismo estilo: amarillo, trazos naranjas y tipografía pesada.",
+    estado: "real",
     tamano: "l",
     portada: true,
-    paleta: ["#E4572E", "#1C1612"],
-    imagen: { src: "", arte: "brasa-bolsa", alt: "Bolsa de café negra con etiqueta crema que dice brasa, sobre un fondo naranja con círculos concéntricos." },
+    paleta: ["#FFD84A", "#111111"],
+    imagen: { src: "imagenes/almacen-video.jpg", arte: "", alt: "Video para redes del Almacén de Bicis: sobre fondo amarillo con trazos naranjas, los textos Ruedas, Bicis, Armado y Accesorios, con retiro y entrega a domicilio." },
     imagenes: [
-      { src: "", arte: "brasa-etiqueta", alt: "Etiqueta circular de lote 07 sobre papel madera, con rayos alrededor del número." },
-      { src: "", arte: "brasa-vaso", alt: "Vaso de café para llevar con manga naranja y el nombre brasa, sobre fondo oscuro." }
+      { src: "imagenes/almacen-video-poster.jpg", video: "imagenes/almacen-video.mp4", arte: "", alt: "Video cuadrado para redes: los servicios del almacén, bicicletas en movimiento, el mensaje Reparamos tu bici y el cierre con el logotipo y la dirección." },
+      { src: "imagenes/almacen-flyer.jpg", arte: "", alt: "Flyer vertical con la foto de una bicicleta, el texto Reparamos tu bici, los servicios de reparación, armado y accesorios, y el logotipo en una franja negra." },
+      { src: "imagenes/almacen-historia.jpg", arte: "", alt: "Pieza vertical para historias en negro y amarillo: ¡El mundo de las bicicletas en un solo lugar!, con una foto de bicicleta, el logotipo y la dirección." },
+      { src: "imagenes/almacen-logo.jpg", arte: "", alt: "Logotipo del Almacén de Bicis: un sello circular con la leyenda Taller mecánico especializado y una bicicleta, con el nombre en una cinta." }
     ],
-    servicios: ["Identidad visual", "Packaging", "Etiquetas"]
+    servicios: ["Creación de logotipo", "Flyers", "Video para redes sociales"]
   },
   {
     id: "marea-alta",
