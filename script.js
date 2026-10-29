@@ -445,6 +445,57 @@ const TRABAJOS = [
 ];
 
 /* =========================================================
+   2 ter. IDIOMAS
+   ---------------------------------------------------------
+   La página en español no define nada de esto y funciona igual que siempre.
+   Las páginas /en/ y /ar/ cargan antes un archivo (i18n/en.js, i18n/ar.js)
+   que define window.CREATREEBU_I18N con los textos traducidos:
+     base       prefijo de rutas ("../") porque esas páginas viven en una subcarpeta
+     ui         textos de la interfaz (botones, filtros, formulario, intro)
+     wa         mensajes de WhatsApp
+     proyectos  textos de cada proyecto, por id
+     trabajos   textos de "Más trabajos", por ruta de imagen original
+   ========================================================= */
+
+var I18N = window.CREATREEBU_I18N || null;
+
+/* Devuelve el texto traducido de la interfaz o, si no hay, el original en español.
+   Si el valor es una función, se la llama con los argumentos que siguen. */
+function tx(clave, defecto) {
+  var v = (I18N && I18N.ui && I18N.ui[clave] != null) ? I18N.ui[clave] : defecto;
+  if (typeof v === "function") { return v.apply(null, Array.prototype.slice.call(arguments, 2)); }
+  return v;
+}
+
+/* Ajusta una ruta de archivo cuando la página está en una subcarpeta (/en/, /ar/) */
+function rutaIdioma(r) {
+  var base = I18N && I18N.base;
+  if (!r || !base || /^([a-z]+:)?\/\//i.test(r) || r.indexOf(base) === 0) { return r; }
+  return base + r;
+}
+
+(function aplicarIdioma() {
+  if (!I18N) { return; }
+  var k;
+  for (k in (I18N.wa || {})) { if (Object.prototype.hasOwnProperty.call(I18N.wa, k)) { WHATSAPP_MESSAGES[k] = I18N.wa[k]; } }
+  PROYECTOS.forEach(function (p) {
+    var d = (I18N.proyectos || {})[p.id];
+    var medios = [p.imagen].concat(Array.isArray(p.imagenes) ? p.imagenes : []).filter(Boolean);
+    if (d) {
+      ["nombre", "marca", "categoria", "descripcion"].forEach(function (c) { if (d[c]) { p[c] = d[c]; } });
+      if (d.servicios) { p.servicios = d.servicios.slice(); }
+      medios.forEach(function (m, i) { if (d.alts && d.alts[i]) { m.alt = d.alts[i]; } });
+    }
+    medios.forEach(function (m) { m.src = rutaIdioma(m.src); if (m.video) { m.video = rutaIdioma(m.video); } });
+  });
+  TRABAJOS.forEach(function (t) {
+    var d = (I18N.trabajos || {})[t.src];
+    if (d) { ["nombre", "tipo", "alt"].forEach(function (c) { if (d[c]) { t[c] = d[c]; } }); }
+    t.src = rutaIdioma(t.src);
+  });
+})();
+
+/* =========================================================
    3. LÓGICA
    ========================================================= */
 
@@ -490,7 +541,7 @@ function iniciar() {
     if (avisoWa && typeof avisoWa.showModal === "function") {
       if (!avisoWa.open) { avisoWa.showModal(); }
     } else {
-      window.alert("El contacto por WhatsApp todavía no está disponible.");
+      window.alert(tx("avisoWa", "El contacto por WhatsApp todavía no está disponible."));
     }
   }
   var avisoCerrar = $("#wa-aviso-cerrar");
@@ -551,7 +602,7 @@ function iniciar() {
     if (!botonMenu || !menu) { return; }
     menu.classList.toggle("abierto", abierto);
     botonMenu.setAttribute("aria-expanded", abierto ? "true" : "false");
-    botonMenu.setAttribute("aria-label", abierto ? "Cerrar menú" : "Abrir menú");
+    botonMenu.setAttribute("aria-label", abierto ? tx("menuCerrar", "Cerrar menú") : tx("menuAbrir", "Abrir menú"));
     if (!abierto) { ponerMega(false); }
   }
   if (botonMenu && menu) {
@@ -831,6 +882,11 @@ function iniciar() {
   var contadorId = 0;
   function nuevoId() { contadorId += 1; return "u" + contadorId + "-"; }
 
+  function textoEstado(est) {
+    return est === "conceptual" ? tx("conceptual", "Proyecto conceptual") : est === "propuesta" ? tx("propuesta", "Propuesta de proyecto") : "";
+  }
+  var RTL = raiz.getAttribute("dir") === "rtl";
+
   function medio(item, decorativo) {
     if (!item) { return ""; }
     if (item.video && !decorativo) {
@@ -856,10 +912,10 @@ function iniciar() {
     var destacados = PROYECTOS.map(function (p, i) { return { p: p, i: i }; }).filter(function (x) { return x.p.portada; }).slice(0, 3);
     if (destacados.length === 0) { destacados = PROYECTOS.slice(0, 3).map(function (p, i) { return { p: p, i: i }; }); }
     collage.insertAdjacentHTML("afterbegin", destacados.map(function (x, n) {
-      return '<button class="pieza" type="button" data-i="' + x.i + '" aria-haspopup="dialog" style="--i:' + n + '" aria-label="' + esc("Ver proyecto " + x.p.marca) + '">' +
+      return '<button class="pieza" type="button" data-i="' + x.i + '" aria-haspopup="dialog" style="--i:' + n + '" aria-label="' + esc(tx("verProyecto", function (m) { return "Ver proyecto " + m; }, x.p.marca)) + '">' +
         '<span class="pieza-arte">' + medio(x.p.imagen, true) + "</span>" +
         '<span class="pieza-pie"><span class="pieza-marca">' + esc(x.p.marca) + "</span>" +
-        (x.p.estado === "conceptual" ? '<span class="pieza-tag">Proyecto conceptual</span>' : x.p.estado === "propuesta" ? '<span class="pieza-tag">Propuesta de proyecto</span>' : "") + "</span></button>";
+        (textoEstado(x.p.estado) ? '<span class="pieza-tag">' + esc(textoEstado(x.p.estado)) + "</span>" : "") + "</span></button>";
     }).join(""));
   }
 
@@ -876,11 +932,11 @@ function iniciar() {
   }
 
   function htmlTile(p, indice) {
-    return '<button class="tile" type="button" data-i="' + indice + '" aria-haspopup="dialog" aria-label="' + esc("Ver proyecto: " + p.nombre + ", " + p.marca) + '">' +
+    return '<button class="tile" type="button" data-i="' + indice + '" aria-haspopup="dialog" aria-label="' + esc(tx("verProyectoLargo", function (n, m) { return "Ver proyecto: " + n + ", " + m; }, p.nombre, p.marca)) + '">' +
       '<span class="tile-arte">' + medio(p.imagen, true) + "</span>" +
       '<span class="tile-pie"><span class="tile-marca">' + esc(p.marca) + "</span>" +
       '<span class="tile-cat">' + esc(p.categoria) + "</span>" +
-      (p.estado === "conceptual" ? '<span class="tile-tag">Proyecto conceptual</span>' : p.estado === "propuesta" ? '<span class="tile-tag">Propuesta de proyecto</span>' : "") +
+      (textoEstado(p.estado) ? '<span class="tile-tag">' + esc(textoEstado(p.estado)) + "</span>" : "") +
       (p.descripcion ? '<span class="tile-desc">' + esc(p.descripcion) + "</span>" : "") +
       "</span></button>";
   }
@@ -894,15 +950,15 @@ function iniciar() {
     revelar($$(".tile", grilla), 0);
     if (estadoFiltro) {
       estadoFiltro.textContent = filtroActual === "Todos"
-        ? "Mostrando los " + lista.length + " proyectos."
-        : "Mostrando " + lista.length + (lista.length === 1 ? " proyecto" : " proyectos") + " de " + filtroActual + ".";
+        ? tx("mostrandoTodos", function (n) { return "Mostrando los " + n + " proyectos."; }, lista.length)
+        : tx("mostrandoCat", function (n, c) { return "Mostrando " + n + (n === 1 ? " proyecto" : " proyectos") + " de " + c + "."; }, lista.length, filtroActual);
     }
   }
 
   if (contFiltros) {
     var nombres = ["Todos"].concat(categoriasUnicas());
     contFiltros.innerHTML = nombres.map(function (n) {
-      return '<button class="filtro" type="button" data-filtro="' + esc(n) + '" aria-pressed="' + (n === filtroActual ? "true" : "false") + '">' + esc(n) + "</button>";
+      return '<button class="filtro" type="button" data-filtro="' + esc(n) + '" aria-pressed="' + (n === filtroActual ? "true" : "false") + '">' + esc(n === "Todos" ? tx("todos", "Todos") : n) + "</button>";
     }).join("");
     contFiltros.addEventListener("click", function (e) {
       var b = e.target.closest(".filtro");
@@ -955,20 +1011,20 @@ function iniciar() {
     var p = PROYECTOS[estado.i];
     var medios = listaMedios(p);
     var conceptual = p.estado === "conceptual";
-    refs.estado.textContent = conceptual ? "Proyecto conceptual" : p.estado === "propuesta" ? "Propuesta de proyecto" : "Proyecto real";
+    refs.estado.textContent = textoEstado(p.estado) || tx("real", "Proyecto real");
     refs.marca.textContent = p.marca;
     refs.titulo.textContent = p.nombre;
     refs.desc.textContent = p.descripcion;
-    refs.nota.textContent = conceptual ? "Marca ficticia creada para mostrar el estilo de trabajo de Creatreebu. No es un cliente real." : "";
+    refs.nota.textContent = conceptual ? tx("notaConceptual", "Marca ficticia creada para mostrar el estilo de trabajo de Creatreebu. No es un cliente real.") : "";
     refs.nota.hidden = !conceptual;
     refs.cat.textContent = p.categoria;
     refs.serv.textContent = (p.servicios || []).join(", ");
     var grupo = indicesDelGrupo(estado.i);
-    refs.pos.textContent = (grupo.indexOf(estado.i) + 1) + " de " + grupo.length;
+    refs.pos.textContent = tx("pos", function (a, b) { return a + " de " + b; }, grupo.indexOf(estado.i) + 1, grupo.length);
     refs.prev.hidden = refs.next.hidden = grupo.length < 2;
     refs.minis.hidden = medios.length < 2;
     refs.minis.innerHTML = medios.map(function (m, idx) {
-      return '<button class="mini" type="button" data-m="' + idx + '" aria-pressed="false" aria-label="' + esc((m.video ? "Ver video " : "Ver imagen ") + (idx + 1) + " de " + medios.length + ": " + m.alt) + '">' + medio(m, true) + "</button>";
+      return '<button class="mini" type="button" data-m="' + idx + '" aria-pressed="false" aria-label="' + esc(tx("miniAria", function (v, n, total, alt) { return (v ? "Ver video " : "Ver imagen ") + n + " de " + total + ": " + alt; }, !!m.video, idx + 1, medios.length, m.alt)) + '">' + medio(m, true) + "</button>";
     }).join("");
     var textoWa = WHATSAPP_MESSAGES.proyecto.replace("{proyecto}", p.marca);
     refs.wa.setAttribute("href", "#contacto");
@@ -1022,8 +1078,8 @@ function iniciar() {
     /* Clic fuera del contenido cierra la vista */
     modal.addEventListener("click", function (e) { if (e.target === modal) { modal.close(); } });
     modal.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowLeft") { moverModal(-1); }
-      if (e.key === "ArrowRight") { moverModal(1); }
+      if (e.key === "ArrowLeft") { moverModal(RTL ? 1 : -1); }
+      if (e.key === "ArrowRight") { moverModal(RTL ? -1 : 1); }
     });
     modal.addEventListener("close", function () { raiz.classList.remove("modal-abierto"); $$("video", modal).forEach(function (v) { v.pause(); }); });
   }
@@ -1048,7 +1104,7 @@ function iniciar() {
       var lista = masLista();
       var mostrar = lista.slice(0, masVisibles);
       muro.innerHTML = mostrar.map(function (x) {
-        return '<button class="mas-item" type="button" data-v="' + x.i + '" aria-haspopup="dialog" aria-label="' + esc("Ver ampliado: " + x.t.nombre) + '">' +
+        return '<button class="mas-item" type="button" data-v="' + x.i + '" aria-haspopup="dialog" aria-label="' + esc(tx("verAmpliado", function (n) { return "Ver ampliado: " + n; }, x.t.nombre)) + '">' +
           '<span class="mas-img' + (x.t.cubrir ? " mas-img--cubrir" : "") + '" style="--fondo:' + esc(x.t.fondo || "#fff") + '"><img src="' + esc(x.t.src) + '" alt="" loading="lazy" decoding="async"></span>' +
           '<span class="mas-nombre">' + esc(x.t.nombre) + '</span>' +
           '<span class="mas-tipo">' + esc(x.t.tipo) + "</span></button>";
@@ -1057,10 +1113,10 @@ function iniciar() {
       var restantes = lista.length - mostrar.length;
       if (masBoton) {
         masBoton.hidden = restantes <= 0;
-        masBoton.textContent = "Ver más trabajos (" + restantes + ")";
+        masBoton.textContent = tx("masBoton", function (n) { return "Ver más trabajos (" + n + ")"; }, restantes);
       }
       if (masEstado) {
-        masEstado.textContent = "Mostrando " + mostrar.length + " de " + lista.length + (masTipo === "Todos" ? " trabajos." : " trabajos de " + masTipo + ".");
+        masEstado.textContent = tx("masEstado", function (a, b, tipo) { return "Mostrando " + a + " de " + b + (tipo === "Todos" ? " trabajos." : " trabajos de " + tipo + "."); }, mostrar.length, lista.length, masTipo);
       }
     };
 
@@ -1069,7 +1125,7 @@ function iniciar() {
       TRABAJOS.forEach(function (t) { if (tipos.indexOf(t.tipo) === -1) { tipos.push(t.tipo); } });
       masFiltros.hidden = tipos.length < 3;
       masFiltros.innerHTML = tipos.map(function (n) {
-        return '<button class="filtro" type="button" data-tipo="' + esc(n) + '" aria-pressed="' + (n === masTipo ? "true" : "false") + '">' + esc(n) + "</button>";
+        return '<button class="filtro" type="button" data-tipo="' + esc(n) + '" aria-pressed="' + (n === masTipo ? "true" : "false") + '">' + esc(n === "Todos" ? tx("todos", "Todos") : n) + "</button>";
       }).join("");
       masFiltros.addEventListener("click", function (e) {
         var b = e.target.closest(".filtro");
@@ -1108,7 +1164,7 @@ function iniciar() {
         vFondo.style.background = t.fondo || "#fff";
         vNombre.textContent = t.nombre;
         vTipo.textContent = t.tipo;
-        vPos.textContent = (vi.pos + 1) + " de " + vi.lista.length;
+        vPos.textContent = tx("pos", function (a, b) { return a + " de " + b; }, vi.pos + 1, vi.lista.length);
         vWa.setAttribute("href", "#contacto");
         vWa.removeAttribute("target");
         prepararEnlaceWa(vWa, WHATSAPP_MESSAGES.proyecto.replace("{proyecto}", t.nombre));
@@ -1131,8 +1187,8 @@ function iniciar() {
       $("#visor-next").addEventListener("click", function () { moverVisor(1); });
       visor.addEventListener("click", function (e) { if (e.target === visor) { visor.close(); } });
       visor.addEventListener("keydown", function (e) {
-        if (e.key === "ArrowLeft") { moverVisor(-1); }
-        if (e.key === "ArrowRight") { moverVisor(1); }
+        if (e.key === "ArrowLeft") { moverVisor(RTL ? 1 : -1); }
+        if (e.key === "ArrowRight") { moverVisor(RTL ? -1 : 1); }
       });
       visor.addEventListener("close", function () { raiz.classList.remove("modal-abierto"); });
     }
@@ -1477,25 +1533,29 @@ iniciar();
   var lanz = document.createElement("button");
   lanz.type = "button"; lanz.className = "hab-lanz"; lanz.id = "hab-lanz";
   lanz.setAttribute("aria-haspopup", "dialog"); lanz.setAttribute("aria-expanded", "false"); lanz.setAttribute("aria-controls", "hab");
-  lanz.setAttribute("aria-label", "Hablemos por WhatsApp");
+  lanz.setAttribute("aria-label", tx("habAbrir", "Hablemos por WhatsApp"));
   lanz.innerHTML =
     '<svg class="hab-ico hab-ico--wa" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16.04 3C9.4 3 4 8.4 4 15.04c0 2.12.56 4.19 1.6 6.01L4 29l8.1-1.56a12 12 0 0 0 3.94.66h.01C22.7 28.1 28 22.7 28 16.06 28 12.84 26.74 9.8 24.46 7.54A11.9 11.9 0 0 0 16.04 3zm0 21.98h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.74.72.77-3.64-.24-.37a9.9 9.9 0 0 1-1.52-5.26c0-5.5 4.47-9.97 9.98-9.97 2.66 0 5.17 1.04 7.05 2.92a9.9 9.9 0 0 1 2.92 7.06c0 5.5-4.47 9.97-9.97 9.97zm5.47-7.46c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.64-.93-2.25-.24-.58-.49-.5-.68-.51h-.58c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.14 4.54.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/></svg>' +
     '<svg class="hab-ico hab-ico--x" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 4 L16 16 M16 4 L4 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>';
 
   var panel = document.createElement("section");
   panel.className = "hab"; panel.id = "hab"; panel.hidden = true;
-  panel.setAttribute("role", "dialog"); panel.setAttribute("aria-label", "Contactar a CREATREEBU");
+  panel.setAttribute("role", "dialog"); panel.setAttribute("aria-label", tx("habPanel", "Contactar a CREATREEBU"));
+  var opcionesServ = tx("habOpciones", ["¿Qué necesitás?", "Logo o identidad visual", "Piezas para redes sociales", "Flyers o cartelería", "Pack Comercial Express", "Otra cosa"]);
+  var optHtml = opcionesServ.map(function (o, i) {
+    return i === 0 ? '<option value="">' + o + "</option>" : "<option>" + o + "</option>";
+  }).join("");
   panel.innerHTML =
-    '<div class="hab-cab"><span class="hab-logo" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="4" y="11" width="3.4" height="9" rx="1.7" fill="currentColor"/><rect x="10.3" y="4" width="3.4" height="16" rx="1.7" fill="currentColor"/><rect x="16.6" y="8" width="3.4" height="12" rx="1.7" fill="currentColor"/></svg></span><p>¿Cómo puedo ayudar?</p></div>' +
-    '<div class="hab-ag"><img src="imagenes/pablo.jpg" width="64" height="64" alt="Pablo, de CREATREEBU"><div><p class="hab-ag1">Atención directa</p><p class="hab-ag2">Pablo</p><p class="hab-ag3"><span class="hab-punto" aria-hidden="true"></span>Te respondo por WhatsApp</p></div><button type="button" class="hab-x" id="hab-x" aria-label="Cerrar"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 4 L16 16 M16 4 L4 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg></button></div>' +
+    '<div class="hab-cab"><span class="hab-logo" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="4" y="11" width="3.4" height="9" rx="1.7" fill="currentColor"/><rect x="10.3" y="4" width="3.4" height="16" rx="1.7" fill="currentColor"/><rect x="16.6" y="8" width="3.4" height="12" rx="1.7" fill="currentColor"/></svg></span><p>' + tx("habTitulo", "¿Cómo puedo ayudar?") + '</p></div>' +
+    '<div class="hab-ag"><img src="' + rutaIdioma("imagenes/pablo.jpg") + '" width="64" height="64" alt="' + tx("habFotoAlt", "Pablo, de CREATREEBU") + '"><div><p class="hab-ag1">' + tx("habAg1", "Atención directa") + '</p><p class="hab-ag2">' + tx("habAg2", "Pablo") + '</p><p class="hab-ag3"><span class="hab-punto" aria-hidden="true"></span>' + tx("habAg3", "Te respondo por WhatsApp") + '</p></div><button type="button" class="hab-x" id="hab-x" aria-label="' + tx("habCerrarX", "Cerrar") + '"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 4 L16 16 M16 4 L4 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg></button></div>' +
     '<form class="hab-form" id="hab-form" novalidate>' +
-    '<p class="hab-tit">Contame qué necesitás</p>' +
-    '<label class="sr-only" for="hab-nombre">Nombre</label><input id="hab-nombre" name="nombre" type="text" placeholder="Nombre*" autocomplete="name" maxlength="60" required>' +
-    '<label class="sr-only" for="hab-serv">¿Qué necesitás?</label><select id="hab-serv" name="serv"><option value="">¿Qué necesitás?</option><option>Logo o identidad visual</option><option>Piezas para redes sociales</option><option>Flyers o cartelería</option><option>Pack Comercial Express</option><option>Otra cosa</option></select>' +
-    '<label class="sr-only" for="hab-msj">Mensaje (opcional)</label><textarea id="hab-msj" name="msj" rows="3" maxlength="400" placeholder="Mensaje (opcional)"></textarea>' +
-    '<p class="hab-err" id="hab-err" role="alert" hidden>Escribí tu nombre para continuar.</p>' +
-    '<button type="submit" class="hab-send">Contactar por WhatsApp</button>' +
-    '<p class="hab-nota">No guardamos tus datos: al tocar el botón se abre WhatsApp con tu mensaje listo para enviar.</p></form>';
+    '<p class="hab-tit">' + tx("habTit", "Contame qué necesitás") + '</p>' +
+    '<label class="sr-only" for="hab-nombre">' + tx("habNombreLabel", "Nombre") + '</label><input id="hab-nombre" name="nombre" type="text" placeholder="' + tx("habNombrePh", "Nombre*") + '" autocomplete="name" maxlength="60" required>' +
+    '<label class="sr-only" for="hab-serv">' + opcionesServ[0] + '</label><select id="hab-serv" name="serv">' + optHtml + '</select>' +
+    '<label class="sr-only" for="hab-msj">' + tx("habMsjLabel", "Mensaje (opcional)") + '</label><textarea id="hab-msj" name="msj" rows="3" maxlength="400" placeholder="' + tx("habMsjLabel", "Mensaje (opcional)") + '"></textarea>' +
+    '<p class="hab-err" id="hab-err" role="alert" hidden>' + tx("habErr", "Escribí tu nombre para continuar.") + '</p>' +
+    '<button type="submit" class="hab-send">' + tx("habEnviar", "Contactar por WhatsApp") + '</button>' +
+    '<p class="hab-nota">' + tx("habNota", "No guardamos tus datos: al tocar el botón se abre WhatsApp con tu mensaje listo para enviar.") + '</p></form>';
   document.body.appendChild(panel);
   document.body.appendChild(lanz);
 
@@ -1505,13 +1565,13 @@ iniciar();
 
   function abrir() {
     panel.hidden = false; lanz.setAttribute("aria-expanded", "true");
-    lanz.setAttribute("aria-label", "Cerrar el contacto");
+    lanz.setAttribute("aria-label", tx("habCerrar", "Cerrar el contacto"));
     document.documentElement.classList.add("hab-abierto");
     nombre.focus({ preventScroll: true });
   }
   function cerrar(devolverFoco) {
     panel.hidden = true; lanz.setAttribute("aria-expanded", "false");
-    lanz.setAttribute("aria-label", "Hablemos por WhatsApp");
+    lanz.setAttribute("aria-label", tx("habAbrir", "Hablemos por WhatsApp"));
     document.documentElement.classList.remove("hab-abierto");
     if (devolverFoco !== false) { lanz.focus(); }
   }
@@ -1525,7 +1585,9 @@ iniciar();
     if (!n) { err.hidden = false; nombre.setAttribute("aria-invalid", "true"); nombre.focus(); return; }
     err.hidden = true; nombre.removeAttribute("aria-invalid");
     var serv = form.serv.value, msj = form.msj.value.trim();
-    var t = "Hola! Soy " + n + ". Vi la web de Creatreebu" + (serv ? " y quiero consultar por: " + serv + "." : " y quiero hacer una consulta.");
+    var t = tx("habWa", function (nom, sv) {
+      return "Hola! Soy " + nom + ". Vi la web de Creatreebu" + (sv ? " y quiero consultar por: " + sv + "." : " y quiero hacer una consulta.");
+    }, n, serv);
     if (msj) { t += " " + msj; }
     window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(t), "_blank", "noopener");
   });
@@ -1543,7 +1605,7 @@ iniciar();
   var capa = document.createElement("div");
   capa.className = "intro";
   capa.setAttribute("role", "dialog");
-  capa.setAttribute("aria-label", "Presentación de CREATREEBU");
+  capa.setAttribute("aria-label", tx("introAria", "Presentación de CREATREEBU"));
   var video = document.createElement("video");
   video.className = "intro-video" + (vertical ? " intro-video--vertical" : "");
   video.muted = true;
@@ -1551,16 +1613,16 @@ iniciar();
   video.playsInline = true;
   video.setAttribute("playsinline", "");
   video.preload = "auto";
-  video.poster = "imagenes/intro-poster.jpg";
-  video.src = vertical ? "imagenes/intro-vertical.mp4" : "imagenes/intro-16x9.mp4";
+  video.poster = rutaIdioma("imagenes/intro-poster.jpg");
+  video.src = rutaIdioma(vertical ? "imagenes/intro-vertical.mp4" : "imagenes/intro-16x9.mp4");
   var saltar = document.createElement("button");
   saltar.type = "button";
   saltar.className = "intro-saltar";
-  saltar.textContent = "Saltar intro";
+  saltar.textContent = tx("introSaltar", "Saltar intro");
   var sonido = document.createElement("button");
   sonido.type = "button";
   sonido.className = "intro-sonido";
-  sonido.textContent = "Activar sonido";
+  sonido.textContent = tx("introSonido", "Activar sonido");
   capa.appendChild(video);
   capa.appendChild(sonido);
   capa.appendChild(saltar);
@@ -1583,11 +1645,49 @@ iniciar();
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") { cerrar(); } });
   sonido.addEventListener("click", function () {
     video.muted = !video.muted;
-    sonido.textContent = video.muted ? "Activar sonido" : "Silenciar";
+    sonido.textContent = video.muted ? tx("introSonido", "Activar sonido") : tx("introSilenciar", "Silenciar");
   });
 
   var p = video.play();
   if (p && p.catch) { p.catch(cerrar); }
   setTimeout(function () { if (!cerrada && video.paused && video.currentTime === 0) { cerrar(); } }, 3500);
   saltar.focus();
+})();
+
+/* Selector de idiomas del menú: abre y cierra la lista y, al elegir un idioma,
+   lleva a la sección equivalente de esa versión (si no hay, a su inicio).
+   Sin JavaScript los tres enlaces funcionan igual: son enlaces normales. */
+(function () {
+  var boton = document.querySelector(".lang-btn");
+  var lista = document.getElementById("lang-menu");
+  if (!boton || !lista) { return; }
+  var contenedor = boton.closest(".nav-lang");
+
+  function poner(abierto) {
+    contenedor.classList.toggle("abierto", abierto);
+    boton.setAttribute("aria-expanded", abierto ? "true" : "false");
+  }
+  boton.addEventListener("click", function () { poner(boton.getAttribute("aria-expanded") !== "true"); });
+  document.addEventListener("click", function (e) {
+    if (contenedor.classList.contains("abierto") && !e.target.closest(".nav-lang")) { poner(false); }
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && contenedor.classList.contains("abierto")) { poner(false); boton.focus(); }
+  });
+
+  /* Sección en la que está la persona ahora (o la del enlace con # si hay) */
+  function seccionActual() {
+    var secciones = Array.prototype.slice.call(document.querySelectorAll("main > section[id]"));
+    var id = "";
+    secciones.forEach(function (sec) { if (sec.getBoundingClientRect().top <= 140) { id = sec.id; } });
+    return id === "inicio" ? "" : id;
+  }
+  lista.addEventListener("click", function (e) {
+    var a = e.target.closest("a.lang-op");
+    if (!a || a.getAttribute("aria-current") === "true") { return; }
+    var base = a.getAttribute("data-base");
+    if (base === null) { base = a.getAttribute("href").split("#")[0]; a.setAttribute("data-base", base); }
+    var id = seccionActual();
+    a.setAttribute("href", base + (id ? "#" + id : ""));
+  });
 })();

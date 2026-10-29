@@ -1,0 +1,98 @@
+/* =========================================================
+   CREATREEBU — rtl.css
+   Ajustes SOLO para la versión árabe (/ar/): escritura de derecha a izquierda.
+   Todo está limitado a html[dir="rtl"] o html[lang="ar"], así que no afecta
+   a las versiones en español e inglés. Los logotipos, las fotos y las banderas
+   NO se reflejan.
+   ========================================================= */
+
+@font-face {
+  font-family: "Cairo AR";
+  src: url("fonts/cairo-arabic-wght.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+200C-200F, U+2010-2011, U+204F, U+2E41, U+FE80-FEFC;
+}
+
+/* Tipografía árabe: solo para el texto árabe (el latino sigue con las fuentes del sitio) */
+html[lang="ar"] {
+  --display: "Cairo AR", system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+  --sans: "Cairo AR", Carlito, Calibri, "Segoe UI", Tahoma, system-ui, sans-serif;
+}
+
+/* En árabe las letras se conectan: no se puede separar letras ni usar mayúsculas */
+html[lang="ar"] *, html[lang="ar"] *::before, html[lang="ar"] *::after {
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+/* Títulos: más interlineado para que no se corten las letras */
+html[lang="ar"] .h1 { line-height: 1.22; font-size: clamp(2rem, 4.4vw, 4.4rem); }
+html[lang="ar"] .titan { line-height: 1.3; font-size: clamp(1.9rem, 4.2vw, 4.2rem); }
+html[lang="ar"] .contacto .titan { font-size: clamp(2.3rem, 7vw, 6.6rem); }
+html[lang="ar"] .h1 .l { padding: .2em 0 .16em; margin: -.2em 0 -.16em; }
+html[lang="ar"] .anim .w { padding-bottom: .3em; margin-bottom: -.3em; padding-top: .12em; margin-top: -.12em; }
+html[lang="ar"] .serv-card h3, html[lang="ar"] .tile-marca, html[lang="ar"] .modal-titulo,
+html[lang="ar"] .pack-card h3, html[lang="ar"] .paso h3, html[lang="ar"] .dif h3, html[lang="ar"] .hecho h3 { line-height: 1.3; }
+html[lang="ar"] .modal-titulo { font-size: clamp(1.6rem, 3vw, 2.4rem); }
+html[lang="ar"] .manifiesto { line-height: 1.5; }
+html[lang="ar"] .fantasma { line-height: 1.1; font-weight: 900; }
+
+/* ---------- Alineaciones y posiciones ---------- */
+html[dir="rtl"] .saltar { left: auto; right: 12px; }
+html[dir="rtl"] .nav-capsula a, html[dir="rtl"] .nav-btn,
+html[dir="rtl"] .tile, html[dir="rtl"] .mas-item, html[dir="rtl"] .pieza { text-align: start; }
+
+/* Barra de progreso: avanza desde la derecha */
+html[dir="rtl"] .progreso { left: auto; right: 0; transform-origin: 100% 50%; }
+
+/* Listas con viñetas */
+html[dir="rtl"] .incluye li { padding-left: 0; padding-right: 20px; }
+html[dir="rtl"] .incluye li::before { left: auto; right: 0; }
+
+/* Preguntas frecuentes: el "+" pasa al lado izquierdo */
+html[dir="rtl"] .faq summary { padding: 22px 0 22px 64px; }
+html[dir="rtl"] .faq summary::after { right: auto; left: 0; }
+html[dir="rtl"] .faq details p { padding: 0 0 24px 64px; }
+
+/* Flechas de los botones y enlaces: apuntan hacia el lado de lectura */
+html[dir="rtl"] .btn--flecha::after, html[dir="rtl"] .btn--sig::after, html[dir="rtl"] .enlace-flecha::after { transform: scaleX(-1); }
+html[dir="rtl"] .btn:hover.btn--flecha::after, html[dir="rtl"] .enlace-flecha:hover::after { transform: scaleX(-1) translate(3px, -3px); }
+html[dir="rtl"] .btn:hover.btn--sig::after { transform: scaleX(-1) translateX(4px); }
+
+html[dir="rtl"] .hecho:hover { transform: translateX(-6px); }
+
+/* Cinta de capacidades: la animación corre hacia el otro lado */
+@keyframes marquesinaRtl { to { transform: translateX(50%); } }
+html[dir="rtl"] .tira.marquesina .tira-pista { animation-name: marquesinaRtl; }
+
+/* Ventanas (vista de proyecto, imagen ampliada, formulario) */
+html[dir="rtl"] .modal-cerrar { right: auto; left: 14px; }
+html[dir="rtl"] .hab-x { right: auto; left: 10px; }
+html[dir="rtl"] .modal-media { padding: 16px 16px 16px 0; }
+html[dir="rtl"] .modal-info { align-items: flex-start; }
+
+/* Botón flotante de WhatsApp y su panel: pasan al lado izquierdo */
+html[dir="rtl"] .hab-lanz { right: auto; left: 18px; }
+html[dir="rtl"] .hab { right: auto; left: 16px; }
+
+/* ---------- Escritorio ---------- */
+@media (min-width: 1100px) {
+  html[dir="rtl"] .nav .btn--cab { right: auto; left: 0; }
+  html[dir="rtl"] .cab-fila { justify-content: flex-start; }
+  html[dir="rtl"] .hero-texto { padding-left: 0; }
+  html[dir="rtl"] .collage { right: auto; left: var(--pad); }
+  html[dir="rtl"] .pieza:nth-child(1) { left: auto; right: 0; }
+  html[dir="rtl"] .pieza:nth-child(2) { right: auto; left: 0; }
+  html[dir="rtl"] .pieza:nth-child(3) { right: auto; left: 4%; }
+  html[dir="rtl"] .vidrio { right: auto; left: -8px; }
+  html[dir="rtl"] .modal-media { padding: 16px 16px 16px 0; }
+}
+@media (max-width: 1099px) {
+  html[dir="rtl"] .collage .vidrio { left: 0; right: 0; }
+}
+@media (max-width: 520px) {
+  html[dir="rtl"] .hab { left: 8px; right: auto; }
+  html[dir="rtl"] .hab-lanz { left: 14px; right: auto; }
+}

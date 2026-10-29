@@ -10,11 +10,16 @@
   <meta name="referrer" content="no-referrer">
   <link rel="canonical" href="https://creatreebu.github.io/">
   <link rel="alternate" hreflang="es-AR" href="https://creatreebu.github.io/">
+  <link rel="alternate" hreflang="es" href="https://creatreebu.github.io/">
+  <link rel="alternate" hreflang="en" href="https://creatreebu.github.io/en/">
+  <link rel="alternate" hreflang="ar" href="https://creatreebu.github.io/ar/">
   <link rel="alternate" hreflang="x-default" href="https://creatreebu.github.io/">
 
   <!-- Open Graph y Twitter -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_AR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ar_AE">
   <meta property="og:site_name" content="CREATREEBU">
   <meta property="og:url" content="https://creatreebu.github.io/">
   <meta property="og:title" content="Diseño gráfico en La Costa y Argentina | CREATREEBU">
@@ -267,6 +272,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&display=swap">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="lang.css">
 </head>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -330,6 +336,19 @@
           <li><a href="#pack">Pack Express</a></li>
           <li><a href="#proceso">Proceso</a></li>
           <li><a href="#preguntas">Preguntas</a></li>
+          <li class="nav-lang">
+            <svg class="lang-sprite" width="0" height="0" focusable="false" aria-hidden="true" style="position:absolute"><defs>
+<symbol id="flag-ar" viewBox="0 0 24 16"><rect width="24" height="16" fill="#74ACDF"/><rect y="5.33" width="24" height="5.34" fill="#fff"/><circle cx="12" cy="8" r="1.7" fill="#F6B40E"/></symbol>
+<symbol id="flag-us" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><path fill="#B22234" d="M0 0h24v1.23H0zm0 2.46h24v1.23H0zm0 2.46h24v1.23H0zm0 2.46h24v1.23H0zm0 2.46h24v1.23H0zm0 2.46h24v1.23H0zM0 14.77h24V16H0z"/><rect width="10.4" height="8.62" fill="#3C3B6E"/><g fill="#fff"><circle cx="1.8" cy="1.5" r=".55"/><circle cx="4.2" cy="1.5" r=".55"/><circle cx="6.6" cy="1.5" r=".55"/><circle cx="9" cy="1.5" r=".55"/><circle cx="3" cy="3.3" r=".55"/><circle cx="5.4" cy="3.3" r=".55"/><circle cx="7.8" cy="3.3" r=".55"/><circle cx="1.8" cy="5.1" r=".55"/><circle cx="4.2" cy="5.1" r=".55"/><circle cx="6.6" cy="5.1" r=".55"/><circle cx="9" cy="5.1" r=".55"/><circle cx="3" cy="6.9" r=".55"/><circle cx="5.4" cy="6.9" r=".55"/><circle cx="7.8" cy="6.9" r=".55"/></g></symbol>
+<symbol id="flag-ae" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><rect width="24" height="5.33" fill="#00732F"/><rect y="10.67" width="24" height="5.33" fill="#000"/><rect width="6.4" height="16" fill="#FF0000"/></symbol>
+</defs></svg>
+            <button class="lang-btn" type="button" aria-expanded="false" aria-controls="lang-menu" aria-label="Idioma: Español. Elegir idioma"><svg class="lang-flag" viewBox="0 0 24 16" width="22" height="15" aria-hidden="true" focusable="false"><use href="#flag-ar"/></svg><span class="lang-cod" aria-hidden="true">ES</span><svg class="lang-chev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 4.2L6 8.2L10 4.2" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+            <ul class="lang-menu" id="lang-menu" aria-label="Idioma">
+              <li><a class="lang-op activo" href="./" lang="es" hreflang="es" aria-current="true"><svg class="lang-flag" viewBox="0 0 24 16" width="22" height="15" aria-hidden="true" focusable="false"><use href="#flag-ar"/></svg><span class="lang-nombre">Español</span></a></li>
+              <li><a class="lang-op" href="en/" lang="en" hreflang="en"><svg class="lang-flag" viewBox="0 0 24 16" width="22" height="15" aria-hidden="true" focusable="false"><use href="#flag-us"/></svg><span class="lang-nombre">English</span></a></li>
+              <li><a class="lang-op" href="ar/" lang="ar" hreflang="ar"><svg class="lang-flag" viewBox="0 0 24 16" width="22" height="15" aria-hidden="true" focusable="false"><use href="#flag-ae"/></svg><span class="lang-nombre">العربية</span></a></li>
+            </ul>
+          </li>
         </ul>
         <a class="btn btn--lima btn--sm btn--cab btn--flecha" href="#contacto" data-wa="general">Hablemos</a>
       </nav>
