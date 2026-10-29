@@ -65,30 +65,13 @@ html:not(.js) .nav-capsula .lang-menu { display: flex; position: static; flex-di
 }
 
 /* =========================================================
-   Entrada de la cabecera: el logo baja suavemente y después los botones
-   del menú aparecen uno tras otro. Se ve una vez al cargar; si hay intro en
-   video, empieza cuando la intro termina. Se desactiva con "reducir movimiento".
+   Entrada de la cabecera: el logo y la botonera caen juntos, despacio y
+   suavemente, al cargar la página. Se ve una vez; si hay intro en video,
+   empieza cuando la intro termina. Se desactiva con "reducir movimiento".
    ========================================================= */
-@keyframes cabEntra { from { opacity: 0; translate: 0 -16px; } }
-@keyframes cabEntraIz { from { opacity: 0; translate: 0 -16px; filter: blur(4px); } }
-
-.cab .marca { animation: cabEntraIz .8s var(--ease) .1s backwards; }
-.cab .menu-btn { animation: cabEntra .7s var(--ease) .35s backwards; }
-@media (min-width: 1100px) {
-  .nav-capsula > li { animation: cabEntra .7s var(--ease) backwards; }
-  .nav-capsula > li:nth-child(1) { animation-delay: .35s; }
-  .nav-capsula > li:nth-child(2) { animation-delay: .45s; }
-  .nav-capsula > li:nth-child(3) { animation-delay: .55s; }
-  .nav-capsula > li:nth-child(4) { animation-delay: .65s; }
-  .nav-capsula > li:nth-child(5) { animation-delay: .75s; }
-  .nav-capsula > li:nth-child(6) { animation-delay: .85s; }
-  .nav-capsula > li:nth-child(7) { animation-delay: .95s; }
-  .nav .btn--cab { animation: cabEntra .7s var(--ease) 1.1s backwards; }
-}
-/* mientras suena la intro en video, la cabecera espera */
-html.intro-activa .cab .marca, html.intro-activa .cab .menu-btn,
-html.intro-activa .nav-capsula > li, html.intro-activa .nav .btn--cab { animation-play-state: paused; }
-
+@keyframes cabCae { from { opacity: 0; translate: 0 -48px; } }
+.cab .cab-fila { animation: cabCae 1.8s cubic-bezier(.22, .61, .36, 1) .25s backwards; }
+html.intro-activa .cab .cab-fila { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) {
-  .cab .marca, .cab .menu-btn, .nav-capsula > li, .nav .btn--cab { animation: none !important; }
+  .cab .cab-fila { animation: none !important; }
 }
