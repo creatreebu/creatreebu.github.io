@@ -23,6 +23,7 @@ window.CREATREEBU_I18N = {
     verAmpliado: function (n) { return "عرض بحجم أكبر: " + n; },
     masBoton: function (n) { return "عرض المزيد من الأعمال (" + n + ")"; },
     masEstado: function (a, b, tipo) { return "عدد الأعمال المعروضة: " + a + " من " + b + (tipo === "Todos" ? "." : " ضمن فئة " + tipo + "."); },
+    pzEstado: function (n, tipo) { return "عدد القطع المعروضة: " + n + (tipo === "Todos" ? "." : " ضمن فئة " + tipo + "."); },
 
     habAbrir: "لنتحدّث عبر واتساب",
     habCerrar: "إغلاق نموذج التواصل",
@@ -328,7 +329,31 @@ window.CREATREEBU_I18N = {
   },
 
   /* معرض «المزيد من أعمالنا» (بحسب مسار الصورة الأصلي) */
+  /* Graphic pieces grid (by id) */
+  piezas: {
+    "damisellas": { nombre: "Damisellas، عرض عيد الأم", tipo: "فلايرات", alt: "فلاير عروض عيد الأم لمركز Damisellas للتجميل، بصور للتدليك والعلاجات على موجات وردية." },
+    "fines-expo": { nombre: "FINES، المعرض التعليمي", tipo: "فلايرات", alt: "فلاير FINES للمعرض التعليمي الأول في لا كوستا، بكتل خضراء وزرقاء فوق صورة ليدين تكتبان." },
+    "fines-deudores": { nombre: "DEU.FINES، المواد المتأخرة", tipo: "فلايرات", alt: "فلاير خطة DEU.FINES الثانوية للبالغين لاستكمال المواد المتأخرة، مع شروط التسجيل، بدرجات الأخضر والفيروزي." },
+    "sco-gastronomia": { nombre: "Secundaria con Oficios، فن الطهي", tipo: "فلايرات", alt: "فلاير التسجيل في Secundaria con Oficios، تخصص فن الطهي، بصورة ليدين تعجنان العجين." },
+    "sco-alimentacion": { nombre: "Secundaria con Oficios، صناعة الأغذية", tipo: "فلايرات", alt: "فلاير التسجيل في Secundaria con Oficios، تخصص صناعة الأغذية، بفسيفساء من الأطباق." },
+    "expo-gastronomia": { nombre: "حرفة الطهي، المعرض الأول", tipo: "فلايرات", alt: "ملصق المعرض التعليمي والإنتاجي الأول لـ Secundaria con Oficios، بحروف خضراء على سبورة سوداء وأطباق على الأطراف." },
+    "pitucos": { nombre: "Pitucos Baby & Kids", tipo: "فلايرات", alt: "تصميم لوسائل التواصل لمتجر Pitucos Baby & Kids بشعار ضفدع صغير والعلامات التجارية وطرق الدفع والعنوان." },
+    "claude-fotografia": { nombre: "Claude Fotografía، ورشة المبتدئين", tipo: "فلايرات", alt: "فلاير ورشة التصوير للمبتدئين من Claude Fotografía، بكاميرات قديمة حول شكل سداسي يحمل الشعار." },
+    "peluca-inocente": { nombre: "Peluca y su Combo، Inocente", tipo: "ملصقات", alt: "ملصق الفيديو الغنائي Inocente لفرقة Peluca y su Combo: جمجمة مكسيكية بتاج من الورود فوق أشعة داكنة." },
+    "mal-viaje": { nombre: "Mal viaje، فيلم قصير", tipo: "ملصقات", alt: "ملصق أبيض وأسود للفيلم القصير Mal viaje، برجل ببدلة وربطة عنق على شكل حبل." },
+    "diseno-imagen": { nombre: "تصميم الصورة، UNDAV", tipo: "ملصقات", alt: "ملصق مادة التصوير والكاميرا الأولى في الفنون السمعية البصرية، ببكرة فيلم ذهبية." },
+    "radio-master": { nombre: "راديو Master 104.1، موسيقى أكثر", tipo: "راديو", alt: "فلاير راديو Master 104.1 بفتاة تضع سماعات وأنواع الموسيقى روك وفولك وبوب ودانس." },
+    "master-activa": { nombre: "Master Activa 104.1", tipo: "راديو", alt: "ملصق إطلاق Master Activa 104.1: قلب أحمر بين سماعات على خلفية بيضاء." },
+    "irins-boys": { nombre: "Irin's Parfum، Boys", tipo: "تغليف", alt: "زجاجة عطر Irin's Parfum Boys من زجاج مقطوع الأوجه بلون أخضر مزرق وغطاء أسود محبب." },
+    "irins-ladies": { nombre: "Irin's Parfum، Ladies", tipo: "تغليف", alt: "زجاجة عطر Irin's Parfum Ladies من زجاج وردي منحني الشكل بغطاء شفاف وتفصيل ذهبي." },
+    "irins-boys-noche": { nombre: "Irin's Parfum، Boys (أجواء ليلية)", tipo: "تغليف", alt: "زجاجة Irin's Parfum Boys على حجر داكن مع أضواء مدينة زرقاء ضبابية ليلًا." },
+    "cadu-44": { nombre: "CADU، 44 عامًا من التاريخ", tipo: "هوية بصرية", alt: "تهنئة بذكرى تأسيس نادي Defensores Unidos الرياضي، مع الشعار واسم CADU بالأسود والرقم 44 بالبرتقالي." },
+    "fomento-fachada": { nombre: "Sociedad de Fomento 1° de Mayo، الواجهة", tipo: "هوية بصرية", alt: "واجهة Sociedad de Fomento 1° de Mayo، وشعارها على لافتة فوق الجدار الأبيض والأزرق." }
+  },
+
   trabajos: {
+    "imagenes/trabajos/la-masion-menu.jpg": { nombre: "La Masión، قائمة المطبخ الإبداعي", tipo: "قوائم الطعام", alt: "قائمة La Masión للمطبخ الإبداعي بمقبلات وأطباق جانبية ولحوم ومعكرونة ومشروبات وحلويات فوق صورة مطبخ دافئة." },
+    "imagenes/trabajos/fomento-logo.jpg": { nombre: "Sociedad de Fomento 1° de Mayo", tipo: "الشعارات", alt: "شعار Sociedad de Fomento 1° de Mayo، المؤسسة عام 1958: صليب أزرق مع الحروف S وF و1° وM بالبرتقالي." },
     "imagenes/mas-provenzano-cafeteria.jpg": { nombre: "Provenzano Multiespacio، قائمة المقهى", tipo: "قوائم الطعام", alt: "قائمة المقهى لـ Provenzano Multiespacio على خلفية بنية بحبوب قهوة وفنجان وطاحونة، مع قائمة القهوة والأسعار بالأبيض." },
     "imagenes/mas-provenzano-minutas.jpg": { nombre: "Provenzano Multiespacio، قائمة الوجبات السريعة والساندويتشات", tipo: "قوائم الطعام", alt: "قائمة الوجبات السريعة والساندويتشات لـ Provenzano Multiespacio على خلفية بلون الكراميل، بقوائم الباغيت الصغير والساندويتشات الساخنة والفطائر والإمبانادا." },
     "imagenes/mas-provenzano-postres.jpg": { nombre: "Provenzano Multiespacio، قائمة الحلويات", tipo: "قوائم الطعام", alt: "قائمة الحلويات لـ Provenzano Multiespacio على خلفية بلون الشوكولاتة البنية، وفي أسفلها صينية من الحلوى المحشوة والكعك." },

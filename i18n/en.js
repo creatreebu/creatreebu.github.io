@@ -23,6 +23,7 @@ window.CREATREEBU_I18N = {
     verAmpliado: function (n) { return "View larger: " + n; },
     masBoton: function (n) { return "View more work (" + n + ")"; },
     masEstado: function (a, b, tipo) { return "Showing " + a + " of " + b + (tipo === "Todos" ? " works." : " works in " + tipo + "."); },
+    pzEstado: function (n, tipo) { return "Showing " + n + (tipo === "Todos" ? " pieces." : " pieces in " + tipo + "."); },
 
     habAbrir: "Let's talk on WhatsApp",
     habCerrar: "Close contact form",
@@ -328,7 +329,31 @@ window.CREATREEBU_I18N = {
   },
 
   /* "More of our work" wall (by original image path) */
+  /* Graphic pieces grid (by id) */
+  piezas: {
+    "damisellas": { nombre: "Damisellas, Mother's Day promo", tipo: "Flyers", alt: "Mother's Day promotions flyer for the Damisellas beauty center, with photos of massages and treatments over pink waves." },
+    "fines-expo": { nombre: "FINES, Educational Expo", tipo: "Flyers", alt: "FINES flyer for the first Educational Expo in La Costa, with green and blue blocks over a photo of hands writing." },
+    "fines-deudores": { nombre: "DEU.FINES, outstanding subjects", tipo: "Flyers", alt: "Flyer for the DEU.FINES adult secondary plan for outstanding subjects, with enrollment requirements, in greens and teals." },
+    "sco-gastronomia": { nombre: "Secundaria con Oficios, Gastronomy", tipo: "Flyers", alt: "Enrollment flyer for Secundaria con Oficios, Gastronomy track, with a photo of hands kneading dough." },
+    "sco-alimentacion": { nombre: "Secundaria con Oficios, Food Industry", tipo: "Flyers", alt: "Enrollment flyer for Secundaria con Oficios, Food Industry track, with a mosaic of dishes." },
+    "expo-gastronomia": { nombre: "Gastronomy Trade, First Expo", tipo: "Flyers", alt: "Poster for the first Educational and Productive Expo of Secundaria con Oficios, with green lettering on a black slate and dishes around the edges." },
+    "pitucos": { nombre: "Pitucos Baby & Kids", tipo: "Flyers", alt: "Social media graphic for the Pitucos Baby & Kids store, with a little frog logo, brands, payment methods and address." },
+    "claude-fotografia": { nombre: "Claude Fotografía, basic workshop", tipo: "Flyers", alt: "Flyer for the basic-level photography workshop by Claude Fotografía, with vintage cameras around a hexagon with the logo." },
+    "peluca-inocente": { nombre: "Peluca y su Combo, Inocente", tipo: "Posters", alt: "Poster for the lyric video Inocente by Peluca y su Combo: a sugar skull with a crown of roses over dark rays." },
+    "mal-viaje": { nombre: "Mal viaje, short film", tipo: "Posters", alt: "Black-and-white poster for the short film Mal viaje, with a man in a suit and a rope-shaped tie." },
+    "diseno-imagen": { nombre: "The design of the image, UNDAV", tipo: "Posters", alt: "Poster for the Photography and Camera One course in Audiovisual Arts, with a golden film reel." },
+    "radio-master": { nombre: "Radio Master 104.1, + Music", tipo: "Radio", alt: "Radio Master 104.1 flyer with a girl wearing headphones and the genres rock, folk, pop and dance." },
+    "master-activa": { nombre: "Master Activa 104.1", tipo: "Radio", alt: "Launch poster for Master Activa 104.1: a red heart between headphones on a white background." },
+    "irins-boys": { nombre: "Irin's Parfum, Boys", tipo: "Packaging", alt: "Irin's Parfum Boys perfume bottle in faceted teal glass with a textured black cap." },
+    "irins-ladies": { nombre: "Irin's Parfum, Ladies", tipo: "Packaging", alt: "Irin's Parfum Ladies perfume bottle in pink glass with a curved shape and a clear cap with a gold detail." },
+    "irins-boys-noche": { nombre: "Irin's Parfum, Boys (night setting)", tipo: "Packaging", alt: "Irin's Parfum Boys bottle on dark stone, with blurred blue city lights at night." },
+    "cadu-44": { nombre: "CADU, 44 years of history", tipo: "Identity", alt: "Anniversary greeting for Club Atlético Defensores Unidos, with the crest, CADU in black and 44 in orange." },
+    "fomento-fachada": { nombre: "Sociedad de Fomento 1° de Mayo, facade", tipo: "Identity", alt: "Front of the Sociedad de Fomento 1° de Mayo, with its crest on a sign on the white and blue wall." }
+  },
+
   trabajos: {
+    "imagenes/trabajos/la-masion-menu.jpg": { nombre: "La Masión, signature cuisine menu", tipo: "Menus", alt: "La Masión signature cuisine menu with starters, sides, meats, pastas, drinks and desserts over a warm kitchen photo." },
+    "imagenes/trabajos/fomento-logo.jpg": { nombre: "Sociedad de Fomento 1° de Mayo", tipo: "Logos", alt: "Crest of the Sociedad de Fomento 1° de Mayo, founded in 1958: a blue cross with the letters S, F, 1° and M in orange." },
     "imagenes/mas-provenzano-cafeteria.jpg": { nombre: "Provenzano Multiespacio, café menu", tipo: "Menus", alt: "Café menu for Provenzano Multiespacio on a brown background with coffee beans, a cup and a grinder, with the list of coffees and prices in white." },
     "imagenes/mas-provenzano-minutas.jpg": { nombre: "Provenzano Multiespacio, light meals and sandwiches menu", tipo: "Menus", alt: "Light meals and sandwiches menu for Provenzano Multiespacio on a caramel-colored background, with lists of mini baguettes, hot sandwiches, tarts and empanadas." },
     "imagenes/mas-provenzano-postres.jpg": { nombre: "Provenzano Multiespacio, dessert menu", tipo: "Menus", alt: "Dessert menu for Provenzano Multiespacio on a chocolate brown background, with a tray of bonbons and cakes at the bottom." },

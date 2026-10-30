@@ -549,13 +549,39 @@
             <p class="eyebrow">المزيد من الأعمال</p>
             <h2 class="titan" id="titulo-mas">المزيد من <span class="acento">أعمالنا</span></h2>
           </div>
-          <p>شعارات وقوائم طعام وتطبيقات وقطع أخرى أنجزناها لعدة عملاء. اضغط على أي صورة لعرضها بحجم أكبر.</p>
+          <p>شعارات وقوائم طعام وتطبيقات وقطع أخرى أنجزناها لعدة عملاء. مرّر أو استخدم الأسهم، واضغط على أي قطعة لعرضها بحجم أكبر.</p>
         </header>
         <div class="filtros" id="mas-filtros" role="group" aria-label="تصفية الأعمال حسب النوع"></div>
         <p class="sr-only" id="mas-estado" aria-live="polite"></p>
-        <div class="mas-grid" id="mas-grid"></div>
-        <div class="mas-mas"><button class="btn btn--linea-osc btn--sig" id="mas-boton" type="button" hidden>عرض المزيد من الأعمال</button></div>
+        <div class="car" id="car" role="region" aria-roledescription="carousel" aria-label="شريط الأعمال">
+          <ul class="car-pista" id="mas-pista"></ul>
+          <div class="car-ctrl">
+            <div class="car-prog" aria-hidden="true"><span id="car-barra"></span></div>
+            <div class="car-btns">
+              <button class="car-btn" id="car-prev" type="button" aria-label="الأعمال السابقة"><svg viewBox="0 0 14 14" width="16" height="16" aria-hidden="true" focusable="false"><path d="M9 2L4 7l5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="car-btn" id="car-next" type="button" aria-label="المزيد من الأعمال"><svg viewBox="0 0 14 14" width="16" height="16" aria-hidden="true" focusable="false"><path d="M5 2l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
         <noscript><p class="aviso-js">لعرض الأعمال يجب تفعيل JavaScript في المتصفح.</p></noscript>
+      </div>
+    </section>
+
+    <!-- PIEZAS GRÁFICAS -->
+    <section class="sec sec--oscuro piezas" id="piezas" aria-labelledby="titulo-piezas">
+      <span class="fantasma" aria-hidden="true" data-par>أعمال</span>
+      <div class="contenedor">
+        <header class="sec-cab">
+          <div>
+            <p class="eyebrow">قطع تصميم</p>
+            <h2 class="titan" id="titulo-piezas">فلايرات وملصقات <span class="acento">وتغليف وأكثر</span></h2>
+          </div>
+          <p>نماذج مما نصممه للتواصل: فلايرات وملصقات وحملات إذاعية وتغليف وهوية بصرية. اضغط على أي قطعة لعرضها بحجم أكبر.</p>
+        </header>
+        <div class="filtros" id="pz-filtros" role="group" aria-label="تصفية الأعمال حسب النوع"></div>
+        <p class="sr-only" id="pz-estado" aria-live="polite"></p>
+        <ul class="pz-grid" id="pz-grid"></ul>
+        <noscript><p class="aviso-js">لعرض القطع يجب تفعيل JavaScript في المتصفح.</p></noscript>
       </div>
     </section>
 
