@@ -42,7 +42,7 @@ html[lang="ar"] .fantasma { line-height: 1.1; font-weight: 900; }
 /* ---------- Alineaciones y posiciones ---------- */
 html[dir="rtl"] .saltar { left: auto; right: 12px; }
 html[dir="rtl"] .nav-capsula a, html[dir="rtl"] .nav-btn,
-html[dir="rtl"] .tile, html[dir="rtl"] .mas-item, html[dir="rtl"] .pieza { text-align: start; }
+html[dir="rtl"] .tile, html[dir="rtl"] .mas-item, html[dir="rtl"] .pieza, html[dir="rtl"] .pz { text-align: start; }
 
 /* Barra de progreso: avanza desde la derecha */
 html[dir="rtl"] .progreso { left: auto; right: 0; transform-origin: 100% 50%; }
@@ -96,3 +96,6 @@ html[dir="rtl"] .hab { right: auto; left: 16px; }
   html[dir="rtl"] .hab { left: 8px; right: auto; }
   html[dir="rtl"] .hab-lanz { left: 14px; right: auto; }
 }
+
+/* Carrusel y piezas: las flechas se espejan */
+html[dir="rtl"] .car-btn svg { transform: scaleX(-1); }

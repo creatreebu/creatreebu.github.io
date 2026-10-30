@@ -546,13 +546,39 @@
             <p class="eyebrow">Más trabajos</p>
             <h2 class="titan" id="titulo-mas">Más de nuestros <span class="acento">trabajos</span></h2>
           </div>
-          <p>Logos, cartas de menú, aplicaciones y otras piezas que hicimos para distintos clientes. Tocá una imagen para verla en grande.</p>
+          <p>Logos, cartas de menú, aplicaciones y otras piezas que hicimos para distintos clientes. Deslizá o usá las flechas, y tocá una pieza para verla en grande.</p>
         </header>
         <div class="filtros" id="mas-filtros" role="group" aria-label="Filtrar trabajos por tipo"></div>
         <p class="sr-only" id="mas-estado" aria-live="polite"></p>
-        <div class="mas-grid" id="mas-grid"></div>
-        <div class="mas-mas"><button class="btn btn--linea-osc btn--sig" id="mas-boton" type="button" hidden>Ver más trabajos</button></div>
+        <div class="car" id="car" role="region" aria-roledescription="carousel" aria-label="Carrusel de trabajos">
+          <ul class="car-pista" id="mas-pista"></ul>
+          <div class="car-ctrl">
+            <div class="car-prog" aria-hidden="true"><span id="car-barra"></span></div>
+            <div class="car-btns">
+              <button class="car-btn" id="car-prev" type="button" aria-label="Trabajos anteriores"><svg viewBox="0 0 14 14" width="16" height="16" aria-hidden="true" focusable="false"><path d="M9 2L4 7l5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="car-btn" id="car-next" type="button" aria-label="Más trabajos"><svg viewBox="0 0 14 14" width="16" height="16" aria-hidden="true" focusable="false"><path d="M5 2l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
         <noscript><p class="aviso-js">Para ver los trabajos necesitás tener JavaScript activado en el navegador.</p></noscript>
+      </div>
+    </section>
+
+    <!-- PIEZAS GRÁFICAS -->
+    <section class="sec sec--oscuro piezas" id="piezas" aria-labelledby="titulo-piezas">
+      <span class="fantasma" aria-hidden="true" data-par>PIEZAS</span>
+      <div class="contenedor">
+        <header class="sec-cab">
+          <div>
+            <p class="eyebrow">Piezas gráficas</p>
+            <h2 class="titan" id="titulo-piezas">Flyers, afiches, <span class="acento">packaging y más</span></h2>
+          </div>
+          <p>Una muestra de lo que diseñamos para comunicar: flyers, afiches, campañas de radio, packaging e identidad. Tocá una pieza para verla en grande.</p>
+        </header>
+        <div class="filtros" id="pz-filtros" role="group" aria-label="Filtrar piezas por tipo"></div>
+        <p class="sr-only" id="pz-estado" aria-live="polite"></p>
+        <ul class="pz-grid" id="pz-grid"></ul>
+        <noscript><p class="aviso-js">Para ver las piezas necesitás tener JavaScript activado en el navegador.</p></noscript>
       </div>
     </section>
 

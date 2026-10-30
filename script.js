@@ -430,18 +430,43 @@ const PROYECTOS = [
    ========================================================= */
 
 const TRABAJOS = [
-  { nombre: "Provenzano Multiespacio, carta de cafetería", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-cafeteria.jpg", fondo: "#482e1d", cubrir: true, alt: "Carta de cafetería de Provenzano Multiespacio sobre fondo marrón con granos de café, taza y molinillo, con la lista de cafés y los precios en blanco." },
-  { nombre: "Provenzano Multiespacio, carta de minutas y sándwiches", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-minutas.jpg", fondo: "#aa7847", cubrir: true, alt: "Carta de minutas y sándwiches de Provenzano Multiespacio sobre fondo color caramelo, con listas de minibaguetes, sándwiches calientes, tartas y empanadas." },
-  { nombre: "Provenzano Multiespacio, carta de postres", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-postres.jpg", fondo: "#472d1c", cubrir: true, alt: "Carta de postres de Provenzano Multiespacio sobre fondo marrón chocolate, con una bandeja de bombones y tortas en la parte inferior." },
-  { nombre: "Provenzano Multiespacio, promos de desayuno y merienda", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-promo-desayunos.jpg", fondo: "#ec7e05", alt: "Flyer vertical naranja de Promo Menús de Provenzano con cinco combos de café, tostados, licuados y medialunas dentro de círculos." },
-  { nombre: "Provenzano Multiespacio, promos de picadas y pizzas", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-promo-picadas.jpg", fondo: "#3a3100", alt: "Flyer vertical verde oliva de Promo Menús de Provenzano con tablas de fiambres, pizzas y cerveza dentro de círculos." },
-  { nombre: "La Huella Restaurant, menú ejecutivo", tipo: "Cartas y menús", src: "imagenes/mas-la-huella-menu.jpg", fondo: "#1b2423", cubrir: true, alt: "Menú ejecutivo de La Huella Restaurant en dos paneles oscuros sobre fotos de comida, con letras doradas e ilustración de una cloche." },
-  { nombre: "Panadería Santa Ana", tipo: "Logos", src: "imagenes/mas-panaderia-santa-ana.jpg", fondo: "#ffca6f", alt: "Logotipo de Panadería Santa Ana: nombre en letras blancas sobre una banda marrón, con una corona de hojas doradas, panes y la frase atendido por sus propios dueños." },
-  { nombre: "Bassdetail Auto Estética", tipo: "Logos", src: "imagenes/mas-bassdetail.jpg", fondo: "#000000", alt: "Logotipo de Bassdetail Auto Estética: un auto clásico rojo sobre un óvalo dorado con el nombre en letras blancas." },
-  { nombre: "Eterna Juventud", tipo: "Logos", src: "imagenes/mas-eterna-juventud.jpg", fondo: "#ffffff", alt: "Logotipo de Eterna Juventud, indumentaria para ellas: ilustración retro de una mujer con anteojos dentro de un sello violeta con cinta." },
-  { nombre: "Pipa Romero, guía de pesca", tipo: "Logos", src: "imagenes/mas-pipa-romero.jpg", fondo: "#ffffff", alt: "Logotipo de Pipa Romero, guía de pesca: dos peces que forman un círculo en tonos verde oliva y amarillo, con el nombre al costado." },
-  { nombre: "Morbelli & Morbelli Abogados", tipo: "Logos", src: "imagenes/mas-morbelli-abogados.jpg", fondo: "#1b1b1b", alt: "Logotipo de Morbelli y Morbelli Abogados con letras metalizadas sobre fondo negro texturado y una flecha blanca ascendente." },
-  { nombre: "NAP Estudio", tipo: "Logos", src: "imagenes/mas-nap-estudio.jpg", fondo: "#ffffff", alt: "Logotipo de NAP Estudio: una claqueta de cine negra con las letras NAP en naranja y marcos de encuadre." }
+  { nombre: "Bassdetail Auto Estética", tipo: "Logos", src: "imagenes/mas-bassdetail.jpg", mini: "imagenes/trabajos/mas-bassdetail-ficha.webp", fondo: "#000000", alt: "Logotipo de Bassdetail Auto Estética: un auto clásico rojo sobre un óvalo dorado con el nombre en letras blancas." },
+  { nombre: "Provenzano Multiespacio, carta de cafetería", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-cafeteria.jpg", mini: "imagenes/trabajos/mas-provenzano-cafeteria-ficha.webp", fondo: "#482e1d", cubrir: true, alt: "Carta de cafetería de Provenzano Multiespacio sobre fondo marrón con granos de café, taza y molinillo, con la lista de cafés y los precios en blanco." },
+  { nombre: "Panadería Santa Ana", tipo: "Logos", src: "imagenes/mas-panaderia-santa-ana.jpg", mini: "imagenes/trabajos/mas-panaderia-santa-ana-ficha.webp", fondo: "#ffca6f", alt: "Logotipo de Panadería Santa Ana: nombre en letras blancas sobre una banda marrón, con una corona de hojas doradas, panes y la frase atendido por sus propios dueños." },
+  { nombre: "La Huella Restaurant, menú ejecutivo", tipo: "Cartas y menús", src: "imagenes/mas-la-huella-menu.jpg", mini: "imagenes/trabajos/mas-la-huella-menu-ficha.webp", fondo: "#1b2423", cubrir: true, alt: "Menú ejecutivo de La Huella Restaurant en dos paneles oscuros sobre fotos de comida, con letras doradas e ilustración de una cloche." },
+  { nombre: "Sociedad de Fomento 1° de Mayo", tipo: "Logos", src: "imagenes/trabajos/fomento-logo.jpg", mini: "imagenes/trabajos/fomento-logo-ficha.webp", fondo: "#FFFFFF", alt: "Escudo de la Sociedad de Fomento 1° de Mayo, fundada en 1958: una cruz azul con las letras S, F, 1° y M en naranja." },
+  { nombre: "La Masión, carta de cocina de autor", tipo: "Cartas y menús", src: "imagenes/trabajos/la-masion-menu.jpg", mini: "imagenes/trabajos/la-masion-menu-ficha.webp", fondo: "#FFFFFF", alt: "Carta de La Masión, cocina de autor, con entradas, guarniciones, carnes, pastas, bebidas y postres sobre una foto cálida de cocina." },
+  { nombre: "Eterna Juventud", tipo: "Logos", src: "imagenes/mas-eterna-juventud.jpg", mini: "imagenes/trabajos/mas-eterna-juventud-ficha.webp", fondo: "#ffffff", alt: "Logotipo de Eterna Juventud, indumentaria para ellas: ilustración retro de una mujer con anteojos dentro de un sello violeta con cinta." },
+  { nombre: "Provenzano Multiespacio, carta de minutas y sándwiches", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-minutas.jpg", mini: "imagenes/trabajos/mas-provenzano-minutas-ficha.webp", fondo: "#aa7847", cubrir: true, alt: "Carta de minutas y sándwiches de Provenzano Multiespacio sobre fondo color caramelo, con listas de minibaguetes, sándwiches calientes, tartas y empanadas." },
+  { nombre: "Pipa Romero, guía de pesca", tipo: "Logos", src: "imagenes/mas-pipa-romero.jpg", mini: "imagenes/trabajos/mas-pipa-romero-ficha.webp", fondo: "#ffffff", alt: "Logotipo de Pipa Romero, guía de pesca: dos peces que forman un círculo en tonos verde oliva y amarillo, con el nombre al costado." },
+  { nombre: "Provenzano Multiespacio, carta de postres", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-postres.jpg", mini: "imagenes/trabajos/mas-provenzano-postres-ficha.webp", fondo: "#472d1c", cubrir: true, alt: "Carta de postres de Provenzano Multiespacio sobre fondo marrón chocolate, con una bandeja de bombones y tortas en la parte inferior." },
+  { nombre: "Morbelli & Morbelli Abogados", tipo: "Logos", src: "imagenes/mas-morbelli-abogados.jpg", mini: "imagenes/trabajos/mas-morbelli-abogados-ficha.webp", fondo: "#1b1b1b", alt: "Logotipo de Morbelli y Morbelli Abogados con letras metalizadas sobre fondo negro texturado y una flecha blanca ascendente." },
+  { nombre: "Provenzano Multiespacio, promos de desayuno y merienda", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-promo-desayunos.jpg", mini: "imagenes/trabajos/mas-provenzano-promo-desayunos-ficha.webp", fondo: "#ec7e05", alt: "Flyer vertical naranja de Promo Menús de Provenzano con cinco combos de café, tostados, licuados y medialunas dentro de círculos." },
+  { nombre: "NAP Estudio", tipo: "Logos", src: "imagenes/mas-nap-estudio.jpg", mini: "imagenes/trabajos/mas-nap-estudio-ficha.webp", fondo: "#ffffff", alt: "Logotipo de NAP Estudio: una claqueta de cine negra con las letras NAP en naranja y marcos de encuadre." },
+  { nombre: "Provenzano Multiespacio, promos de picadas y pizzas", tipo: "Cartas y menús", src: "imagenes/mas-provenzano-promo-picadas.jpg", mini: "imagenes/trabajos/mas-provenzano-promo-picadas-ficha.webp", fondo: "#3a3100", alt: "Flyer vertical verde oliva de Promo Menús de Provenzano con tablas de fiambres, pizzas y cerveza dentro de círculos." }
+];
+
+/* Piezas gráficas (flyers, afiches, radio, packaging e identidad).
+   "src" es la imagen completa que se ve al ampliar; "mini" es la ficha cuadrada de la grilla. */
+const PIEZAS = [
+  { id: "damisellas", nombre: "Damisellas, promo Día de la Madre", tipo: "Flyers", src: "imagenes/trabajos/damisellas.jpg", mini: "imagenes/trabajos/damisellas-ficha.webp", fondo: "#F4F0E8", alt: "Flyer de promociones por el Día de la Madre del centro de estética Damisellas, con fotos de masajes y tratamientos sobre ondas rosadas." },
+  { id: "fines-expo", nombre: "FINES, Expo Educativa", tipo: "Flyers", src: "imagenes/trabajos/fines-expo.jpg", mini: "imagenes/trabajos/fines-expo-ficha.webp", fondo: "#F4F0E8", alt: "Flyer de FINES para la primera Expo Educativa de La Costa, con bloques verdes y azules sobre una foto de manos escribiendo." },
+  { id: "fines-deudores", nombre: "DEU.FINES, deudores de materias", tipo: "Flyers", src: "imagenes/trabajos/fines-deudores.jpg", mini: "imagenes/trabajos/fines-deudores-ficha.webp", fondo: "#F4F0E8", alt: "Flyer del plan DEU.FINES secundario para adultos con materias adeudadas, con los requisitos de inscripción, en verdes y turquesas." },
+  { id: "sco-gastronomia", nombre: "Secundaria con Oficios, Gastronomía", tipo: "Flyers", src: "imagenes/trabajos/sco-gastronomia.jpg", mini: "imagenes/trabajos/sco-gastronomia-ficha.webp", fondo: "#F4F0E8", alt: "Flyer de inscripción a Secundaria con Oficios, orientación Gastronomía, con una foto de manos amasando." },
+  { id: "sco-alimentacion", nombre: "Secundaria con Oficios, Industria de la Alimentación", tipo: "Flyers", src: "imagenes/trabajos/sco-alimentacion.jpg", mini: "imagenes/trabajos/sco-alimentacion-ficha.webp", fondo: "#F4F0E8", alt: "Flyer de inscripción a Secundaria con Oficios, orientación Industria de la Alimentación, con un mosaico de platos." },
+  { id: "expo-gastronomia", nombre: "Oficio Gastronomía, Primera Expo", tipo: "Flyers", src: "imagenes/trabajos/expo-gastronomia.jpg", mini: "imagenes/trabajos/expo-gastronomia-ficha.webp", fondo: "#F4F0E8", alt: "Afiche de la primera Expo Educativa y Productiva de Secundaria con Oficios, con letras verdes sobre una pizarra negra y platos en los bordes." },
+  { id: "pitucos", nombre: "Pitucos Baby & Kids", tipo: "Flyers", src: "imagenes/trabajos/pitucos.jpg", mini: "imagenes/trabajos/pitucos-ficha.webp", fondo: "#F4F0E8", alt: "Placa para redes de la tienda Pitucos Baby & Kids, con el logo de una ranita, marcas, medios de pago y dirección." },
+  { id: "claude-fotografia", nombre: "Claude Fotografía, taller básico", tipo: "Flyers", src: "imagenes/trabajos/claude-fotografia.jpg", mini: "imagenes/trabajos/claude-fotografia-ficha.webp", fondo: "#F4F0E8", alt: "Flyer del taller de fotografía de nivel básico de Claude Fotografía, con cámaras antiguas alrededor de un hexágono con el logo." },
+  { id: "peluca-inocente", nombre: "Peluca y su Combo, Inocente", tipo: "Afiches", src: "imagenes/trabajos/peluca-inocente.jpg", mini: "imagenes/trabajos/peluca-inocente-ficha.webp", fondo: "#F4F0E8", alt: "Afiche del video lyric Inocente, de Peluca y su Combo: una calavera mexicana con corona de rosas sobre rayos oscuros." },
+  { id: "mal-viaje", nombre: "Mal viaje, cortometraje", tipo: "Afiches", src: "imagenes/trabajos/mal-viaje.jpg", mini: "imagenes/trabajos/mal-viaje-ficha.webp", fondo: "#F4F0E8", alt: "Afiche en blanco y negro del cortometraje Mal viaje, con un hombre de traje y una corbata en forma de soga." },
+  { id: "diseno-imagen", nombre: "El diseño de la imagen, UNDAV", tipo: "Afiches", src: "imagenes/trabajos/diseno-imagen.jpg", mini: "imagenes/trabajos/diseno-imagen-ficha.webp", fondo: "#F4F0E8", alt: "Afiche de la cursada Fotografía y Cámara Uno, de Artes Audiovisuales, con un carrete de película dorado." },
+  { id: "radio-master", nombre: "Radio Master 104.1, + Música", tipo: "Radio", src: "imagenes/trabajos/radio-master.jpg", mini: "imagenes/trabajos/radio-master-ficha.webp", fondo: "#F4F0E8", alt: "Flyer de Radio Master 104.1 con una chica con auriculares y los géneros rock, folk, pop y dance." },
+  { id: "master-activa", nombre: "Master Activa 104.1", tipo: "Radio", src: "imagenes/trabajos/master-activa.jpg", mini: "imagenes/trabajos/master-activa-ficha.webp", fondo: "#F4F0E8", alt: "Afiche de lanzamiento de Master Activa 104.1: un corazón rojo entre auriculares sobre fondo blanco." },
+  { id: "irins-boys", nombre: "Irin's Parfum, Boys", tipo: "Packaging", src: "imagenes/trabajos/irins-boys.jpg", mini: "imagenes/trabajos/irins-boys-ficha.webp", fondo: "#F4F0E8", alt: "Frasco de perfume Irin's Parfum Boys, de vidrio facetado verde azulado con tapa negra texturada." },
+  { id: "irins-ladies", nombre: "Irin's Parfum, Ladies", tipo: "Packaging", src: "imagenes/trabajos/irins-ladies.jpg", mini: "imagenes/trabajos/irins-ladies-ficha.webp", fondo: "#F4F0E8", alt: "Frasco de perfume Irin's Parfum Ladies, de vidrio rosado con forma curva y tapa transparente con detalle dorado." },
+  { id: "irins-boys-noche", nombre: "Irin's Parfum, Boys (ambiente nocturno)", tipo: "Packaging", src: "imagenes/trabajos/irins-boys-noche.jpg", mini: "imagenes/trabajos/irins-boys-noche-ficha.webp", fondo: "#F4F0E8", alt: "Frasco Irin's Parfum Boys sobre piedra oscura, con luces azules desenfocadas de una ciudad de noche." },
+  { id: "cadu-44", nombre: "CADU, 44 años de historia", tipo: "Identidad", src: "imagenes/trabajos/cadu-44.jpg", mini: "imagenes/trabajos/cadu-44-ficha.webp", fondo: "#F4F0E8", alt: "Saludo de aniversario del Club Atlético Defensores Unidos, con el escudo, el nombre CADU en negro y el 44 en naranja." },
+  { id: "fomento-fachada", nombre: "Sociedad de Fomento 1° de Mayo, fachada", tipo: "Identidad", src: "imagenes/trabajos/fomento-fachada.jpg", mini: "imagenes/trabajos/fomento-fachada-ficha.webp", fondo: "#F4F0E8", alt: "Frente de la Sociedad de Fomento 1° de Mayo, con su escudo en un cartel sobre la pared blanca y azul." }
 ];
 
 /* =========================================================
@@ -492,6 +517,13 @@ function rutaIdioma(r) {
     var d = (I18N.trabajos || {})[t.src];
     if (d) { ["nombre", "tipo", "alt"].forEach(function (c) { if (d[c]) { t[c] = d[c]; } }); }
     t.src = rutaIdioma(t.src);
+    t.mini = rutaIdioma(t.mini);
+  });
+  PIEZAS.forEach(function (p) {
+    var d = (I18N.piezas || {})[p.id];
+    if (d) { ["nombre", "tipo", "alt"].forEach(function (c) { if (d[c]) { p[c] = d[c]; } }); }
+    p.src = rutaIdioma(p.src);
+    p.mini = rutaIdioma(p.mini);
   });
 })();
 
@@ -1084,114 +1116,199 @@ function iniciar() {
     modal.addEventListener("close", function () { raiz.classList.remove("modal-abierto"); $$("video", modal).forEach(function (v) { v.pause(); }); });
   }
 
-  /* ----- Más de nuestros trabajos: muro de imágenes con filtros, "Ver más" y visor ----- */
-  var MAS_INICIAL = 12;
-  var muro = $("#mas-grid");
-  if (muro && Array.isArray(TRABAJOS) && TRABAJOS.length) {
-    var masFiltros = $("#mas-filtros");
-    var masEstado = $("#mas-estado");
-    var masBoton = $("#mas-boton");
-    var masTipo = "Todos";
-    var masVisibles = MAS_INICIAL;
+  /* ----- Visor ampliado (lo usan el carrusel y la grilla de piezas) ----- */
+  var visor = $("#visor");
+  var vi = { fuente: [], lista: [], pos: 0 };
+  var abrirVisor = null;
+  if (visor) {
+    var vImg = $("#visor-img");
+    var vFondo = $("#visor-escena");
+    var vNombre = $("#visor-nombre");
+    var vTipo = $("#visor-tipo");
+    var vPos = $("#visor-pos");
+    var vWa = $("#visor-wa");
+    var pintarVisor = function () {
+      var t = vi.fuente[vi.lista[vi.pos]];
+      vImg.src = t.src;
+      vImg.alt = t.alt || t.nombre;
+      vFondo.style.background = t.fondo || "#fff";
+      vNombre.textContent = t.nombre;
+      vTipo.textContent = t.tipo;
+      vPos.textContent = tx("pos", function (a, b) { return a + " de " + b; }, vi.pos + 1, vi.lista.length);
+      vWa.setAttribute("href", "#contacto");
+      vWa.removeAttribute("target");
+      prepararEnlaceWa(vWa, WHATSAPP_MESSAGES.proyecto.replace("{proyecto}", t.nombre));
+    };
+    var moverVisor = function (paso) {
+      vi.pos = (vi.pos + paso + vi.lista.length) % vi.lista.length;
+      pintarVisor();
+    };
+    abrirVisor = function (fuente, lista, indice) {
+      vi.fuente = fuente;
+      vi.lista = lista;
+      vi.pos = Math.max(0, lista.indexOf(indice));
+      pintarVisor();
+      if (typeof visor.showModal === "function") { visor.showModal(); } else { visor.setAttribute("open", ""); }
+      raiz.classList.add("modal-abierto");
+    };
+    $("#visor-cerrar").addEventListener("click", function () { visor.close(); });
+    $("#visor-prev").addEventListener("click", function () { moverVisor(-1); });
+    $("#visor-next").addEventListener("click", function () { moverVisor(1); });
+    visor.addEventListener("click", function (e) { if (e.target === visor) { visor.close(); } });
+    visor.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft") { moverVisor(RTL ? 1 : -1); }
+      if (e.key === "ArrowRight") { moverVisor(RTL ? -1 : 1); }
+    });
+    visor.addEventListener("close", function () { raiz.classList.remove("modal-abierto"); });
+  }
 
+  /* Filtros reutilizables: crea los botones y avisa cuál se eligió */
+  function crearFiltros(cont, datos, alElegir) {
+    if (!cont) { return; }
+    var tipos = ["Todos"];
+    datos.forEach(function (t) { if (tipos.indexOf(t.tipo) === -1) { tipos.push(t.tipo); } });
+    cont.hidden = tipos.length < 3;
+    cont.innerHTML = tipos.map(function (n, i) {
+      return '<button class="filtro" type="button" data-tipo="' + esc(n) + '" aria-pressed="' + (i === 0 ? "true" : "false") + '">' + esc(n === "Todos" ? tx("todos", "Todos") : n) + "</button>";
+    }).join("");
+    cont.addEventListener("click", function (e) {
+      var b = e.target.closest(".filtro");
+      if (!b) { return; }
+      $$(".filtro", cont).forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      alElegir(b.getAttribute("data-tipo"));
+    });
+  }
+
+  /* ----- Más de nuestros trabajos: carrusel (logos, cartas de menú, etc.) ----- */
+  var pista = $("#mas-pista");
+  if (pista && Array.isArray(TRABAJOS) && TRABAJOS.length) {
+    var masEstado = $("#mas-estado");
+    var barra = $("#car-barra");
+    var masTipo = "Todos";
     var masLista = function () {
       return TRABAJOS.map(function (t, i) { return { t: t, i: i }; }).filter(function (x) {
         return masTipo === "Todos" || x.t.tipo === masTipo;
       });
     };
-
+    var alFinal = function () { return Math.abs(pista.scrollLeft) + pista.clientWidth >= pista.scrollWidth - 4; };
+    var paso = function () {
+      var it = $(".car-item", pista);
+      var hueco = parseFloat(getComputedStyle(pista).columnGap) || 16;
+      return it ? it.getBoundingClientRect().width + hueco : pista.clientWidth * 0.8;
+    };
+    var actualizarBarra = function () {
+      if (!barra) { return; }
+      var total = pista.scrollWidth, vis = pista.clientWidth, max = total - vis;
+      var frac = total > 0 ? Math.min(1, vis / total) : 1;
+      var pos = max > 1 ? Math.min(1, Math.abs(pista.scrollLeft) / max) : 0;
+      barra.style.width = (frac * 100).toFixed(1) + "%";
+      barra.style.setProperty("--pos", (pos * (1 - frac) * 100).toFixed(1) + "%");
+    };
+    var mover = function (dir) {
+      if (dir > 0 && alFinal()) { pista.scrollTo({ left: 0, behavior: conEfectos ? "smooth" : "auto" }); return; }
+      pista.scrollBy({ left: dir * (RTL ? -1 : 1) * paso(), behavior: conEfectos ? "smooth" : "auto" });
+    };
     var pintarMas = function () {
       var lista = masLista();
-      var mostrar = lista.slice(0, masVisibles);
-      muro.innerHTML = mostrar.map(function (x) {
-        return '<button class="mas-item" type="button" data-v="' + x.i + '" aria-haspopup="dialog" aria-label="' + esc(tx("verAmpliado", function (n) { return "Ver ampliado: " + n; }, x.t.nombre)) + '">' +
-          '<span class="mas-img' + (x.t.cubrir ? " mas-img--cubrir" : "") + '" style="--fondo:' + esc(x.t.fondo || "#fff") + '"><img src="' + esc(x.t.src) + '" alt="" loading="lazy" decoding="async"></span>' +
+      pista.innerHTML = lista.map(function (x) {
+        return '<li class="car-item"><button class="mas-item" type="button" data-v="' + x.i + '" aria-haspopup="dialog" aria-label="' + esc(tx("verAmpliado", function (n) { return "Ver ampliado: " + n; }, x.t.nombre)) + '">' +
+          '<span class="mas-img" style="--fondo:' + esc(x.t.fondo || "#fff") + '"><img src="' + esc(x.t.mini || x.t.src) + '" alt="" width="960" height="960" loading="lazy" decoding="async" draggable="false"></span>' +
           '<span class="mas-nombre">' + esc(x.t.nombre) + '</span>' +
-          '<span class="mas-tipo">' + esc(x.t.tipo) + "</span></button>";
+          '<span class="mas-tipo">' + esc(x.t.tipo) + "</span></button></li>";
       }).join("");
-      revelar($$(".mas-item", muro), 0);
-      var restantes = lista.length - mostrar.length;
-      if (masBoton) {
-        masBoton.hidden = restantes <= 0;
-        masBoton.textContent = tx("masBoton", function (n) { return "Ver más trabajos (" + n + ")"; }, restantes);
-      }
+      pista.scrollLeft = 0;
+      actualizarBarra();
       if (masEstado) {
-        masEstado.textContent = tx("masEstado", function (a, b, tipo) { return "Mostrando " + a + " de " + b + (tipo === "Todos" ? " trabajos." : " trabajos de " + tipo + "."); }, mostrar.length, lista.length, masTipo);
+        masEstado.textContent = tx("masEstado", function (a, b, tipo) { return "Mostrando " + a + " de " + b + (tipo === "Todos" ? " trabajos." : " trabajos de " + tipo + "."); }, lista.length, lista.length, masTipo);
       }
     };
-
-    if (masFiltros) {
-      var tipos = ["Todos"];
-      TRABAJOS.forEach(function (t) { if (tipos.indexOf(t.tipo) === -1) { tipos.push(t.tipo); } });
-      masFiltros.hidden = tipos.length < 3;
-      masFiltros.innerHTML = tipos.map(function (n) {
-        return '<button class="filtro" type="button" data-tipo="' + esc(n) + '" aria-pressed="' + (n === masTipo ? "true" : "false") + '">' + esc(n === "Todos" ? tx("todos", "Todos") : n) + "</button>";
-      }).join("");
-      masFiltros.addEventListener("click", function (e) {
-        var b = e.target.closest(".filtro");
-        if (!b) { return; }
-        masTipo = b.getAttribute("data-tipo");
-        masVisibles = MAS_INICIAL;
-        $$(".filtro", masFiltros).forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
-        pintarMas();
-      });
-    }
-    if (masBoton) {
-      masBoton.addEventListener("click", function () {
-        var antes = masVisibles;
-        masVisibles += MAS_INICIAL;
-        pintarMas();
-        var nuevo = $$(".mas-item", muro)[antes];
-        if (nuevo) { nuevo.focus(); }
-      });
-    }
+    crearFiltros($("#mas-filtros"), TRABAJOS, function (tipo) { masTipo = tipo; pintarMas(); });
     pintarMas();
 
-    /* Visor ampliado */
-    var visor = $("#visor");
-    var vi = { pos: 0, lista: [] };
-    if (visor) {
-      var vImg = $("#visor-img");
-      var vFondo = $("#visor-escena");
-      var vNombre = $("#visor-nombre");
-      var vTipo = $("#visor-tipo");
-      var vPos = $("#visor-pos");
-      var vWa = $("#visor-wa");
-      var pintarVisor = function () {
-        var t = TRABAJOS[vi.lista[vi.pos]];
-        vImg.src = t.src;
-        vImg.alt = t.alt || t.nombre;
-        vFondo.style.background = t.fondo || "#fff";
-        vNombre.textContent = t.nombre;
-        vTipo.textContent = t.tipo;
-        vPos.textContent = tx("pos", function (a, b) { return a + " de " + b; }, vi.pos + 1, vi.lista.length);
-        vWa.setAttribute("href", "#contacto");
-        vWa.removeAttribute("target");
-        prepararEnlaceWa(vWa, WHATSAPP_MESSAGES.proyecto.replace("{proyecto}", t.nombre));
-      };
-      var moverVisor = function (paso) {
-        vi.pos = (vi.pos + paso + vi.lista.length) % vi.lista.length;
-        pintarVisor();
-      };
-      muro.addEventListener("click", function (e) {
-        var b = e.target.closest("[data-v]");
-        if (!b) { return; }
-        vi.lista = masLista().map(function (x) { return x.i; });
-        vi.pos = Math.max(0, vi.lista.indexOf(parseInt(b.getAttribute("data-v"), 10)));
-        pintarVisor();
-        if (typeof visor.showModal === "function") { visor.showModal(); } else { visor.setAttribute("open", ""); }
-        raiz.classList.add("modal-abierto");
-      });
-      $("#visor-cerrar").addEventListener("click", function () { visor.close(); });
-      $("#visor-prev").addEventListener("click", function () { moverVisor(-1); });
-      $("#visor-next").addEventListener("click", function () { moverVisor(1); });
-      visor.addEventListener("click", function (e) { if (e.target === visor) { visor.close(); } });
-      visor.addEventListener("keydown", function (e) {
-        if (e.key === "ArrowLeft") { moverVisor(RTL ? 1 : -1); }
-        if (e.key === "ArrowRight") { moverVisor(RTL ? -1 : 1); }
-      });
-      visor.addEventListener("close", function () { raiz.classList.remove("modal-abierto"); });
+    var auto = { detenido: false, pausa: false, visible: false };
+    var anterior = $("#car-prev"), siguiente = $("#car-next");
+    if (anterior) { anterior.addEventListener("click", function () { auto.detenido = true; mover(-1); }); }
+    if (siguiente) { siguiente.addEventListener("click", function () { auto.detenido = true; mover(1); }); }
+    var pendiente = false;
+    pista.addEventListener("scroll", function () {
+      if (pendiente) { return; }
+      pendiente = true;
+      requestAnimationFrame(function () { pendiente = false; actualizarBarra(); });
+    }, { passive: true });
+    window.addEventListener("resize", actualizarBarra);
+
+    /* Arrastrar con el mouse (en el celular alcanza con deslizar el dedo) */
+    var arr = null;
+    pista.addEventListener("pointerdown", function (e) {
+      auto.detenido = true;
+      if (e.pointerType !== "mouse" || e.button !== 0) { return; }
+      arr = { x: e.clientX, s: pista.scrollLeft, movido: false };
+    });
+    window.addEventListener("pointermove", function (e) {
+      if (!arr) { return; }
+      var dx = e.clientX - arr.x;
+      if (!arr.movido && Math.abs(dx) > 6) { arr.movido = true; pista.classList.add("arrastrando"); }
+      if (arr.movido) { pista.scrollLeft = arr.s - dx; }
+    });
+    window.addEventListener("pointerup", function () {
+      if (!arr) { return; }
+      var movido = arr.movido;
+      arr = null;
+      pista.classList.remove("arrastrando");
+      if (movido) { pista.setAttribute("data-arrastro", "1"); setTimeout(function () { pista.removeAttribute("data-arrastro"); }, 60); }
+    });
+    pista.addEventListener("click", function (e) {
+      if (pista.hasAttribute("data-arrastro")) { e.preventDefault(); e.stopPropagation(); return; }
+      var b = e.target.closest("[data-v]");
+      if (!b || !abrirVisor) { return; }
+      abrirVisor(TRABAJOS, masLista().map(function (x) { return x.i; }), parseInt(b.getAttribute("data-v"), 10));
+    }, true);
+
+    /* Avance automático y lento; se detiene al tocar o al pasar el mouse, y si se pide menos movimiento */
+    var car = $("#car");
+    if (car && conEfectos) {
+      car.addEventListener("mouseenter", function () { auto.pausa = true; });
+      car.addEventListener("mouseleave", function () { auto.pausa = false; });
+      car.addEventListener("focusin", function () { auto.pausa = true; });
+      car.addEventListener("focusout", function () { auto.pausa = false; });
+      new IntersectionObserver(function (en) { auto.visible = en[0].isIntersecting; }, { threshold: 0.35 }).observe(car);
+      setInterval(function () {
+        if (auto.detenido || auto.pausa || !auto.visible || document.hidden || (visor && visor.open)) { return; }
+        mover(1);
+      }, 4200);
     }
+  }
+
+  /* ----- Piezas gráficas: grilla estática con filtros ----- */
+  var pzGrid = $("#pz-grid");
+  if (pzGrid && Array.isArray(PIEZAS) && PIEZAS.length) {
+    var pzEstado = $("#pz-estado");
+    var pzTipo = "Todos";
+    var pzLista = function () {
+      return PIEZAS.map(function (t, i) { return { t: t, i: i }; }).filter(function (x) {
+        return pzTipo === "Todos" || x.t.tipo === pzTipo;
+      });
+    };
+    var pintarPz = function () {
+      var lista = pzLista();
+      pzGrid.innerHTML = lista.map(function (x) {
+        return '<li><button class="pz" type="button" data-v="' + x.i + '" aria-haspopup="dialog" aria-label="' + esc(tx("verAmpliado", function (n) { return "Ver ampliado: " + n; }, x.t.nombre)) + '">' +
+          '<span class="pz-img"><img src="' + esc(x.t.mini || x.t.src) + '" alt="" width="960" height="960" loading="lazy" decoding="async"><span class="pz-mas" aria-hidden="true"></span></span>' +
+          '<span class="pz-nombre">' + esc(x.t.nombre) + '</span>' +
+          '<span class="pz-tipo">' + esc(x.t.tipo) + "</span></button></li>";
+      }).join("");
+      revelar($$(".pz", pzGrid), 0);
+      if (pzEstado) {
+        pzEstado.textContent = tx("pzEstado", function (n, tipo) { return "Mostrando " + n + (tipo === "Todos" ? " piezas." : " piezas de " + tipo + "."); }, lista.length, pzTipo);
+      }
+    };
+    crearFiltros($("#pz-filtros"), PIEZAS, function (tipo) { pzTipo = tipo; pintarPz(); });
+    pintarPz();
+    pzGrid.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-v]");
+      if (!b || !abrirVisor) { return; }
+      abrirVisor(PIEZAS, pzLista().map(function (x) { return x.i; }), parseInt(b.getAttribute("data-v"), 10));
+    });
   }
 }
 
