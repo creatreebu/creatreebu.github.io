@@ -827,7 +827,13 @@ html.intro-activa, html.intro-activa body { overflow: hidden; }
 .car-item.activo { opacity: 1; transform: none; }
 .slide { position: relative; display: block; width: 100%; aspect-ratio: 5 / 3; padding: 0; border: 0; overflow: hidden; background: #222; cursor: pointer; color: #fff; text-align: start; }
 .slide img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-.car-item.activo .slide:hover img { transform: scale(1.03); }
+/* Efecto de la escena activa: la imagen se acerca despacio, el título sube y el cartel aparece */
+@keyframes carZoom { from { transform: scale(1); } to { transform: scale(1.09); } }
+@keyframes carSube { from { opacity: 0; translate: 0 38px; } to { opacity: 1; translate: 0 0; } }
+@keyframes carAparece { from { opacity: 0; scale: .8; } to { opacity: 1; scale: 1; } }
+.car-item.activo .slide img { animation: carZoom 4.2s cubic-bezier(.22, .61, .36, 1) both; }
+.car-item.activo .slide-titulo { animation: carSube .8s cubic-bezier(.22, .61, .36, 1) .15s both; }
+.car-item.activo .slide-cant { animation: carAparece .6s var(--ease) .55s both; }
 .slide::after { content: ""; position: absolute; inset: auto 0 0 0; height: 48%; pointer-events: none; background: linear-gradient(to top, rgba(10, 10, 8, .62), transparent); }
 .slide-titulo { position: absolute; z-index: 1; inset-inline-start: clamp(18px, 4vw, 56px); bottom: clamp(16px, 3.2vw, 46px); font-family: var(--display); font-weight: 900; font-size: clamp(1.9rem, 5vw, 4.6rem); line-height: 1; letter-spacing: -.025em; }
 .slide-cant { position: absolute; z-index: 1; inset-inline-end: clamp(14px, 3vw, 40px); bottom: clamp(18px, 3.4vw, 50px); padding: 8px 16px; border-radius: 999px; background: var(--lima); color: var(--carbon); font-family: var(--display); font-size: .72rem; font-weight: 900; letter-spacing: .05em; text-transform: uppercase; }
@@ -844,7 +850,7 @@ html.intro-activa, html.intro-activa body { overflow: hidden; }
   #car-next { inset-inline-end: calc(50% - var(--ancho) / 2 - 92px); }
 }
 @media (max-width: 700px) { .slide { aspect-ratio: 4 / 3; } .slide-cant { bottom: auto; top: 10px; padding: 6px 12px; } }
-@media (prefers-reduced-motion: reduce) { .car-item, .slide img { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .car-item, .slide img { transition: none; } .car-item.activo .slide img, .car-item.activo .slide-titulo, .car-item.activo .slide-cant { animation: none; } }
 
 /* ---------- Piezas gráficas: grilla de cuadrados pegados ---------- */
 .piezas .fantasma { right: -2vw; top: 1vw; }

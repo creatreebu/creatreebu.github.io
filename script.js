@@ -1289,7 +1289,7 @@ function iniciar() {
       setInterval(function () {
         if (auto.detenido || auto.pausa || !auto.visible || document.hidden || (visor && visor.open)) { return; }
         mover(1);
-      }, 5200);
+      }, 3000);
     }
   }
 
