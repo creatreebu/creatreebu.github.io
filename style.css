@@ -815,7 +815,7 @@ html.intro-activa, html.intro-activa body { overflow: hidden; }
 
 /* ---------- Carrusel grande por categorías ---------- */
 .mas .contenedor { overflow: visible; }
-.car { --ancho: min(82vw, 1160px); position: relative; width: 100vw; margin-inline: calc(50% - 50vw); }
+.car { --ancho: min(78vw, 860px, 108vh); position: relative; width: 100vw; margin-inline: calc(50% - 50vw); }
 .car-pista {
   display: flex; gap: clamp(10px, 1.6vw, 22px); overflow-x: auto; scroll-snap-type: x mandatory;
   padding-inline: calc((100% - var(--ancho)) / 2); scroll-padding-inline: calc((100% - var(--ancho)) / 2);
@@ -835,8 +835,8 @@ html.intro-activa, html.intro-activa body { overflow: hidden; }
 .car-item.activo .slide-titulo { animation: carSube .8s cubic-bezier(.22, .61, .36, 1) .15s both; }
 .car-item.activo .slide-cant { animation: carAparece .6s var(--ease) .55s both; }
 .slide::after { content: ""; position: absolute; inset: auto 0 0 0; height: 48%; pointer-events: none; background: linear-gradient(to top, rgba(10, 10, 8, .62), transparent); }
-.slide-titulo { position: absolute; z-index: 1; inset-inline-start: clamp(18px, 4vw, 56px); bottom: clamp(16px, 3.2vw, 46px); font-family: var(--display); font-weight: 900; font-size: clamp(1.9rem, 5vw, 4.6rem); line-height: 1; letter-spacing: -.025em; }
-.slide-cant { position: absolute; z-index: 1; inset-inline-end: clamp(14px, 3vw, 40px); bottom: clamp(18px, 3.4vw, 50px); padding: 8px 16px; border-radius: 999px; background: var(--lima); color: var(--carbon); font-family: var(--display); font-size: .72rem; font-weight: 900; letter-spacing: .05em; text-transform: uppercase; }
+.slide-titulo { position: absolute; z-index: 1; inset-inline-start: clamp(18px, 4vw, 56px); bottom: clamp(16px, 3.2vw, 46px); font-family: var(--display); font-weight: 900; font-size: clamp(1.5rem, 2.8vw, 2.8rem); line-height: 1; letter-spacing: -.02em; }
+.slide-cant { position: absolute; z-index: 1; inset-inline-end: clamp(14px, 3vw, 40px); bottom: clamp(18px, 3.4vw, 50px); padding: 6px 14px; border-radius: 999px; background: var(--lima); color: var(--carbon); font-family: var(--display); font-size: .66rem; font-weight: 900; letter-spacing: .05em; text-transform: uppercase; }
 .car-ctrl { display: flex; justify-content: center; margin-top: 22px; }
 .car-btns { display: flex; gap: 12px; }
 .car-btn { display: grid; place-items: center; width: 58px; height: 58px; padding: 0; border: 0; border-radius: 0; background: var(--carbon); color: var(--lima); cursor: pointer; transition: background-color .2s, color .2s, transform .2s var(--ease); }
