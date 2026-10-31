@@ -23,6 +23,8 @@ window.CREATREEBU_I18N = {
     verAmpliado: function (n) { return "عرض بحجم أكبر: " + n; },
     masBoton: function (n) { return "عرض المزيد من الأعمال (" + n + ")"; },
     masEstado: function (a, b, tipo) { return "عدد الأعمال المعروضة: " + a + " من " + b + (tipo === "Todos" ? "." : " ضمن فئة " + tipo + "."); },
+    nTrabajos: function (c) { return c + " أعمال"; },
+    verCategoria: function (t, c) { return "عرض أعمال " + t + " (" + c + ")"; },
     pzEstado: function (n, tipo) { return "عدد القطع المعروضة: " + n + (tipo === "Todos" ? "." : " ضمن فئة " + tipo + "."); },
 
     habAbrir: "لنتحدّث عبر واتساب",
@@ -350,6 +352,9 @@ window.CREATREEBU_I18N = {
     "cadu-44": { nombre: "CADU، 44 عامًا من التاريخ", tipo: "هوية بصرية", alt: "تهنئة بذكرى تأسيس نادي Defensores Unidos الرياضي، مع الشعار واسم CADU بالأسود والرقم 44 بالبرتقالي." },
     "fomento-fachada": { nombre: "Sociedad de Fomento 1° de Mayo، الواجهة", tipo: "هوية بصرية", alt: "واجهة Sociedad de Fomento 1° de Mayo، وشعارها على لافتة فوق الجدار الأبيض والأزرق." }
   },
+
+  /* Carousel categories (by id) */
+  slides: {"logos": "الشعارات", "menus": "قوائم الطعام", "flyers": "فلايرات", "afiches": "ملصقات", "packaging": "تغليف"},
 
   trabajos: {
     "imagenes/trabajos/la-masion-menu.jpg": { nombre: "La Masión، قائمة المطبخ الإبداعي", tipo: "قوائم الطعام", alt: "قائمة La Masión للمطبخ الإبداعي بمقبلات وأطباق جانبية ولحوم ومعكرونة ومشروبات وحلويات فوق صورة مطبخ دافئة." },

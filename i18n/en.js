@@ -23,6 +23,8 @@ window.CREATREEBU_I18N = {
     verAmpliado: function (n) { return "View larger: " + n; },
     masBoton: function (n) { return "View more work (" + n + ")"; },
     masEstado: function (a, b, tipo) { return "Showing " + a + " of " + b + (tipo === "Todos" ? " works." : " works in " + tipo + "."); },
+    nTrabajos: function (c) { return c + (c === 1 ? " work" : " works"); },
+    verCategoria: function (t, c) { return "View work in " + t + " (" + c + ")"; },
     pzEstado: function (n, tipo) { return "Showing " + n + (tipo === "Todos" ? " pieces." : " pieces in " + tipo + "."); },
 
     habAbrir: "Let's talk on WhatsApp",
@@ -350,6 +352,9 @@ window.CREATREEBU_I18N = {
     "cadu-44": { nombre: "CADU, 44 years of history", tipo: "Identity", alt: "Anniversary greeting for Club Atlético Defensores Unidos, with the crest, CADU in black and 44 in orange." },
     "fomento-fachada": { nombre: "Sociedad de Fomento 1° de Mayo, facade", tipo: "Identity", alt: "Front of the Sociedad de Fomento 1° de Mayo, with its crest on a sign on the white and blue wall." }
   },
+
+  /* Carousel categories (by id) */
+  slides: {"logos": "Logos", "menus": "Menus", "flyers": "Flyers", "afiches": "Posters", "packaging": "Packaging"},
 
   trabajos: {
     "imagenes/trabajos/la-masion-menu.jpg": { nombre: "La Masión, signature cuisine menu", tipo: "Menus", alt: "La Masión signature cuisine menu with starters, sides, meats, pastas, drinks and desserts over a warm kitchen photo." },
