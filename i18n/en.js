@@ -26,6 +26,7 @@ window.CREATREEBU_I18N = {
     nTrabajos: function (c) { return c + (c === 1 ? " work" : " works"); },
     verCategoria: function (t, c) { return "View work in " + t + " (" + c + ")"; },
     pzEstado: function (n, tipo) { return "Showing " + n + (tipo === "Todos" ? " pieces." : " pieces in " + tipo + "."); },
+    ftEstado: function (n, tipo) { return "Showing " + n + (n === 1 ? " photograph" : " photographs") + (tipo === "Todos" ? "." : " in " + tipo + "."); },
 
     habAbrir: "Let's talk on WhatsApp",
     habCerrar: "Close contact form",
@@ -332,6 +333,19 @@ window.CREATREEBU_I18N = {
 
   /* "More of our work" wall (by original image path) */
   /* Graphic pieces grid (by id) */
+  /* Fotografías (por id) */
+  fotos: {
+    "flores-contraluz": { nombre: "Yellow flowers backlit", tipo: "Nature", alt: "Tree with yellow flowers against the light, with the sun between the branches and a blue sky behind." },
+    "atardecer-costa": { nombre: "Sunset on the coast", tipo: "Sunsets", alt: "Sea with waves under an orange sunset sky, with a wooden cabin and railings on both sides." },
+    "atardecer-campo": { nombre: "Sun on the horizon", tipo: "Sunsets", alt: "Orange sun over the horizon of a field, with a dark cloud and cables crossing the sky." },
+    "avenida-roja": { nombre: "Avenue in red", tipo: "City", alt: "Empty avenue between buildings, with red traffic lights and a blue sky in the distance in early light." },
+    "rama-pasarela": { nombre: "Branches and wooden walkway", tipo: "Nature", alt: "Close-up of golden dry branches, with a wooden walkway and a cabin out of focus in the background." },
+    "hojas-secas": { nombre: "Dry leaves", tipo: "Nature", alt: "Close-up of brown dry leaves on the ground, with a blurred background." },
+    "congreso": { nombre: "Congress among the trees", tipo: "City", alt: "The Congress building with its green dome, seen from a park with large trees and dry grass." },
+    "hamaca-cabanas": { nombre: "Hammock between cabins", tipo: "Cabins", alt: "White hammock hanging from an ivy-covered tree, with wooden cabins and a grove of trees behind." },
+    "sendero-hamaca": { nombre: "Wooden path and hammock", tipo: "Cabins", alt: "Wooden plank path between cabins and trees, with a white hammock hanging from a trunk in the foreground." }
+  },
+
   piezas: {
     "damisellas": { nombre: "Damisellas, Mother's Day promo", tipo: "Flyers", alt: "Mother's Day promotions flyer for the Damisellas beauty center, with photos of massages and treatments over pink waves." },
     "fines-expo": { nombre: "FINES, Educational Expo", tipo: "Flyers", alt: "FINES flyer for the first Educational Expo in La Costa, with green and blue blocks over a photo of hands writing." },
