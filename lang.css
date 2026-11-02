@@ -33,7 +33,7 @@
 .nav-capsula .lang-menu a.activo { color: var(--lima); border-color: var(--lima); background: rgba(151, 191, 14, .12); }
 
 /* ---------- Escritorio: botón compacto + lista desplegable ---------- */
-@media (min-width: 1100px) {
+@media (min-width: 1280px) {
   .lang-btn { display: inline-flex; }
   .nav-capsula > .nav-lang { margin-inline-start: 4px; padding-inline-start: 4px; border-inline-start: 1px solid var(--linea-osc); }
   .nav-capsula .lang-menu {
@@ -52,8 +52,8 @@
 
 /* Con el menú en cápsula, entre 1100 y 1439 px se ajusta un poco el espacio de los enlaces
    para que entre el selector sin chocar con el botón "Hablemos". */
-@media (min-width: 1100px) and (max-width: 1439px) {
-  .nav-capsula a, .nav-btn { padding-inline: 11px; }
+@media (min-width: 1280px) and (max-width: 1599px) {
+  .nav-capsula a, .nav-btn { padding: 10px 10px; font-size: .72rem; }
 }
 
 /* Sin JavaScript: las tres opciones quedan a la vista, como enlaces comunes */

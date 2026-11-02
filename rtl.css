@@ -78,7 +78,7 @@ html[dir="rtl"] .hab-lanz { right: auto; left: 18px; }
 html[dir="rtl"] .hab { right: auto; left: 16px; }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1100px) {
+@media (min-width: 1280px) {
   html[dir="rtl"] .nav .btn--cab { right: auto; left: 0; }
   html[dir="rtl"] .cab-fila { justify-content: flex-start; }
   html[dir="rtl"] .hero-texto { padding-left: 0; }

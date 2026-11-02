@@ -469,6 +469,19 @@ const PIEZAS = [
   { id: "fomento-fachada", nombre: "Sociedad de Fomento 1° de Mayo, fachada", tipo: "Identidad", g: "identidad", src: "imagenes/trabajos/fomento-fachada.jpg", mini: "imagenes/trabajos/fomento-fachada-ficha.webp", fondo: "#F4F0E8", alt: "Frente de la Sociedad de Fomento 1° de Mayo, con su escudo en un cartel sobre la pared blanca y azul." }
 ];
 
+/* Fotografía propia (paisajes). Agregar una foto nueva = una línea más acá + los dos archivos en imagenes/fotos/ (foto.jpg y foto-m.webp). */
+const FOTOS = [
+  { id: "flores-contraluz", nombre: "Flores amarillas a contraluz", tipo: "Naturaleza", src: "imagenes/fotos/flores-contraluz.jpg", mini: "imagenes/fotos/flores-contraluz-m.webp", fondo: "#0b0e0a", w: 720, h: 1080, alt: "Árbol de flores amarillas a contraluz, con el sol entre las ramas y el cielo azul de fondo." },
+  { id: "atardecer-costa", nombre: "Atardecer en la costa", tipo: "Atardeceres", src: "imagenes/fotos/atardecer-costa.jpg", mini: "imagenes/fotos/atardecer-costa-m.webp", fondo: "#0b0e0a", w: 900, h: 600, alt: "Mar con olas bajo un cielo anaranjado al atardecer, con una cabaña de madera y barandas a los costados." },
+  { id: "atardecer-campo", nombre: "Sol bajo el horizonte", tipo: "Atardeceres", r: "4 / 3", src: "imagenes/fotos/atardecer-campo.jpg", mini: "imagenes/fotos/atardecer-campo-m.webp", fondo: "#0b0e0a", w: 900, h: 900, alt: "Sol anaranjado sobre el horizonte de un campo, con una nube oscura y cables cruzando el cielo." },
+  { id: "avenida-roja", nombre: "Avenida en rojo", tipo: "Ciudad", src: "imagenes/fotos/avenida-roja.jpg", mini: "imagenes/fotos/avenida-roja-m.webp", fondo: "#0b0e0a", w: 720, h: 1080, alt: "Avenida vacía entre edificios, con semáforos en rojo y un cielo azul al fondo con luz de amanecer." },
+  { id: "rama-pasarela", nombre: "Ramas y pasarela de madera", tipo: "Naturaleza", src: "imagenes/fotos/rama-pasarela.jpg", mini: "imagenes/fotos/rama-pasarela-m.webp", fondo: "#0b0e0a", w: 900, h: 600, alt: "Primer plano de ramas secas doradas, con una pasarela de madera y una cabaña desenfocadas al fondo." },
+  { id: "hojas-secas", nombre: "Hojas secas", tipo: "Naturaleza", src: "imagenes/fotos/hojas-secas.jpg", mini: "imagenes/fotos/hojas-secas-m.webp", fondo: "#0b0e0a", w: 900, h: 600, alt: "Primer plano de hojas secas marrones sobre el suelo, con el fondo desenfocado." },
+  { id: "congreso", nombre: "Congreso entre árboles", tipo: "Ciudad", src: "imagenes/fotos/congreso.jpg", mini: "imagenes/fotos/congreso-m.webp", fondo: "#0b0e0a", w: 720, h: 1080, alt: "Edificio del Congreso con su cúpula verde, visto desde un parque con árboles grandes y pasto seco." },
+  { id: "hamaca-cabanas", nombre: "Hamaca entre cabañas", tipo: "Cabañas", src: "imagenes/fotos/hamaca-cabanas.jpg", mini: "imagenes/fotos/hamaca-cabanas-m.webp", fondo: "#0b0e0a", w: 900, h: 600, alt: "Hamaca blanca colgada de un árbol cubierto de hiedra, con cabañas de madera y arboleda al fondo." },
+  { id: "sendero-hamaca", nombre: "Sendero de madera y hamaca", tipo: "Cabañas", src: "imagenes/fotos/sendero-hamaca.jpg", mini: "imagenes/fotos/sendero-hamaca-m.webp", fondo: "#0b0e0a", w: 900, h: 600, alt: "Sendero de tablas de madera entre cabañas y árboles, con una hamaca blanca colgada de un tronco en primer plano." }
+];
+
 /* Carrusel grande: una escena por categoría. "fuente": T = TRABAJOS, P = PIEZAS; "g" = grupos que se ven al abrir. */
 const SLIDES = [
   { id: "logos", titulo: "Logos", fuente: "T", g: ["logos"], img: "imagenes/trabajos/slide-logos.jpg" },
@@ -530,6 +543,12 @@ function rutaIdioma(r) {
   });
   PIEZAS.forEach(function (p) {
     var d = (I18N.piezas || {})[p.id];
+    if (d) { ["nombre", "tipo", "alt"].forEach(function (c) { if (d[c]) { p[c] = d[c]; } }); }
+    p.src = rutaIdioma(p.src);
+    p.mini = rutaIdioma(p.mini);
+  });
+  FOTOS.forEach(function (p) {
+    var d = (I18N.fotos || {})[p.id];
     if (d) { ["nombre", "tipo", "alt"].forEach(function (c) { if (d[c]) { p[c] = d[c]; } }); }
     p.src = rutaIdioma(p.src);
     p.mini = rutaIdioma(p.mini);
@@ -1215,15 +1234,21 @@ function iniciar() {
     var alFinal = function () { return Math.abs(pista.scrollLeft) + pista.clientWidth >= pista.scrollWidth - 4; };
     var paso = function () {
       var hueco = parseFloat(getComputedStyle(pista).columnGap) || 16;
-      return items[0].getBoundingClientRect().width + hueco;
+      return items[0].offsetWidth + hueco;
     };
+    /* Efecto "carrusel en círculo": la escena del centro se ve entera y con todo su color;
+       las de los costados se alejan, giran hacia atrás y se ven más apagadas (opacidad ~62 %). */
     var marcarActivo = function () {
-      var c = pista.getBoundingClientRect();
-      var centro = c.left + c.width / 2, mejor = null, dmin = 1e9;
+      var hueco = parseFloat(getComputedStyle(pista).columnGap) || 16;
+      var izq = RTL ? (pista.scrollWidth - pista.clientWidth + pista.scrollLeft) : pista.scrollLeft;
+      var centro = izq + pista.clientWidth / 2, mejor = null, dmin = 1e9;
       items.forEach(function (it) {
-        var r = it.getBoundingClientRect();
-        var d = Math.abs(r.left + r.width / 2 - centro);
-        if (d < dmin) { dmin = d; mejor = it; }
+        var d = (it.offsetLeft + it.offsetWidth / 2 - centro) / (it.offsetWidth + hueco);
+        var a = Math.min(Math.abs(d), 1.5);
+        if (Math.abs(d) < dmin) { dmin = Math.abs(d); mejor = it; }
+        var giro = Math.max(-50, Math.min(50, d * 34));
+        it.style.transform = "translateZ(" + (-a * 150).toFixed(0) + "px) rotateY(" + giro.toFixed(1) + "deg)";
+        it.style.opacity = (1 - Math.min(a, 1) * 0.38).toFixed(3);
       });
       items.forEach(function (it) { it.classList.toggle("activo", it === mejor); });
     };
@@ -1323,6 +1348,39 @@ function iniciar() {
       var b = e.target.closest("[data-v]");
       if (!b || !abrirVisor) { return; }
       abrirVisor(PIEZAS, pzLista().map(function (x) { return x.i; }), parseInt(b.getAttribute("data-v"), 10));
+    });
+  }
+
+  /* ----- Fotografía: galería con filtros ----- */
+  var ftGrid = $("#ft-grid");
+  if (ftGrid && Array.isArray(FOTOS) && FOTOS.length) {
+    var ftEstado = $("#ft-estado");
+    var ftTipo = "Todos";
+    var ftLista = function () {
+      return FOTOS.map(function (t, i) { return { t: t, i: i }; }).filter(function (x) {
+        return ftTipo === "Todos" || x.t.tipo === ftTipo;
+      });
+    };
+    var pintarFt = function () {
+      var lista = ftLista();
+      ftGrid.innerHTML = lista.map(function (x) {
+        return '<li><button class="ft" type="button" data-v="' + x.i + '" aria-haspopup="dialog" aria-label="' + esc(tx("verAmpliado", function (n) { return "Ver ampliado: " + n; }, x.t.nombre)) + '">' +
+          '<span class="ft-img' + (x.t.r ? ' ft-img--r' : '') + '"' + (x.t.r ? ' style="aspect-ratio:' + x.t.r + '"' : '') + '><img src="' + esc(x.t.mini || x.t.src) + '" alt="' + esc(x.t.alt || x.t.nombre) + '" width="' + x.t.w + '" height="' + x.t.h + '" loading="lazy" decoding="async"></span>' +
+          '<span class="ft-mas" aria-hidden="true"></span>' +
+          '<span class="ft-pie"><span class="ft-nombre">' + esc(x.t.nombre) + '</span>' +
+          '<span class="ft-tipo">' + esc(x.t.tipo) + "</span></span></button></li>";
+      }).join("");
+      revelar($$(".ft", ftGrid), 0);
+      if (ftEstado) {
+        ftEstado.textContent = tx("ftEstado", function (n, tipo) { return "Mostrando " + n + (n === 1 ? " fotografía" : " fotografías") + (tipo === "Todos" ? "." : " de " + tipo + "."); }, lista.length, ftTipo);
+      }
+    };
+    crearFiltros($("#ft-filtros"), FOTOS, function (tipo) { ftTipo = tipo; pintarFt(); });
+    pintarFt();
+    ftGrid.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-v]");
+      if (!b || !abrirVisor) { return; }
+      abrirVisor(FOTOS, ftLista().map(function (x) { return x.i; }), parseInt(b.getAttribute("data-v"), 10));
     });
   }
 }
