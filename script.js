@@ -677,7 +677,7 @@ function iniciar() {
     menu.addEventListener("click", function (e) {
       if (e.target.closest("a")) { ponerMenu(false); ponerMega(false); }
     });
-    window.addEventListener("resize", function () { if (window.innerWidth >= 1100) { ponerMenu(false); } });
+    window.addEventListener("resize", function () { if (window.innerWidth >= 1280) { ponerMenu(false); } });
   }
   if (botonMega && mega) {
     var abiertoPorHover = false;
@@ -690,13 +690,13 @@ function iniciar() {
     var temporizador = null;
     if (contMega && punteroFino) {
       contMega.addEventListener("pointerenter", function () {
-        if (window.innerWidth < 1100) { return; }
+        if (window.innerWidth < 1280) { return; }
         clearTimeout(temporizador);
         if (botonMega.getAttribute("aria-expanded") !== "true") { abiertoPorHover = true; }
         ponerMega(true);
       });
       contMega.addEventListener("pointerleave", function () {
-        if (window.innerWidth < 1100) { return; }
+        if (window.innerWidth < 1280) { return; }
         temporizador = setTimeout(function () { abiertoPorHover = false; ponerMega(false); }, 220);
       });
     }
@@ -1259,10 +1259,12 @@ function iniciar() {
     marcarActivo();
     window.addEventListener("load", marcarActivo);
 
-    var auto = { detenido: false, pausa: false, visible: false };
+    var auto = { detenido: false, pausa: false, visible: false, t: 0 };
+    /* Al tocar o usar las flechas se frena un rato y después sigue solo (antes quedaba frenado hasta recargar la página) */
+    var frenar = function () { auto.detenido = true; clearTimeout(auto.t); auto.t = setTimeout(function () { auto.detenido = false; }, 7000); };
     var anterior = $("#car-prev"), siguiente = $("#car-next");
-    if (anterior) { anterior.addEventListener("click", function () { auto.detenido = true; mover(-1); }); }
-    if (siguiente) { siguiente.addEventListener("click", function () { auto.detenido = true; mover(1); }); }
+    if (anterior) { anterior.addEventListener("click", function () { frenar(); mover(-1); }); }
+    if (siguiente) { siguiente.addEventListener("click", function () { frenar(); mover(1); }); }
     var pendiente = false;
     pista.addEventListener("scroll", function () {
       if (pendiente) { return; }
@@ -1274,7 +1276,7 @@ function iniciar() {
     /* Arrastrar con el mouse (en el celular alcanza con deslizar el dedo) */
     var arr = null;
     pista.addEventListener("pointerdown", function (e) {
-      auto.detenido = true;
+      frenar();
       if (e.pointerType !== "mouse" || e.button !== 0) { return; }
       arr = { x: e.clientX, s: pista.scrollLeft, movido: false };
     });
@@ -1306,9 +1308,9 @@ function iniciar() {
     /* Avance automático y lento; se detiene al tocar o al pasar el mouse, y si se pide menos movimiento */
     var car = $("#car");
     if (car && conEfectos) {
-      car.addEventListener("mouseenter", function () { auto.pausa = true; });
+      car.addEventListener("mouseenter", function () { if (window.matchMedia("(hover: hover)").matches) { auto.pausa = true; } });
       car.addEventListener("mouseleave", function () { auto.pausa = false; });
-      car.addEventListener("focusin", function () { auto.pausa = true; });
+      car.addEventListener("focusin", function (e) { try { auto.pausa = e.target.matches(":focus-visible"); } catch (x) { auto.pausa = false; } });
       car.addEventListener("focusout", function () { auto.pausa = false; });
       new IntersectionObserver(function (en) { auto.visible = en[0].isIntersecting; }, { threshold: 0.35 }).observe(car);
       setInterval(function () {
