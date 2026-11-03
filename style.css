@@ -937,3 +937,21 @@ html.intro-activa, html.intro-activa body { overflow: hidden; }
 .fundador-mas .mas-cerrar, .fundador-mas[open] .mas-abrir { display: none; }
 .fundador-mas[open] .mas-cerrar { display: inline; }
 .fundador-mas[open] summary { margin-bottom: 4px; }
+
+/* ---------- Menú superior: relleno lima al pasar el puntero (igual que las tarjetas de servicios) ---------- */
+@media (min-width: 1280px) and (hover: hover) {
+  .nav-capsula > li > a, .nav-capsula > li > .nav-btn { position: relative; isolation: isolate; overflow: hidden; transition: color .25s var(--ease), transform .25s var(--ease); }
+  .nav-capsula > li > a::before, .nav-capsula > li > .nav-btn::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--lima);
+    transform: scaleX(0); transform-origin: left center; transition: transform .38s var(--ease);
+  }
+  html[dir="rtl"] .nav-capsula > li > a::before, html[dir="rtl"] .nav-capsula > li > .nav-btn::before { transform-origin: right center; }
+  .nav-capsula > li > a:hover, .nav-capsula > li > .nav-btn:hover,
+  .nav-capsula > li > a:focus-visible, .nav-capsula > li > .nav-btn:focus-visible { background: transparent; color: var(--carbon); transform: translateY(-1px); }
+  .nav-capsula > li > a:hover::before, .nav-capsula > li > .nav-btn:hover::before,
+  .nav-capsula > li > a:focus-visible::before, .nav-capsula > li > .nav-btn:focus-visible::before { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-capsula > li > a::before, .nav-capsula > li > .nav-btn::before { transition: none; }
+  .nav-capsula > li > a:hover, .nav-capsula > li > .nav-btn:hover { transform: none; }
+}
