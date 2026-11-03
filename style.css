@@ -920,5 +920,6 @@ html.intro-activa, html.intro-activa body { overflow: hidden; }
 .fundador-rol { color: var(--lima); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; font-size: .9rem; margin: 10px 0 20px; }
 .fundador-texto > p:not(.eyebrow):not(.fundador-rol):not(.fundador-cita) { color: var(--fg-suave); font-size: 1.08rem; max-width: 60ch; }
 .fundador-texto > p + p { margin-top: 14px; }
+.fundador-texto > p:not(.eyebrow):not(.fundador-rol):not(.fundador-cita) { font-size: 1.04rem; max-width: 64ch; }
 .fundador-cita { margin-top: 24px !important; padding-inline-start: 18px; border-inline-start: 4px solid var(--lima); font-size: 1.3rem; font-weight: 800; color: var(--marfil); }
 @media (min-width: 900px) { .fundador { grid-template-columns: 340px 1fr; gap: 56px; align-items: center; } }
