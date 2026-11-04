@@ -955,3 +955,5 @@ html.intro-activa, html.intro-activa body { overflow: hidden; }
   .nav-capsula > li > a::before, .nav-capsula > li > .nav-btn::before { transition: none; }
   .nav-capsula > li > a:hover, .nav-capsula > li > .nav-btn:hover { transform: none; }
 }
+
+.modal-enlace { margin: 4px 0 18px; align-self: flex-start; }

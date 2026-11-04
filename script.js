@@ -354,6 +354,21 @@ const PROYECTOS = [
   }
   /* ---- Sitios web (sección propia "Sitios web"; grupo "web") ---- */
   ,{
+    id: "web-hce-quilmes",
+    grupo: "web",
+    nombre: "Sitio web del Honorable Consejo Escolar de Quilmes",
+    marca: "Honorable Consejo Escolar de Quilmes",
+    categoria: "Sitios web",
+    descripcion: "Primer sitio web totalmente funcional que diseñé y desarrollé, anterior a la integración de las herramientas de la plataforma ABC. Reúne el menú por áreas del Consejo, oficinas, guía de trámites, buscador, control del tamaño de la letra y un banner institucional sobre la educación pública. Se presentó ante las autoridades en 2014.",
+    estado: "real",
+    portada: false,
+    paleta: ["#2F6B1F", "#16150F"],
+    imagen: { src: "imagenes/web-hce-quilmes.jpg", arte: "", alt: "Sitio del Honorable Consejo Escolar de Quilmes: encabezado con el menú Inicio, Oficinas, Guía de trámites y Contacto, buscador y control de tamaño de letra, un banner de aula con el texto Educación pública, el menú lateral Sobre el H.C.E. y la foto de una escuela." },
+    imagenes: [],
+    enlace: { texto: "Ver fragmento de la presentación (YouTube)", url: "https://www.youtube.com/watch?v=3kunD4g7j1c" },
+    servicios: ["Diseño del sitio web", "Desarrollo del sitio web", "Presentación ante las autoridades"]
+  }
+  ,{
     id: "web-damiselas",
     grupo: "web",
     nombre: "Sitio web para Damiselas, centro integral de estética y belleza",
@@ -531,6 +546,7 @@ function rutaIdioma(r) {
     if (d) {
       ["nombre", "marca", "categoria", "descripcion"].forEach(function (c) { if (d[c]) { p[c] = d[c]; } });
       if (d.servicios) { p.servicios = d.servicios.slice(); }
+      if (d.enlace && p.enlace) { p.enlace.texto = d.enlace; }
       medios.forEach(function (m, i) { if (d.alts && d.alts[i]) { m.alt = d.alts[i]; } });
     }
     medios.forEach(function (m) { m.src = rutaIdioma(m.src); if (m.video) { m.video = rutaIdioma(m.video); } });
@@ -1080,6 +1096,12 @@ function iniciar() {
     refs.marca.textContent = p.marca;
     refs.titulo.textContent = p.nombre;
     refs.desc.textContent = p.descripcion;
+    var en = $("#modal-enlace");
+    if (p.enlace) {
+      if (!en) { en = document.createElement("a"); en.id = "modal-enlace"; en.className = "btn btn--carbon btn--sm btn--flecha modal-enlace"; en.target = "_blank"; en.rel = "noopener noreferrer"; refs.desc.insertAdjacentElement("afterend", en); }
+      en.href = p.enlace.url; en.textContent = p.enlace.texto; en.hidden = false;
+      en.setAttribute("aria-label", p.enlace.texto + " — " + tx("abreNueva", "se abre en una pestaña nueva"));
+    } else if (en) { en.hidden = true; }
     refs.nota.textContent = conceptual ? tx("notaConceptual", "Marca ficticia creada para mostrar el estilo de trabajo de Creatreebu. No es un cliente real.") : "";
     refs.nota.hidden = !conceptual;
     refs.cat.textContent = p.categoria;
