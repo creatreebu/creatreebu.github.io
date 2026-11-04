@@ -6,6 +6,7 @@ window.CREATREEBU_I18N = {
 
   /* Interface texts */
   ui: {
+    abreNueva: "opens in a new tab",
     avisoWa: "WhatsApp contact is not available yet.",
     menuAbrir: "Open menu",
     menuCerrar: "Close menu",
@@ -285,6 +286,17 @@ window.CREATREEBU_I18N = {
         "Yellow flyer with a red star and the text Offers of the week, on a blue background.",
         "Yellow shop sign with the text Everything for your project and two ace cards, on a red background.",
         "Yellow ad with a hammer and the text Tools that last."
+      ]
+    },
+    "web-hce-quilmes": {
+      nombre: "Website for the Honorable Consejo Escolar de Quilmes",
+      marca: "Honorable Consejo Escolar de Quilmes",
+      categoria: "Websites",
+      descripcion: "The first fully functional website I designed and developed, built before the tools of the ABC platform were integrated. It brings together the Council's menu by areas, offices, a procedures guide, a search box, a font-size control and an institutional banner about public education. It was presented to the authorities in 2014.",
+      servicios: ["Website design", "Website development", "Presentation to the authorities"],
+      enlace: "Watch a clip of the presentation (YouTube)",
+      alts: [
+        "Website of the Honorable Consejo Escolar de Quilmes: header with the menu Home, Offices, Procedures guide and Contact, a search box and font-size control, a classroom banner with the text Public Education, the side menu About the H.C.E. and a photo of a school."
       ]
     },
     "web-damiselas": {
