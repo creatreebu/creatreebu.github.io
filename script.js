@@ -1099,9 +1099,9 @@ function iniciar() {
     var en = $("#modal-enlace");
     if (p.enlace) {
       if (!en) { en = document.createElement("a"); en.id = "modal-enlace"; en.className = "btn btn--carbon btn--sm btn--flecha modal-enlace"; en.target = "_blank"; en.rel = "noopener noreferrer"; refs.desc.insertAdjacentElement("afterend", en); }
-      en.href = p.enlace.url; en.textContent = p.enlace.texto; en.hidden = false;
+      en.href = p.enlace.url; en.textContent = p.enlace.texto;
       en.setAttribute("aria-label", p.enlace.texto + " — " + tx("abreNueva", "se abre en una pestaña nueva"));
-    } else if (en) { en.hidden = true; }
+    } else if (en) { en.remove(); }
     refs.nota.textContent = conceptual ? tx("notaConceptual", "Marca ficticia creada para mostrar el estilo de trabajo de Creatreebu. No es un cliente real.") : "";
     refs.nota.hidden = !conceptual;
     refs.cat.textContent = p.categoria;
