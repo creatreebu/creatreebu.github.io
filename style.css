@@ -957,3 +957,7 @@ html.intro-activa, html.intro-activa body { overflow: hidden; }
 }
 
 .modal-enlace { margin: 4px 0 18px; align-self: flex-start; }
+
+.pie-titulo--sub { margin-top: 26px; }
+.pie-legal a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.pie-legal a:hover { color: var(--lima); }
