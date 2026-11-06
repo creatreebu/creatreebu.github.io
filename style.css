@@ -973,3 +973,11 @@ html.intro-activa, html.intro-activa body { overflow: hidden; }
 .redes a:hover, .redes a:focus-visible { color: var(--lima); border-color: var(--lima); background-color: rgba(151, 191, 14, .08); transform: scale(1.18); }
 @media (prefers-reduced-motion: reduce) { .redes a:hover, .redes a:focus-visible { transform: none; } }
 footer .redes, .pie-cols .redes { justify-content: center; }
+
+/* Iconos de contacto: un poco más grandes */
+.redes { gap: 16px; }
+.redes a { width: 54px; height: 54px; }
+.redes svg { width: 26px; height: 26px; }
+#contacto-datos { margin-top: 30px; gap: 18px; }
+#contacto-datos a { width: 64px; height: 64px; }
+#contacto-datos svg { width: 30px; height: 30px; }
