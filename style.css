@@ -961,3 +961,14 @@ html.intro-activa, html.intro-activa body { overflow: hidden; }
 .pie-titulo--sub { margin-top: 26px; }
 .pie-legal a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .pie-legal a:hover { color: var(--lima); }
+
+/* ---------- Iconos de contacto y redes: blanco translúcido; al pasar el cursor crecen y se vuelven verdes ---------- */
+.redes { display: flex; flex-wrap: wrap; gap: 14px; list-style: none; margin: 18px 0 0; padding: 0; }
+.redes a {
+  display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%;
+  color: rgba(255, 255, 255, .55); border: 1px solid rgba(255, 255, 255, .22);
+  transition: color .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease), background-color .25s var(--ease);
+}
+.redes svg { display: block; }
+.redes a:hover, .redes a:focus-visible { color: var(--lima); border-color: var(--lima); background-color: rgba(151, 191, 14, .08); transform: scale(1.18); }
+@media (prefers-reduced-motion: reduce) { .redes a:hover, .redes a:focus-visible { transform: none; } }
