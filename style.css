@@ -972,3 +972,4 @@ html.intro-activa, html.intro-activa body { overflow: hidden; }
 .redes svg { display: block; }
 .redes a:hover, .redes a:focus-visible { color: var(--lima); border-color: var(--lima); background-color: rgba(151, 191, 14, .08); transform: scale(1.18); }
 @media (prefers-reduced-motion: reduce) { .redes a:hover, .redes a:focus-visible { transform: none; } }
+footer .redes, .pie-cols .redes { justify-content: center; }
