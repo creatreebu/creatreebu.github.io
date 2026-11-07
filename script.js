@@ -987,17 +987,165 @@ function iniciar() {
 
   if (!Array.isArray(PROYECTOS) || PROYECTOS.length === 0) { return; }
 
-  /* ----- Collage de piezas destacadas del hero ----- */
+  /* ----- Tele de tubos del hero: se prende y va pasando los trabajos ----- */
   var collage = $("#collage");
-  if (collage) {
-    var destacados = PROYECTOS.map(function (p, i) { return { p: p, i: i }; }).filter(function (x) { return x.p.portada; }).slice(0, 3);
-    if (destacados.length === 0) { destacados = PROYECTOS.slice(0, 3).map(function (p, i) { return { p: p, i: i }; }); }
-    collage.insertAdjacentHTML("afterbegin", destacados.map(function (x, n) {
-      return '<button class="pieza" type="button" data-i="' + x.i + '" aria-haspopup="dialog" style="--i:' + n + '" aria-label="' + esc(tx("verProyecto", function (m) { return "Ver proyecto " + m; }, x.p.marca)) + '">' +
-        '<span class="pieza-arte">' + medio(x.p.imagen, true) + "</span>" +
-        '<span class="pieza-pie"><span class="pieza-marca">' + esc(x.p.marca) + "</span>" +
-        (textoEstado(x.p.estado) ? '<span class="pieza-tag">' + esc(textoEstado(x.p.estado)) + "</span>" : "") + "</span></button>";
-    }).join(""));
+  if (collage && $("#tele-pantalla")) {
+    (function () {
+      var pant = $("#tele-pantalla");
+      var capas = [pant.querySelector(".tele-canal--a"), pant.querySelector(".tele-canal--b")];
+      var lienzo = pant.querySelector(".tele-nieve");
+      var osd = pant.querySelector(".tele-osd");
+      var ver = pant.querySelector(".tele-ver");
+      var linea = pant.querySelector(".tele-linea");
+      var perilla = collage.querySelector(".tele-perilla--canal");
+      var pie = collage.querySelector(".tele-pie");
+      var pieN = pie.querySelector(".tele-pie-n");
+      var pieT = pie.querySelector(".tele-pie-t");
+      var reducido = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+      /* Canales: los trabajos de diseño con imagen; primero los destacados */
+      var canales = PROYECTOS.map(function (p, i) { return { p: p, i: i }; }).filter(function (x) {
+        return x.p.grupo !== "web" && x.p.imagen && x.p.imagen.src;
+      });
+      canales = canales.filter(function (x) { return x.p.portada; }).concat(canales.filter(function (x) { return !x.p.portada; })).slice(0, 8);
+      if (canales.length === 0) { collage.hidden = true; return; }
+
+      var actual = -1, capa = 0, prendida = false, visible = false, giro = 0;
+      var tAuto = null, tRuido = null, tGlitch = null, tOsd = null;
+      var cache = {};
+
+      function dos(n) { return (n < 10 ? "0" : "") + n; }
+
+      /* Estática: ruido en una imagen chiquita que se estira */
+      var ctx = lienzo.getContext("2d");
+      var datos = ctx.createImageData(lienzo.width, lienzo.height);
+      var buf = new Uint32Array(datos.data.buffer);
+      function ruido() {
+        for (var i = 0; i < buf.length; i++) { var v = (Math.random() * 256) | 0; buf[i] = 0xff000000 | (v << 16) | (v << 8) | v; }
+        ctx.putImageData(datos, 0, 0);
+      }
+      ruido();
+
+      function cargar(c, cb) {
+        var src = c.p.imagen.src;
+        if (cache[src] === 1) { cb(true); return; }
+        var im = new Image();
+        im.onload = function () { cache[src] = 1; cb(true); };
+        im.onerror = function () { cb(false); };
+        im.src = src;
+      }
+
+      function mostrar(k) {
+        var c = canales[k];
+        var nueva = capas[capa ^ 1], vieja = capas[capa];
+        nueva.src = c.p.imagen.src;
+        nueva.classList.remove("on"); void nueva.offsetWidth; nueva.classList.add("on");
+        vieja.classList.remove("on");
+        capa ^= 1;
+        actual = k;
+        var nombre = c.p.marca;
+        pieN.textContent = "CH " + dos(k + 1);
+        pieT.textContent = nombre;
+        pie.hidden = false;
+        var etiqueta = tx("verProyecto", function (m) { return "Ver proyecto " + m; }, nombre);
+        pie.setAttribute("aria-label", etiqueta);
+        pie.setAttribute("data-i", c.i);
+        ver.setAttribute("data-i", c.i);
+        osd.textContent = "CH " + dos(k + 1);
+        pant.classList.add("osd-on");
+        clearTimeout(tOsd);
+        tOsd = setTimeout(function () { pant.classList.remove("osd-on"); }, 1900);
+        giro += 47;
+        perilla.style.setProperty("--giro", giro + "deg");
+        /* Precarga el siguiente canal */
+        if (canales.length > 1) { cargar(canales[(k + 1) % canales.length], function () {}); }
+      }
+
+      /* Cambio de canal: ráfaga de estática, y en el medio se cambia la imagen */
+      function ir(k, rapido) {
+        if (canales.length === 0) { return; }
+        k = ((k % canales.length) + canales.length) % canales.length;
+        var c = canales[k];
+        if (!reducido) { pant.classList.add("nieve"); }
+        cargar(c, function (ok) {
+          if (!ok) {
+            canales.splice(k, 1);
+            if (canales.length === 0) { collage.hidden = true; return; }
+            pant.classList.remove("nieve");
+            ir(k, rapido); return;
+          }
+          setTimeout(function () { mostrar(k); }, reducido ? 0 : (rapido ? 90 : 190));
+          setTimeout(function () { pant.classList.remove("nieve"); }, reducido ? 0 : (rapido ? 320 : 460));
+        });
+      }
+
+      function siguiente() { ir(actual + 1, false); }
+
+      /* Temporizadores: solo corren si la tele se ve en pantalla */
+      function arrancar() {
+        if (!prendida || reducido) { return; }
+        if (!tAuto) { tAuto = setInterval(siguiente, 5200); }
+        if (!tRuido) { tRuido = setInterval(ruido, 60); }
+        if (!tGlitch) { programarGlitch(); }
+      }
+      function parar() {
+        clearInterval(tAuto); tAuto = null;
+        clearInterval(tRuido); tRuido = null;
+        clearTimeout(tGlitch); tGlitch = null;
+      }
+      function programarGlitch() {
+        tGlitch = setTimeout(function () {
+          linea.style.setProperty("--ly", (8 + Math.random() * 80).toFixed(0) + "%");
+          pant.classList.add("glitch");
+          setTimeout(function () { pant.classList.remove("glitch"); }, 220);
+          programarGlitch();
+        }, 2200 + Math.random() * 3800);
+      }
+
+      function encender() {
+        if (prendida) { return; }
+        prendida = true;
+        collage.classList.add("encendida");
+        pant.classList.remove("apagada");
+        if (reducido) { ir(0, true); return; }
+        pant.classList.add("encendiendo", "nieve");
+        setTimeout(function () {
+          pant.classList.remove("encendiendo");
+          ir(0, true);
+          arrancar();
+        }, 980);
+      }
+
+      pant.classList.add("apagada");
+
+      perilla.addEventListener("click", function () {
+        if (!prendida) { encender(); return; }
+        siguiente();
+        if (tAuto) { clearInterval(tAuto); tAuto = setInterval(siguiente, 5200); }
+      });
+
+      function cuandoSePuedaVer() {
+        if (!("IntersectionObserver" in window)) { visible = true; encender(); return; }
+        new IntersectionObserver(function (es) {
+          visible = es[0].isIntersecting && !document.hidden;
+          if (visible) { setTimeout(function () { if (visible) { encender(); arrancar(); } }, prendida ? 0 : 500); } else { parar(); }
+        }, { threshold: 0.3 }).observe(collage);
+        document.addEventListener("visibilitychange", function () {
+          if (document.hidden) { parar(); } else if (visible) { arrancar(); }
+        });
+      }
+
+      /* Si hay intro en video, la tele espera a que termine */
+      var raizHtml = document.documentElement;
+      if (raizHtml.classList.contains("intro-activa") && window.MutationObserver) {
+        var mo = new MutationObserver(function () {
+          if (!raizHtml.classList.contains("intro-activa")) { mo.disconnect(); cuandoSePuedaVer(); }
+        });
+        mo.observe(raizHtml, { attributes: true, attributeFilter: ["class"] });
+      } else {
+        cuandoSePuedaVer();
+      }
+    })();
   }
 
   /* ----- Filtros y grilla ----- */
