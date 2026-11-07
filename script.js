@@ -1014,6 +1014,39 @@ function iniciar() {
       var tAuto = null, tRuido = null, tGlitch = null, tOsd = null;
       var cache = {};
 
+      /* Sonido de señal: ruido blanco generado en el momento (sin archivos). Empieza apagado:
+         el navegador no deja sonar nada hasta que la persona lo active. */
+      var botonSon = collage.querySelector(".tele-son");
+      var audio = null, sonido = false;
+      function contextoAudio() {
+        if (!audio) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) { return null; } audio = new AC(); }
+        if (audio.state === "suspended") { audio.resume(); }
+        return audio;
+      }
+      function sisss(seg, fuerte) {
+        if (!sonido || reducido) { return; }
+        var a = contextoAudio(); if (!a) { return; }
+        var n = Math.floor(a.sampleRate * seg), b = a.createBuffer(1, n, a.sampleRate), d = b.getChannelData(0);
+        for (var i = 0; i < n; i++) { d[i] = Math.random() * 2 - 1; }
+        var fuente = a.createBufferSource(); fuente.buffer = b;
+        var filtro = a.createBiquadFilter(); filtro.type = "highpass"; filtro.frequency.value = 600;
+        var g = a.createGain(), t = a.currentTime, v = fuerte ? 0.2 : 0.14;
+        g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + 0.015);
+        g.gain.setValueAtTime(v, t + seg * 0.65); g.gain.linearRampToValueAtTime(0, t + seg);
+        fuente.connect(filtro); filtro.connect(g); g.connect(a.destination); fuente.start(t);
+      }
+      if (botonSon && !reducido) {
+        var txtOn = tx("introSonido", "Activar sonido"), txtOff = tx("introSilenciar", "Silenciar");
+        botonSon.setAttribute("aria-label", txtOn); botonSon.title = txtOn;
+        botonSon.addEventListener("click", function () {
+          sonido = !sonido;
+          botonSon.setAttribute("aria-pressed", sonido ? "true" : "false");
+          var t = sonido ? txtOff : txtOn;
+          botonSon.setAttribute("aria-label", t); botonSon.title = t;
+          if (sonido) { contextoAudio(); sisss(0.35, false); }
+        });
+      }
+
       function dos(n) { return (n < 10 ? "0" : "") + n; }
 
       /* Estática: ruido en una imagen chiquita que se estira */
@@ -1047,6 +1080,7 @@ function iniciar() {
         pieN.textContent = "CH " + dos(k + 1);
         pieT.textContent = nombre;
         pie.hidden = false;
+        if (botonSon && !reducido) { botonSon.hidden = false; }
         var etiqueta = tx("verProyecto", function (m) { return "Ver proyecto " + m; }, nombre);
         pie.setAttribute("aria-label", etiqueta);
         pie.setAttribute("data-i", c.i);
@@ -1066,7 +1100,7 @@ function iniciar() {
         if (canales.length === 0) { return; }
         k = ((k % canales.length) + canales.length) % canales.length;
         var c = canales[k];
-        if (!reducido) { pant.classList.add("nieve"); }
+        if (!reducido) { pant.classList.add("nieve"); sisss(rapido ? 0.4 : 0.55, false); }
         cargar(c, function (ok) {
           if (!ok) {
             canales.splice(k, 1);
@@ -1109,6 +1143,7 @@ function iniciar() {
         pant.classList.remove("apagada");
         if (reducido) { ir(0, true); return; }
         pant.classList.add("encendiendo", "nieve");
+        sisss(1.2, true);
         setTimeout(function () {
           pant.classList.remove("encendiendo");
           ir(0, true);

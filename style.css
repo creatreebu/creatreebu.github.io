@@ -1116,3 +1116,17 @@ footer .redes, .pie-cols .redes { justify-content: center; }
 @media (prefers-reduced-motion: reduce) {
   .tele-antenas, .tele-barra, .tele-rayas, .tele-canal.on, .tele-marco { animation: none !important; }
 }
+
+/* sonido de la tele: botón chico junto al nombre del trabajo */
+.tele-base { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 18px auto 0; }
+.tele-base .tele-pie { margin: 0; }
+.tele-son {
+  display: grid; place-items: center; flex: none; width: 40px; height: 40px; padding: 0; border-radius: 50%; cursor: pointer;
+  border: 1px solid var(--linea-osc); background: rgba(22, 21, 15, .55); color: var(--marfil); transition: color .2s, border-color .2s;
+}
+.tele-son[hidden] { display: none; }
+.tele-son:hover, .tele-son:focus-visible { color: var(--lima); border-color: var(--lima); }
+.tele-son[aria-pressed="true"] { color: var(--lima); border-color: rgba(151, 191, 14, .6); }
+.tele-son .son-on { display: none; }
+.tele-son[aria-pressed="true"] .son-on { display: inline; }
+.tele-son[aria-pressed="true"] .son-off { display: none; }
