@@ -1029,8 +1029,8 @@ function iniciar() {
         var n = Math.floor(a.sampleRate * seg), b = a.createBuffer(1, n, a.sampleRate), d = b.getChannelData(0);
         for (var i = 0; i < n; i++) { d[i] = Math.random() * 2 - 1; }
         var fuente = a.createBufferSource(); fuente.buffer = b;
-        var filtro = a.createBiquadFilter(); filtro.type = "highpass"; filtro.frequency.value = 600;
-        var g = a.createGain(), t = a.currentTime, v = fuerte ? 0.2 : 0.14;
+        var filtro = a.createBiquadFilter(); filtro.type = "highpass"; filtro.frequency.value = 250;
+        var g = a.createGain(), t = a.currentTime, v = fuerte ? 0.6 : 0.45;
         g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + 0.015);
         g.gain.setValueAtTime(v, t + seg * 0.65); g.gain.linearRampToValueAtTime(0, t + seg);
         fuente.connect(filtro); filtro.connect(g); g.connect(a.destination); fuente.start(t);
@@ -1038,11 +1038,13 @@ function iniciar() {
       if (botonSon && !reducido) {
         var txtOn = tx("introSonido", "Activar sonido"), txtOff = tx("introSilenciar", "Silenciar");
         botonSon.setAttribute("aria-label", txtOn); botonSon.title = txtOn;
+        var rotulo = botonSon.querySelector(".tele-son-t"); if (rotulo) { rotulo.textContent = txtOn; }
         botonSon.addEventListener("click", function () {
           sonido = !sonido;
           botonSon.setAttribute("aria-pressed", sonido ? "true" : "false");
           var t = sonido ? txtOff : txtOn;
           botonSon.setAttribute("aria-label", t); botonSon.title = t;
+          if (rotulo) { rotulo.textContent = t; }
           if (sonido) { contextoAudio(); sisss(0.35, false); }
         });
       }
@@ -1155,6 +1157,7 @@ function iniciar() {
 
       perilla.addEventListener("click", function () {
         if (!prendida) { encender(); return; }
+        if (botonSon && !sonido && !perilla.getAttribute("data-son")) { perilla.setAttribute("data-son", "1"); botonSon.click(); }
         siguiente();
         if (tAuto) { clearInterval(tAuto); tAuto = setInterval(siguiente, 5200); }
       });

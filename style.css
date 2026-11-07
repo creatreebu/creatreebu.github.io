@@ -1130,3 +1130,6 @@ footer .redes, .pie-cols .redes { justify-content: center; }
 .tele-son .son-on { display: none; }
 .tele-son[aria-pressed="true"] .son-on { display: inline; }
 .tele-son[aria-pressed="true"] .son-off { display: none; }
+.tele-son { width: auto; height: 40px; gap: 8px; padding: 0 16px 0 12px; border-radius: 999px; display: inline-flex; align-items: center; }
+.tele-son-t { font-size: .74rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+@media (max-width: 420px) { .tele-son-t { display: none; } .tele-son { width: 40px; padding: 0; justify-content: center; } }
