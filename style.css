@@ -485,7 +485,7 @@ button { font: inherit; color: inherit; }
   .grilla { grid-template-columns: repeat(2, 1fr); }
   .difs { grid-template-columns: repeat(2, 1fr); }
   .pasos { grid-template-columns: repeat(2, 1fr); }
-  .pie-cols { grid-template-columns: repeat(3, 1fr); }
+  .pie-cols { grid-template-columns: repeat(2, 1fr); }
   .collage { height: clamp(420px, 62vw, 540px); }
 }
 
@@ -1133,3 +1133,6 @@ footer .redes, .pie-cols .redes { justify-content: center; }
 .tele-son { width: auto; height: 40px; gap: 8px; padding: 0 16px 0 12px; border-radius: 999px; display: inline-flex; align-items: center; }
 .tele-son-t { font-size: .74rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
 @media (max-width: 420px) { .tele-son-t { display: none; } .tele-son { width: 40px; padding: 0; justify-content: center; } }
+
+/* pie: cuatro columnas (Servicios, El estudio, Legales, Zona y contacto) */
+@media (min-width: 1100px) { .pie-cols { grid-template-columns: repeat(4, 1fr); } }
