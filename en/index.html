@@ -379,12 +379,45 @@
           <p class="fine">Independent design · La Costa and all of Argentina</p>
         </div>
 
-        <div class="collage" id="collage" role="group" aria-label="Featured projects">
-          <div class="vidrio">
-            <span class="vidrio-num" aria-hidden="true">01</span>
-            <p class="vidrio-t">Remote service</p>
-            <p>We work online with businesses across Argentina, via WhatsApp.</p>
+        <div class="collage tele" id="collage" role="group" aria-label="Vintage TV showing featured projects">
+          <div class="tele-marco" dir="ltr">
+            <svg class="tele-antenas" viewBox="0 0 200 92" aria-hidden="true" focusable="false">
+              <path d="M100 86 L28 6" stroke="#cfcdc4" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+              <path d="M100 86 L168 10" stroke="#cfcdc4" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+              <circle cx="28" cy="6" r="3.6" fill="#e8e5db"/><circle cx="168" cy="10" r="3.6" fill="#e8e5db"/>
+              <path d="M78 92 Q100 70 122 92 Z" fill="#26231d"/><ellipse cx="100" cy="88" rx="9" ry="4" fill="#4a463b"/>
+            </svg>
+            <div class="tele-caja">
+              <div class="tele-bisel">
+                <div class="tele-pantalla" id="tele-pantalla">
+                  <div class="tele-imagen">
+                    <img class="tele-canal tele-canal--a" alt="" decoding="async">
+                    <img class="tele-canal tele-canal--b" alt="" decoding="async">
+                    <span class="tele-linea" aria-hidden="true"></span>
+                  </div>
+                  <canvas class="tele-nieve" width="128" height="96" aria-hidden="true"></canvas>
+                  <div class="tele-rayas" aria-hidden="true"></div>
+                  <div class="tele-barra" aria-hidden="true"></div>
+                  <span class="tele-osd" aria-hidden="true"></span>
+                  <div class="tele-brillo" aria-hidden="true"></div>
+                  <button class="tele-ver" type="button" tabindex="-1" aria-hidden="true"></button>
+                </div>
+              </div>
+              <div class="tele-lado" aria-hidden="true">
+                <span class="tele-led"></span>
+                <button class="tele-perilla tele-perilla--canal" type="button" tabindex="-1"></button>
+                <span class="tele-perilla tele-perilla--vol"></span>
+                <span class="tele-parlante"></span>
+                <span class="tele-marca">CREATREEBU</span>
+              </div>
+            </div>
+            <svg class="tele-patas" viewBox="0 0 200 26" aria-hidden="true" focusable="false">
+              <path d="M22 0 L40 0 L33 26 L28 26 Z" fill="#2d160a"/><path d="M160 0 L178 0 L172 26 L167 26 Z" fill="#2d160a"/>
+            </svg>
           </div>
+          <button class="tele-pie" type="button" hidden>
+            <span class="tele-pie-n"></span><span class="tele-pie-t"></span><span class="tele-pie-f" aria-hidden="true">&#8599;</span>
+          </button>
         </div>
       </div>
     </section>
