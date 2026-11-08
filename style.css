@@ -1140,3 +1140,14 @@ footer .redes, .pie-cols .redes { justify-content: center; }
 /* el puntero del mouse sobre la tele es un control remoto */
 .tele-marco { --mando: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22%3E%3Cg transform=%22rotate%28-40 16 16%29%22%3E%3Crect x=%2211%22 y=%223%22 width=%2210%22 height=%2227%22 rx=%223.2%22 fill=%22%231b1a15%22 stroke=%22%23f4f0e8%22 stroke-width=%221.3%22/%3E%3Ccircle cx=%2216%22 cy=%228.2%22 r=%221.9%22 fill=%22%23ff4a3d%22/%3E%3Ccircle cx=%2216%22 cy=%2213.5%22 r=%222.1%22 fill=%22%2397BF0E%22/%3E%3Crect x=%2213.2%22 y=%2217.4%22 width=%222.4%22 height=%222.2%22 rx=%22.6%22 fill=%22%23f4f0e8%22/%3E%3Crect x=%2216.6%22 y=%2217.4%22 width=%222.4%22 height=%222.2%22 rx=%22.6%22 fill=%22%23f4f0e8%22/%3E%3Crect x=%2213.2%22 y=%2221.2%22 width=%222.4%22 height=%222.2%22 rx=%22.6%22 fill=%22%23f4f0e8%22/%3E%3Crect x=%2216.6%22 y=%2221.2%22 width=%222.4%22 height=%222.2%22 rx=%22.6%22 fill=%22%23f4f0e8%22/%3E%3Crect x=%2213.2%22 y=%2225%22 width=%225.8%22 height=%222%22 rx=%22.6%22 fill=%22%23f4f0e8%22/%3E%3C/g%3E%3C/svg%3E") 8 6, pointer; }
 .tele-marco, .tele-ver, .tele-perilla--canal { cursor: var(--mando); }
+
+/* volumen: botones − y + junto al de sonido */
+.tele-base { flex-wrap: wrap; }
+.tele-vol {
+  display: grid; place-items: center; flex: none; width: 40px; height: 40px; padding: 0; border-radius: 50%; cursor: pointer;
+  border: 1px solid var(--linea-osc); background: rgba(22, 21, 15, .55); color: var(--marfil);
+  font: 800 1.25rem/1 var(--sans); transition: color .2s, border-color .2s, transform .15s;
+}
+.tele-vol[hidden] { display: none; }
+.tele-vol:hover, .tele-vol:focus-visible { color: var(--lima); border-color: var(--lima); }
+.tele-vol:active { transform: scale(.92); }

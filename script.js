@@ -1017,7 +1017,7 @@ function iniciar() {
       /* Sonido de señal: ruido blanco generado en el momento (sin archivos). Empieza apagado:
          el navegador no deja sonar nada hasta que la persona lo active. */
       var botonSon = collage.querySelector(".tele-son");
-      var audio = null, sonido = false;
+      var audio = null, sonido = false, nivel = 0, ultimo = 3, NIVELES = 5;
       function contextoAudio() {
         if (!audio) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) { return null; } audio = new AC(); }
         if (audio.state === "suspended") { audio.resume(); }
@@ -1030,23 +1030,46 @@ function iniciar() {
         for (var i = 0; i < n; i++) { d[i] = Math.random() * 2 - 1; }
         var fuente = a.createBufferSource(); fuente.buffer = b;
         var filtro = a.createBiquadFilter(); filtro.type = "highpass"; filtro.frequency.value = 250;
-        var g = a.createGain(), t = a.currentTime, v = fuerte ? 0.6 : 0.45;
+        var g = a.createGain(), t = a.currentTime, v = Math.min(0.9, (fuerte ? 0.6 : 0.45) * nivel / 3);
         g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + 0.015);
         g.gain.setValueAtTime(v, t + seg * 0.65); g.gain.linearRampToValueAtTime(0, t + seg);
         fuente.connect(filtro); filtro.connect(g); g.connect(a.destination); fuente.start(t);
       }
-      if (botonSon && !reducido) {
-        var txtOn = tx("introSonido", "Activar sonido"), txtOff = tx("introSilenciar", "Silenciar");
-        botonSon.setAttribute("aria-label", txtOn); botonSon.title = txtOn;
-        var rotulo = botonSon.querySelector(".tele-son-t"); if (rotulo) { rotulo.textContent = txtOn; }
-        botonSon.addEventListener("click", function () {
-          sonido = !sonido;
+      /* Volumen: 0 (silencio) a 5. Botón de sonido, botones − y +, y la perilla chica de la tele */
+      var botonMenos = collage.querySelector(".tele-vol-menos");
+      var botonMas = collage.querySelector(".tele-vol-mas");
+      var perillaVol = collage.querySelector(".tele-perilla--vol");
+      var idioma = (document.documentElement.lang || "es").slice(0, 2);
+      var textosVol = { es: ["Bajar volumen", "Subir volumen"], en: ["Volume down", "Volume up"], ar: ["خفض الصوت", "رفع الصوت"] }[idioma] || ["Bajar volumen", "Subir volumen"];
+      var txtOn = tx("introSonido", "Activar sonido"), txtOff = tx("introSilenciar", "Silenciar");
+      var rotulo = botonSon ? botonSon.querySelector(".tele-son-t") : null;
+      function aplicarNivel(n, avisar) {
+        nivel = Math.max(0, Math.min(NIVELES, n));
+        sonido = nivel > 0;
+        if (sonido) { ultimo = nivel; contextoAudio(); }
+        var t = sonido ? txtOff : txtOn;
+        if (botonSon) {
           botonSon.setAttribute("aria-pressed", sonido ? "true" : "false");
-          var t = sonido ? txtOff : txtOn;
           botonSon.setAttribute("aria-label", t); botonSon.title = t;
           if (rotulo) { rotulo.textContent = t; }
-          if (sonido) { contextoAudio(); sisss(0.35, false); }
-        });
+        }
+        if (perillaVol) { perillaVol.style.setProperty("--giro", (-50 + nivel * 20) + "deg"); }
+        if (avisar) {
+          var barras = "";
+          for (var i = 0; i < NIVELES; i++) { barras += i < nivel ? "\u25A0" : "\u25A1"; }
+          osd.textContent = nivel === 0 ? "MUTE" : "VOL " + barras;
+          pant.classList.add("osd-on");
+          clearTimeout(tOsd);
+          tOsd = setTimeout(function () { pant.classList.remove("osd-on"); }, 1700);
+          sisss(0.22, false);
+        }
+      }
+      if (botonSon && !reducido) {
+        botonSon.setAttribute("aria-label", txtOn); botonSon.title = txtOn;
+        if (rotulo) { rotulo.textContent = txtOn; }
+        botonSon.addEventListener("click", function () { aplicarNivel(sonido ? 0 : ultimo, true); });
+        if (botonMenos) { botonMenos.setAttribute("aria-label", textosVol[0]); botonMenos.title = textosVol[0]; botonMenos.addEventListener("click", function () { aplicarNivel(nivel - 1, true); }); }
+        if (botonMas) { botonMas.setAttribute("aria-label", textosVol[1]); botonMas.title = textosVol[1]; botonMas.addEventListener("click", function () { aplicarNivel(nivel + 1, true); }); }
       }
 
       function dos(n) { return (n < 10 ? "0" : "") + n; }
@@ -1082,7 +1105,7 @@ function iniciar() {
         pieN.textContent = "CH " + dos(k + 1);
         pieT.textContent = nombre;
         pie.hidden = false;
-        if (botonSon && !reducido) { botonSon.hidden = false; }
+        if (botonSon && !reducido) { botonSon.hidden = false; if (botonMenos) { botonMenos.hidden = false; } if (botonMas) { botonMas.hidden = false; } }
         var etiqueta = tx("verProyecto", function (m) { return "Ver proyecto " + m; }, nombre);
         pie.setAttribute("aria-label", etiqueta);
         pie.setAttribute("data-i", c.i);
