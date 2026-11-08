@@ -1086,7 +1086,6 @@ function iniciar() {
         var etiqueta = tx("verProyecto", function (m) { return "Ver proyecto " + m; }, nombre);
         pie.setAttribute("aria-label", etiqueta);
         pie.setAttribute("data-i", c.i);
-        ver.setAttribute("data-i", c.i);
         osd.textContent = "CH " + dos(k + 1);
         pant.classList.add("osd-on");
         clearTimeout(tOsd);
@@ -1154,6 +1153,9 @@ function iniciar() {
       }
 
       pant.classList.add("apagada");
+
+      /* Tocar la pantalla con el "control remoto" cambia de canal; el nombre de abajo abre el proyecto */
+      ver.addEventListener("click", function () { perilla.click(); });
 
       perilla.addEventListener("click", function () {
         if (!prendida) { encender(); return; }
