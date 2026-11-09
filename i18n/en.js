@@ -85,7 +85,7 @@ window.CREATREEBU_I18N = {
       nombre: "Camera and video coverage · Live concert · 2017–2019",
       marca: "Live concert",
       categoria: "Event coverage",
-      descripcion: "Camera and video coverage of a live concert: shots of the singer on stage, with the lights, smoke and energy of the show, for the artist's archive, social media and promotional material. Coverage done for artists such as Los Auténticos Decadentes, Los Cafres, La Delio Valdez, Sebastián Mendoza, Media Naranja and El Mago y la Nueva, among others.",
+      descripcion: "Camera and video coverage of a live concert: shots of the singer on stage, with the lights, smoke and energy of the show, for the artist's archive, social media and promotional material.",
       servicios: ["Camera coverage", "Live video recording", "Event coverage"],
       alts: ["A singer in a white jacket performing at a concert, among colored lights and smoke, with a musician in the background."]
     },
@@ -101,7 +101,7 @@ window.CREATREEBU_I18N = {
       nombre: "Camera and video coverage · Theater concert · 2017–2019",
       marca: "Theater concert",
       categoria: "Event coverage",
-      descripcion: "Camera and video coverage of a concert in a historic theater: wide shots of the hall and the stage, designed to show the setting of the event.",
+      descripcion: "Camera and video coverage of a concert in a historic theater: wide shots of the hall and the stage, designed to show the setting of the event. Coverage done for artists such as Los Auténticos Decadentes, Los Cafres, La Delio Valdez, Sebastián Mendoza, Media Naranja and El Mago y la Nueva, among others.",
       servicios: ["Camera coverage", "Live video recording", "Event coverage"],
       alts: ["Interior of a theater with decorated balconies and a stage with musicians and LED screens, seen from above."]
     },
