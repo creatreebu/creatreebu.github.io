@@ -352,6 +352,230 @@ const PROYECTOS = [
     ],
     servicios: ["Piezas promocionales", "Flyers y cartelería", "Anuncios"]
   }
+  /* ---- Cobertura de eventos (recitales 2017–2019). Solo la primera se ve en "Todos"; el resto, al elegir el filtro ---- */
+  ,{
+    id: "cob-01",
+    nombre: "Cobertura de cámara y video · Show en sala · 2017–2019",
+    marca: "Show en sala",
+    categoria: "Cobertura de eventos",
+    descripcion: "Cobertura de cámara y video de un show en una sala, con la cámara ubicada en el fondo del público para tomar el escenario completo y controlar el encuadre en el monitor.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-01.jpg", arte: "", alt: "Escenario con una banda y una pantalla de proyección, visto desde atrás de una cámara de video con su monitor encendido." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-02",
+    nombre: "Cobertura de cámara y video · Recital en vivo · 2017–2019",
+    marca: "Recital en vivo",
+    categoria: "Cobertura de eventos",
+    descripcion: "Cobertura de cámara y video de un recital en vivo: planos del cantante en escena, con la luz, el humo y la energía del show, para registro, redes y material promocional del artista. Coberturas realizadas para artistas como Los Auténticos Decadentes, Los Cafres, La Delio Valdez, Sebastián Mendoza, Media Naranja y El Mago y la Nueva, entre otros.",
+    estado: "real",
+    portada: false,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-02.jpg", arte: "", alt: "Cantante con saco blanco cantando en un recital, entre luces de colores y humo, con un músico al fondo." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-03",
+    nombre: "Cobertura de cámara y video · Recital en vivo · 2017–2019",
+    marca: "Recital en vivo",
+    categoria: "Cobertura de eventos",
+    descripcion: "Cobertura de cámara y video en blanco y negro de un recital: el cantante, la banda y la atmósfera del escenario, con un tratamiento de imagen pensado para destacar el clima del show.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-03.jpg", arte: "", alt: "Cantante con saco blanco y micrófono en blanco y negro, con humo de escenario y la banda detrás." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-05",
+    nombre: "Cobertura de cámara y video · Recital en teatro · 2017–2019",
+    marca: "Recital en teatro",
+    categoria: "Cobertura de eventos",
+    descripcion: "Cobertura de cámara y video de un recital en un teatro histórico: planos generales de la sala y del escenario, pensados para mostrar el marco del evento.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-05.jpg", arte: "", alt: "Interior de un teatro con balcones decorados y un escenario con músicos y pantallas led, visto desde arriba." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-06",
+    nombre: "Cobertura de cámara y video · Festival al aire libre · 2017–2019",
+    marca: "Festival al aire libre",
+    categoria: "Cobertura de eventos",
+    descripcion: "Cobertura de cámara y video de un festival al aire libre: planos generales del escenario, la iluminación y el público, para registrar la magnitud del evento.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-06.jpg", arte: "", alt: "Escenario de un festival con estructura metálica, rayos de luz celestes, pantallas led y una multitud en primer plano." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-07",
+    nombre: "Cobertura de cámara y video · Festival al aire libre · 2017–2019",
+    marca: "Festival al aire libre",
+    categoria: "Cobertura de eventos",
+    descripcion: "Registro de cámara y video de la noche de un festival: banda en vivo, luces verdes y violetas y un público que acompaña el show.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-07.jpg", arte: "", alt: "Banda tocando en un escenario con luces verdes y violetas y una multitud en primer plano." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-08",
+    nombre: "Cobertura de cámara y video · Festival al aire libre · 2017–2019",
+    marca: "Festival al aire libre",
+    categoria: "Cobertura de eventos",
+    descripcion: "Cobertura de cámara y video antes del show: escenario armado, pantallas led y público llegando, para registrar la previa del festival.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-08.jpg", arte: "", alt: "Escenario de un festival de tarde con estructura de luces y pantallas, y gente sentada en el pasto en primer plano." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-09",
+    nombre: "Cobertura de cámara y video · Detrás de cámara · 2017–2019",
+    marca: "Detrás de cámara",
+    categoria: "Cobertura de eventos",
+    descripcion: "Imagen tomada desde el monitor de la cámara durante un recital: el encuadre en vivo, la exposición y el seguimiento de la banda mientras se registra el show.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-09.jpg", arte: "", alt: "Pantalla de una cámara mostrando una banda en un escenario con remeras verdes, con la cuadrícula de encuadre y los datos de exposición." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-10",
+    nombre: "Cobertura de cámara y video · Recital en teatro · 2017–2019",
+    marca: "Recital en teatro",
+    categoria: "Cobertura de eventos",
+    descripcion: "Cobertura de cámara y video en un teatro: registro de la sala antes del show, con el telón, los parlantes y el escenario listo para la función.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-10.jpg", arte: "", alt: "Sala de teatro con un telón bordó, parlantes a los costados y butacas en primer plano, con una bandera sobre el escenario." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-11",
+    nombre: "Cobertura de cámara y video · Entrevista en radio · 2017–2019",
+    marca: "Entrevista en radio",
+    categoria: "Cobertura de eventos",
+    descripcion: "Cobertura de cámara y video de una entrevista en un estudio de radio: cámara sobre trípode registrando la charla con el artista, para sumar contenido al lanzamiento del recital.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-11.jpg", arte: "", alt: "Cámara réflex sobre trípode en un estudio de radio, grabando una entrevista con un artista sentado y otras personas alrededor de la mesa." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-12",
+    nombre: "Cobertura de cámara y video · Prueba de sonido · 2017–2019",
+    marca: "Prueba de sonido",
+    categoria: "Cobertura de eventos",
+    descripcion: "Cobertura de cámara y video de la prueba de sonido previa al show: la banda ajustando en escena, material de backstage listo para sumar al video final del recital.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-12.jpg", arte: "", alt: "Escenario de una sala con músicos probando sonido, una pantalla con una imagen y mesas vacías en primer plano." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-13",
+    nombre: "Cobertura de cámara y video · Show en sala · 2017–2019",
+    marca: "Show en sala",
+    categoria: "Cobertura de eventos",
+    descripcion: "Cobertura de cámara y video del ambiente del evento: público en sus mesas antes del show, escenario armado y planos generales de la sala para contar la previa del recital.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-13.jpg", arte: "", alt: "Sala llena de público sentado en mesas, con el escenario y una pantalla al fondo y un cartel Groovy a la derecha." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-14",
+    nombre: "Cobertura de cámara y video · Recital al aire libre · 2017–2019",
+    marca: "Recital al aire libre",
+    categoria: "Cobertura de eventos",
+    descripcion: "Cobertura de cámara y video de un recital al aire libre: una orquesta de vientos y percusión en vivo, con planos generales y de detalle del escenario y el público.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-14.jpg", arte: "", alt: "Orquesta de vientos con remeras naranjas tocando en un escenario con luces azules, una cantante al centro y una pantalla blanca al fondo." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-15",
+    nombre: "Cobertura de cámara y video · Recital al aire libre · 2017–2019",
+    marca: "Recital al aire libre",
+    categoria: "Cobertura de eventos",
+    descripcion: "Registro de cámara y video de un recital en vivo con luces de colores: la banda en movimiento y el público de espaldas, para transmitir cómo se vive el show.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-15.jpg", arte: "", alt: "Banda de vientos y percusión en vivo bajo luces azules y naranjas, con una cantante en el centro y el público en primer plano." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-16",
+    nombre: "Cobertura de cámara y video · Recital al aire libre · 2017–2019",
+    marca: "Recital al aire libre",
+    categoria: "Cobertura de eventos",
+    descripcion: "Cobertura de cámara y video con el público incluido: un recital con luces rojas y humo de escenario, tomado desde la multitud.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-16.jpg", arte: "", alt: "Banda de vientos con remeras rojas sobre un escenario con luces rojas y amarillas, vista desde el público." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
+,{
+    id: "cob-17",
+    nombre: "Cobertura de cámara y video · Show en sala · 2017–2019",
+    marca: "Show en sala",
+    categoria: "Cobertura de eventos",
+    descripcion: "Registro de cámara y video de un show en vivo con proyección en pantalla: banda en escena, cantante al frente y luces de sala, para dejar el recital documentado completo.",
+    estado: "real",
+    portada: false,
+    soloFiltro: true,
+    paleta: ["#97BF0E", "#16150F"],
+    imagen: { src: "imagenes/cobertura/cob-17.jpg", arte: "", alt: "Cantante con micrófono al frente y tres músicos con instrumentos, bajo una pantalla con una imagen proyectada, entre luces azules y humo." },
+    imagenes: [],
+    servicios: ["Cobertura de cámara", "Registro de video en vivo", "Cobertura de eventos"]
+  }
   /* ---- Sitios web (sección propia "Sitios web"; grupo "web") ---- */
   ,{
     id: "web-hce-quilmes",
@@ -1005,7 +1229,7 @@ function iniciar() {
 
       /* Canales: los trabajos de diseño con imagen; primero los destacados */
       var canales = PROYECTOS.map(function (p, i) { return { p: p, i: i }; }).filter(function (x) {
-        return x.p.grupo !== "web" && x.p.imagen && x.p.imagen.src;
+        return x.p.grupo !== "web" && x.p.imagen && x.p.imagen.src && !/^cob-/.test(x.p.id);
       });
       canales = canales.filter(function (x) { return x.p.portada; }).concat(canales.filter(function (x) { return !x.p.portada; })).slice(0, 8);
       if (canales.length === 0) { collage.hidden = true; return; }
@@ -1236,7 +1460,7 @@ function iniciar() {
   function pintarGrilla() {
     if (!grilla) { return; }
     var lista = PROYECTOS.map(function (p, i) { return { p: p, i: i }; }).filter(function (x) {
-      return x.p.grupo !== "web" && (filtroActual === "Todos" || x.p.categoria === filtroActual);
+      return x.p.grupo !== "web" && (filtroActual === "Todos" ? !x.p.soloFiltro : x.p.categoria === filtroActual);
     });
     grilla.innerHTML = lista.map(function (x) { return htmlTile(x.p, x.i); }).join("");
     revelar($$(".tile", grilla), 0);
