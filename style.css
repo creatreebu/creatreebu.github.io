@@ -1160,3 +1160,25 @@ footer .redes, .pie-cols .redes { justify-content: center; }
 [dir="rtl"] .modal-miniaturas.auto .mini[aria-pressed="true"]::after { transform-origin: right center; }
 @keyframes mini-ciclo { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @media (prefers-reduced-motion: reduce) { .modal-miniaturas.auto .mini[aria-pressed="true"]::after { animation: none; transform: none; } }
+
+/* La imagen principal de cada proyecto se ve dentro de una tele de tubos */
+.tele-modal { position: relative; width: 100%; margin: 0 auto; container-type: inline-size; }
+.tele-modal::before { display: none; }
+.tele-modal .tele-marco { transform: none; animation: none; filter: drop-shadow(0 2.5cqw 2.5cqw rgba(22, 21, 15, .35)); }
+.tele-modal .tele-antenas { width: 26cqw; margin-bottom: -.6cqw; }
+.tele-modal .tele-caja { grid-template-columns: minmax(0, 1fr) 15%; gap: 1.4cqw; padding: 2cqw; border-radius: 4cqw 4cqw 3cqw 3cqw; }
+.tele-modal .tele-bisel { padding: 1.1cqw; border-radius: 5cqw / 5.8cqw; }
+.tele-modal .tele-pantalla { border-radius: 4cqw / 4.8cqw; }
+.tele-modal .modal-escena { position: absolute; inset: 0; aspect-ratio: auto; border-radius: 0; background: #0a0a09; }
+.tele-modal .modal-escena img, .tele-modal .modal-escena video { object-fit: contain; filter: saturate(1.12) contrast(1.06); }
+.tele-modal .tele-lado { padding: 1.6cqw .6cqw 1.2cqw; gap: 1.6cqw; }
+.tele-modal .tele-perilla { width: 7.4cqw; height: 7.4cqw; }
+.tele-modal .tele-perilla--vol { width: 5.2cqw; height: 5.2cqw; }
+.tele-modal .tele-parlante { min-height: 6cqw; }
+.tele-modal .tele-marca { font-size: 1.05cqw; }
+.tele-modal .tele-led { width: 1.6cqw; height: 1.6cqw; }
+.tele-pantalla.encendiendo .modal-escena { animation: encender .7s cubic-bezier(.5, 0, .2, 1) both; }
+.tele-modal .tele-nieve { opacity: 0; }
+.tele-modal .tele-pantalla.nieve .tele-nieve { opacity: 1; mix-blend-mode: normal; }
+.tele-modal .tele-antenas path[stroke] { stroke: #5d594e; }
+.tele-modal .tele-antenas circle { fill: #3f3c33; }
