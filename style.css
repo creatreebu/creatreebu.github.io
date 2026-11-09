@@ -1151,3 +1151,12 @@ footer .redes, .pie-cols .redes { justify-content: center; }
 .tele-vol[hidden] { display: none; }
 .tele-vol:hover, .tele-vol:focus-visible { color: var(--lima); border-color: var(--lima); }
 .tele-vol:active { transform: scale(.92); }
+
+/* mini carrusel del proyecto: barrita que se llena en los 4 segundos de la imagen activa */
+.modal-miniaturas.auto .mini[aria-pressed="true"]::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 4px; width: 100%; background: var(--lima);
+  transform-origin: left center; animation: mini-ciclo 4s linear forwards; pointer-events: none;
+}
+[dir="rtl"] .modal-miniaturas.auto .mini[aria-pressed="true"]::after { transform-origin: right center; }
+@keyframes mini-ciclo { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .modal-miniaturas.auto .mini[aria-pressed="true"]::after { animation: none; transform: none; } }

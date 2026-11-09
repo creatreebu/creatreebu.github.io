@@ -372,9 +372,10 @@ const PROYECTOS = [
     nombre: "Cobertura de cámara y video · Recital en vivo · 2017–2019",
     marca: "Recital en vivo",
     categoria: "Cobertura de eventos",
-    descripcion: "Cobertura de cámara y video de un recital en vivo: planos del cantante en escena, con la luz, el humo y la energía del show, para registro, redes y material promocional del artista. Coberturas realizadas para artistas como Los Auténticos Decadentes, Los Cafres, La Delio Valdez, Sebastián Mendoza, Media Naranja y El Mago y la Nueva, entre otros.",
+    descripcion: "Cobertura de cámara y video de un recital en vivo: planos del cantante en escena, con la luz, el humo y la energía del show, para registro, redes y material promocional del artista.",
     estado: "real",
     portada: false,
+    soloFiltro: true,
     paleta: ["#97BF0E", "#16150F"],
     imagen: { src: "imagenes/cobertura/cob-02.jpg", arte: "", alt: "Cantante con saco blanco cantando en un recital, entre luces de colores y humo, con un músico al fondo." },
     imagenes: [],
@@ -399,10 +400,9 @@ const PROYECTOS = [
     nombre: "Cobertura de cámara y video · Recital en teatro · 2017–2019",
     marca: "Recital en teatro",
     categoria: "Cobertura de eventos",
-    descripcion: "Cobertura de cámara y video de un recital en un teatro histórico: planos generales de la sala y del escenario, pensados para mostrar el marco del evento.",
+    descripcion: "Cobertura de cámara y video de un recital en un teatro histórico: planos generales de la sala y del escenario, pensados para mostrar el marco del evento. Coberturas realizadas para artistas como Los Auténticos Decadentes, Los Cafres, La Delio Valdez, Sebastián Mendoza, Media Naranja y El Mago y la Nueva, entre otros.",
     estado: "real",
     portada: false,
-    soloFiltro: true,
     paleta: ["#97BF0E", "#16150F"],
     imagen: { src: "imagenes/cobertura/cob-05.jpg", arte: "", alt: "Interior de un teatro con balcones decorados y un escenario con músicos y pantallas led, visto desde arriba." },
     imagenes: [],
@@ -1511,13 +1511,41 @@ function iniciar() {
   } : null;
 
   function listaMedios(p) {
+    /* Cobertura de eventos: la vista muestra todas las fotos del recital, empezando por la que se abrió */
+    if (/^cob-/.test(p.id)) {
+      var todas = PROYECTOS.filter(function (x) { return /^cob-/.test(x.id) && x.imagen; });
+      var k = todas.indexOf(p);
+      return todas.slice(k).concat(todas.slice(0, k)).map(function (x) { return x.imagen; });
+    }
     return [p.imagen].concat(Array.isArray(p.imagenes) ? p.imagenes : []).filter(Boolean);
+  }
+
+  /* Mini carrusel: las imágenes del proyecto avanzan solas cada 4 segundos (no en "Sitios web") */
+  var tCarrusel = null;
+  function pararCarrusel() { clearInterval(tCarrusel); tCarrusel = null; if (refs) { refs.minis.classList.remove("auto"); } }
+  function arrancarCarrusel() {
+    pararCarrusel();
+    var p = PROYECTOS[estado.i];
+    if (sinMovimiento || !p || p.grupo === "web" || listaMedios(p).length < 2) { return; }
+    refs.minis.classList.add("auto");
+    tCarrusel = setInterval(function () {
+      if (!modal.open || document.hidden) { return; }
+      var v = refs.escena.querySelector("video");
+      if (v && !v.paused && !v.ended) { return; }
+      estado.m = (estado.m + 1) % listaMedios(PROYECTOS[estado.i]).length;
+      pintarMedio();
+    }, 4000);
   }
 
   function pintarMedio() {
     var p = PROYECTOS[estado.i];
     var medios = listaMedios(p);
     refs.escena.innerHTML = medio(medios[estado.m], false);
+    if (/^cob-/.test(p.id)) {
+      /* En cobertura, el texto acompaña a la foto que se está viendo */
+      var q = PROYECTOS.filter(function (x) { return x.imagen === medios[estado.m]; })[0];
+      if (q) { refs.marca.textContent = q.marca; refs.titulo.textContent = q.nombre; refs.desc.textContent = q.descripcion; }
+    }
     $$(".mini", refs.minis).forEach(function (b, idx) {
       b.setAttribute("aria-pressed", idx === estado.m ? "true" : "false");
     });
@@ -1553,6 +1581,7 @@ function iniciar() {
     refs.wa.removeAttribute("target");
     prepararEnlaceWa(refs.wa, textoWa);
     pintarMedio();
+    arrancarCarrusel();
   }
 
   function abrirModal(indice) {
@@ -1595,7 +1624,7 @@ function iniciar() {
     refs.next.addEventListener("click", function () { moverModal(1); });
     refs.minis.addEventListener("click", function (e) {
       var b = e.target.closest(".mini");
-      if (b) { estado.m = parseInt(b.getAttribute("data-m"), 10); pintarMedio(); }
+      if (b) { estado.m = parseInt(b.getAttribute("data-m"), 10); pintarMedio(); arrancarCarrusel(); }
     });
     /* Clic fuera del contenido cierra la vista */
     modal.addEventListener("click", function (e) { if (e.target === modal) { modal.close(); } });
@@ -1603,7 +1632,7 @@ function iniciar() {
       if (e.key === "ArrowLeft") { moverModal(RTL ? 1 : -1); }
       if (e.key === "ArrowRight") { moverModal(RTL ? -1 : 1); }
     });
-    modal.addEventListener("close", function () { raiz.classList.remove("modal-abierto"); $$("video", modal).forEach(function (v) { v.pause(); }); });
+    modal.addEventListener("close", function () { pararCarrusel(); raiz.classList.remove("modal-abierto"); $$("video", modal).forEach(function (v) { v.pause(); }); });
   }
 
   /* ----- Visor ampliado (lo usan el carrusel y la grilla de piezas) ----- */
