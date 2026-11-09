@@ -1521,7 +1521,7 @@ function iniciar() {
   }
 
   /* Mini carrusel: las imágenes del proyecto avanzan solas cada 4 segundos (no en "Sitios web") */
-  var tCarrusel = null;
+  var tCarrusel = null, esperaVideo = 0;
   function pararCarrusel() { clearInterval(tCarrusel); tCarrusel = null; if (refs) { refs.minis.classList.remove("auto"); } }
   function arrancarCarrusel() {
     pararCarrusel();
@@ -1531,7 +1531,13 @@ function iniciar() {
     tCarrusel = setInterval(function () {
       if (!modal.open || document.hidden) { return; }
       var v = refs.escena.querySelector("video");
-      if (v && !v.paused && !v.ended) { return; }
+      /* Con un video en pantalla: espera a que termine; si nadie lo reproduce, le da unos 12 segundos */
+      if (v && !v.ended) {
+        if (!v.paused) { esperaVideo = 0; return; }
+        if (v.currentTime === 0 && ++esperaVideo < 3) { return; }
+        if (v.currentTime > 0) { return; }
+      }
+      esperaVideo = 0;
       cambiarMedio((estado.m + 1) % listaMedios(PROYECTOS[estado.i]).length);
     }, 4000);
   }

@@ -1182,3 +1182,6 @@ footer .redes, .pie-cols .redes { justify-content: center; }
 .tele-modal .tele-pantalla.nieve .tele-nieve { opacity: 1; mix-blend-mode: normal; }
 .tele-modal .tele-antenas path[stroke] { stroke: #5d594e; }
 .tele-modal .tele-antenas circle { fill: #3f3c33; }
+
+/* la capa de estática no debe tapar los controles de los videos */
+.tele-nieve, .tele-imagen, .tele-linea { pointer-events: none; }
