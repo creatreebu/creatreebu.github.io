@@ -73,6 +73,134 @@ window.CREATREEBU_I18N = {
 
   /* Portfolio projects (by id). alts: main image first, then the other images in order. */
   proyectos: {
+    "cob-01": {
+      nombre: "Camera and video coverage · Club show · 2017–2019",
+      marca: "Club show",
+      categoria: "Event coverage",
+      descripcion: "Camera and video coverage of a show in a club, with the camera placed at the back of the audience to capture the whole stage and check the framing on the monitor.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A stage with a band and a projection screen, seen from behind a video camera with its monitor on."]
+    },
+    "cob-02": {
+      nombre: "Camera and video coverage · Live concert · 2017–2019",
+      marca: "Live concert",
+      categoria: "Event coverage",
+      descripcion: "Camera and video coverage of a live concert: shots of the singer on stage, with the lights, smoke and energy of the show, for the artist's archive, social media and promotional material. Coverage done for artists such as Los Auténticos Decadentes, Los Cafres, La Delio Valdez, Sebastián Mendoza, Media Naranja and El Mago y la Nueva, among others.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A singer in a white jacket performing at a concert, among colored lights and smoke, with a musician in the background."]
+    },
+    "cob-03": {
+      nombre: "Camera and video coverage · Live concert · 2017–2019",
+      marca: "Live concert",
+      categoria: "Event coverage",
+      descripcion: "Black-and-white camera and video coverage of a concert: the singer, the band and the stage atmosphere, with an image treatment meant to highlight the mood of the show.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A singer in a white jacket holding a microphone, in black and white, with stage smoke and the band behind."]
+    },
+    "cob-05": {
+      nombre: "Camera and video coverage · Theater concert · 2017–2019",
+      marca: "Theater concert",
+      categoria: "Event coverage",
+      descripcion: "Camera and video coverage of a concert in a historic theater: wide shots of the hall and the stage, designed to show the setting of the event.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["Interior of a theater with decorated balconies and a stage with musicians and LED screens, seen from above."]
+    },
+    "cob-06": {
+      nombre: "Camera and video coverage · Open-air festival · 2017–2019",
+      marca: "Open-air festival",
+      categoria: "Event coverage",
+      descripcion: "Camera and video coverage of an open-air festival: wide shots of the stage, the lighting and the crowd, to capture the scale of the event.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A festival stage with a metal structure, cyan light beams, LED screens and a crowd in the foreground."]
+    },
+    "cob-07": {
+      nombre: "Camera and video coverage · Open-air festival · 2017–2019",
+      marca: "Open-air festival",
+      categoria: "Event coverage",
+      descripcion: "Camera and video footage of a festival night: a live band, green and purple lights and an audience following the show.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A band playing on a stage with green and purple lights and a crowd in the foreground."]
+    },
+    "cob-08": {
+      nombre: "Camera and video coverage · Open-air festival · 2017–2019",
+      marca: "Open-air festival",
+      categoria: "Event coverage",
+      descripcion: "Camera and video coverage before the show: the stage set up, LED screens and the audience arriving, to document the lead-up to the festival.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["An afternoon festival stage with a lighting rig and screens, and people sitting on the grass in the foreground."]
+    },
+    "cob-09": {
+      nombre: "Camera and video coverage · Behind the camera · 2017–2019",
+      marca: "Behind the camera",
+      categoria: "Event coverage",
+      descripcion: "Image taken from the camera monitor during a concert: the live framing, the exposure and the tracking of the band while the show is recorded.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A camera screen showing a band on stage in green T-shirts, with the framing grid and exposure data."]
+    },
+    "cob-10": {
+      nombre: "Camera and video coverage · Theater concert · 2017–2019",
+      marca: "Theater concert",
+      categoria: "Event coverage",
+      descripcion: "Camera and video coverage in a theater: footage of the hall before the show, with the curtain, speakers and the stage ready for the performance.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A theater hall with a burgundy curtain, speakers on the sides and seats in the foreground, with a banner over the stage."]
+    },
+    "cob-11": {
+      nombre: "Camera and video coverage · Radio interview · 2017–2019",
+      marca: "Radio interview",
+      categoria: "Event coverage",
+      descripcion: "Camera and video coverage of an interview in a radio studio: a camera on a tripod recording the conversation with the artist, to add content to the concert promotion.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A DSLR camera on a tripod in a radio studio, recording an interview with a seated artist and other people around the table."]
+    },
+    "cob-12": {
+      nombre: "Camera and video coverage · Sound check · 2017–2019",
+      marca: "Sound check",
+      categoria: "Event coverage",
+      descripcion: "Camera and video coverage of the sound check before the show: the band tuning up on stage, behind-the-scenes footage ready to add to the final concert video.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A club stage with musicians doing a sound check, a screen showing an image and empty tables in the foreground."]
+    },
+    "cob-13": {
+      nombre: "Camera and video coverage · Club show · 2017–2019",
+      marca: "Club show",
+      categoria: "Event coverage",
+      descripcion: "Camera and video coverage of the event atmosphere: the audience at their tables before the show, the stage set up and wide shots of the venue to tell the story of the lead-up to the concert.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A room full of people seated at tables, with the stage and a screen at the back and a sign on the right."]
+    },
+    "cob-14": {
+      nombre: "Camera and video coverage · Open-air concert · 2017–2019",
+      marca: "Open-air concert",
+      categoria: "Event coverage",
+      descripcion: "Camera and video coverage of an open-air concert: a live brass and percussion band, with wide and detail shots of the stage and the audience.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A brass band in orange shirts playing on a stage with blue lights, a singer at the center and a white screen behind."]
+    },
+    "cob-15": {
+      nombre: "Camera and video coverage · Open-air concert · 2017–2019",
+      marca: "Open-air concert",
+      categoria: "Event coverage",
+      descripcion: "Camera and video footage of a live concert with colored lights: the band in motion and the audience from behind, to convey how the show feels.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A live brass and percussion band under blue and orange lights, with a singer at the center and the audience in the foreground."]
+    },
+    "cob-16": {
+      nombre: "Camera and video coverage · Open-air concert · 2017–2019",
+      marca: "Open-air concert",
+      categoria: "Event coverage",
+      descripcion: "Camera and video coverage with the audience included: a concert with red lights and stage smoke, shot from within the crowd.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A brass band in red shirts on a stage with red and yellow lights, seen from the audience."]
+    },
+    "cob-17": {
+      nombre: "Camera and video coverage · Club show · 2017–2019",
+      marca: "Club show",
+      categoria: "Event coverage",
+      descripcion: "Camera and video recording of a live show with a screen projection: the band on stage, the singer up front and club lighting, to document the whole concert.",
+      servicios: ["Camera coverage", "Live video recording", "Event coverage"],
+      alts: ["A singer with a microphone up front and three musicians with instruments, under a screen showing a projected image, among blue lights and smoke."]
+    },
     "costero": {
       nombre: "Brand redesign proposal and marketing plan for Costero",
       marca: "Costero",
